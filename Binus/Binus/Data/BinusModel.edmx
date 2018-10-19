@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BinusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="assessment_1">
+          <Key>
+            <PropertyRef Name="assessment_id" />
+          </Key>
+          <Property Name="assessment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar(max)" />
+          <Property Name="description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="assessment_types">
+          <Key>
+            <PropertyRef Name="assessment_type_id" />
+          </Key>
+          <Property Name="assessment_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="assessment_type" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="languages">
+          <Key>
+            <PropertyRef Name="language_id" />
+          </Key>
+          <Property Name="language_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="language" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="statement_details">
+          <Key>
+            <PropertyRef Name="statement_detail_id" />
+          </Key>
+          <Property Name="statement_detail_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="statement_id" Type="int" />
+          <Property Name="statement_detail" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="statements">
+          <Key>
+            <PropertyRef Name="statement_id" />
+          </Key>
+          <Property Name="statement_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="assessment_id" Type="int" />
+          <Property Name="statement" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK__statement__asses__3D5E1FD2">
+          <End Role="assessment_1" Type="Self.assessment_1" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="statements" Type="Self.statements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="assessment_1">
+              <PropertyRef Name="assessment_id" />
+            </Principal>
+            <Dependent Role="statements">
+              <PropertyRef Name="assessment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__statement__state__403A8C7D">
+          <End Role="statements" Type="Self.statements" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="statement_details" Type="Self.statement_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statements">
+              <PropertyRef Name="statement_id" />
+            </Principal>
+            <Dependent Role="statement_details">
+              <PropertyRef Name="statement_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BinusModelStoreContainer">
+          <EntitySet Name="assessment_1" EntityType="Self.assessment_1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="assessment_types" EntityType="Self.assessment_types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="languages" EntityType="Self.languages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="statement_details" EntityType="Self.statement_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="statements" EntityType="Self.statements" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__statement__asses__3D5E1FD2" Association="Self.FK__statement__asses__3D5E1FD2">
+            <End Role="assessment_1" EntitySet="assessment_1" />
+            <End Role="statements" EntitySet="statements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__statement__state__403A8C7D" Association="Self.FK__statement__state__403A8C7D">
+            <End Role="statements" EntitySet="statements" />
+            <End Role="statement_details" EntitySet="statement_details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BinusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="assessment_types">
+          <Key>
+            <PropertyRef Name="assessment_type_id" />
+          </Key>
+          <Property Name="assessment_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="assessment_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="BinusEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="assessment_types" EntityType="Self.assessment_types" />
+          <EntitySet Name="languages1" EntityType="BinusModel.languages" />
+          <EntitySet Name="assessment_1" EntityType="BinusModel.assessment_1" />
+          <EntitySet Name="statement_details" EntityType="BinusModel.statement_details" />
+          <EntitySet Name="statements1" EntityType="BinusModel.statements" />
+          <AssociationSet Name="FK__statement__asses__3D5E1FD2" Association="BinusModel.FK__statement__asses__3D5E1FD2">
+            <End Role="assessment_1" EntitySet="assessment_1" />
+            <End Role="statement" EntitySet="statements1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__statement__state__403A8C7D" Association="BinusModel.FK__statement__state__403A8C7D">
+            <End Role="statement" EntitySet="statements1" />
+            <End Role="statement_details" EntitySet="statement_details" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="languages">
+          <Key>
+            <PropertyRef Name="language_id" />
+          </Key>
+          <Property Name="language_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="language" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="assessment_1">
+          <Key>
+            <PropertyRef Name="assessment_id" />
+          </Key>
+          <Property Name="assessment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="statements" Relationship="BinusModel.FK__statement__asses__3D5E1FD2" FromRole="assessment_1" ToRole="statement" />
+        </EntityType>
+        <EntityType Name="statement_details">
+          <Key>
+            <PropertyRef Name="statement_detail_id" />
+          </Key>
+          <Property Name="statement_detail_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="statement_id" Type="Int32" />
+          <Property Name="statement_detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="statement" Relationship="BinusModel.FK__statement__state__403A8C7D" FromRole="statement_details" ToRole="statement" />
+        </EntityType>
+        <EntityType Name="statements">
+          <Key>
+            <PropertyRef Name="statement_id" />
+          </Key>
+          <Property Name="statement_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="assessment_id" Type="Int32" />
+          <Property Name="statement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="assessment_1" Relationship="BinusModel.FK__statement__asses__3D5E1FD2" FromRole="statement" ToRole="assessment_1" />
+          <NavigationProperty Name="statement_details" Relationship="BinusModel.FK__statement__state__403A8C7D" FromRole="statement" ToRole="statement_details" />
+        </EntityType>
+        <Association Name="FK__statement__asses__3D5E1FD2">
+          <End Type="BinusModel.assessment_1" Role="assessment_1" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.statements" Role="statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="assessment_1">
+              <PropertyRef Name="assessment_id" />
+            </Principal>
+            <Dependent Role="statement">
+              <PropertyRef Name="assessment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__statement__state__403A8C7D">
+          <End Type="BinusModel.statements" Role="statement" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.statement_details" Role="statement_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statement">
+              <PropertyRef Name="statement_id" />
+            </Principal>
+            <Dependent Role="statement_details">
+              <PropertyRef Name="statement_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BinusModelStoreContainer" CdmEntityContainer="BinusEntities">
+          <EntitySetMapping Name="assessment_types">
+            <EntityTypeMapping TypeName="BinusModel.assessment_types">
+              <MappingFragment StoreEntitySet="assessment_types">
+                <ScalarProperty Name="assessment_type_id" ColumnName="assessment_type_id" />
+                <ScalarProperty Name="assessment_type" ColumnName="assessment_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="languages1">
+            <EntityTypeMapping TypeName="BinusModel.languages">
+              <MappingFragment StoreEntitySet="languages">
+                <ScalarProperty Name="language" ColumnName="language" />
+                <ScalarProperty Name="language_id" ColumnName="language_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="assessment_1">
+            <EntityTypeMapping TypeName="BinusModel.assessment_1">
+              <MappingFragment StoreEntitySet="assessment_1">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="assessment_id" ColumnName="assessment_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="statement_details">
+            <EntityTypeMapping TypeName="BinusModel.statement_details">
+              <MappingFragment StoreEntitySet="statement_details">
+                <ScalarProperty Name="statement_detail" ColumnName="statement_detail" />
+                <ScalarProperty Name="statement_id" ColumnName="statement_id" />
+                <ScalarProperty Name="statement_detail_id" ColumnName="statement_detail_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="statements1">
+            <EntityTypeMapping TypeName="BinusModel.statements">
+              <MappingFragment StoreEntitySet="statements">
+                <ScalarProperty Name="statement" ColumnName="statement" />
+                <ScalarProperty Name="assessment_id" ColumnName="assessment_id" />
+                <ScalarProperty Name="statement_id" ColumnName="statement_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BinusModelStoreContainer" CdmEntityContainer="BinusEntities">
+    <EntitySetMapping Name="assessment_types">
+      <EntityTypeMapping TypeName="BinusModel.assessment_types">
+        <MappingFragment StoreEntitySet="assessment_types">
+          <ScalarProperty Name="assessment_type_id" ColumnName="assessment_type_id" />
+          <ScalarProperty Name="assessment_type" ColumnName="assessment_type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="languages1">
+      <EntityTypeMapping TypeName="BinusModel.languages">
+        <MappingFragment StoreEntitySet="languages">
+          <ScalarProperty Name="language" ColumnName="language" />
+          <ScalarProperty Name="language_id" ColumnName="language_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="assessment_1">
+      <EntityTypeMapping TypeName="BinusModel.assessment_1">
+        <MappingFragment StoreEntitySet="assessment_1">
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="assessment_id" ColumnName="assessment_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="statement_details">
+      <EntityTypeMapping TypeName="BinusModel.statement_details">
+        <MappingFragment StoreEntitySet="statement_details">
+          <ScalarProperty Name="statement_detail" ColumnName="statement_detail" />
+          <ScalarProperty Name="statement_id" ColumnName="statement_id" />
+          <ScalarProperty Name="statement_detail_id" ColumnName="statement_detail_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="statements1">
+      <EntityTypeMapping TypeName="BinusModel.statements">
+        <MappingFragment StoreEntitySet="statements">
+          <ScalarProperty Name="statement" ColumnName="statement" />
+          <ScalarProperty Name="assessment_id" ColumnName="assessment_id" />
+          <ScalarProperty Name="statement_id" ColumnName="statement_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

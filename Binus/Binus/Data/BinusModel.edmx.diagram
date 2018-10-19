@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9329182ef672444ab2b27b7591a2cd1a" Name="Diagram1" ShowGrid="true">
+        <EntityTypeShape EntityType="BinusModel.assessment_types" Width="2.25" PointX="2.125" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BinusModel.languages" Width="1.5" PointX="5.875" PointY="0.75" />
+        <EntityTypeShape EntityType="BinusModel.assessment_1" Width="1.5" PointX="2" PointY="3.375" />
+        <EntityTypeShape EntityType="BinusModel.statement_details" Width="1.5" PointX="10.125" PointY="3.375" />
+        <EntityTypeShape EntityType="BinusModel.statements" Width="1.5" PointX="5.75" PointY="3.5" />
+        <AssociationConnector Association="BinusModel.FK__statement__asses__3D5E1FD2" />
+        <AssociationConnector Association="BinusModel.FK__statement__state__403A8C7D" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

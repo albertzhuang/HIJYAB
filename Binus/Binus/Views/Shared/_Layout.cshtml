@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Favicon -->
+    <link rel="Shortcut Icon" type="image/png" href="~/Content/images/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/themes/university/css/style.css">
+
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+    @RenderSection("css", required: false)
+</head>
+<body>
+    @*
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+        </div>
+    *@
+
+    <div id="page" class="main-container">
+        <section class="tagline-banner new-layout">
+            <div class="container">
+                <div class="wrap">
+                    <span class="banner">
+                        <span class="banner-image"></span>
+                    </span>
+                    <span class="tagline">People Innovation Excellence</span>
+                </div>
+            </div>
+        </section>
+
+        <header class="header" id="header">
+            <div class="header-top">
+                <div class="container">
+                    <section class="logo">
+                        <a href="index.php">
+                            <img src="~/Content/images/logo.png" alt="Logo">
+                        </a>
+                    </section>
+                </div>
+            </div>
+
+            <div class="header-bottom">
+                <div class="container">
+                    <section class="top-navigation">
+                        <nav class="navigation">
+                            <div class="container">
+                                <span class="logo-nav">
+                                    <span class="logo-text">
+                                        <span class="business-unit">Bina Nusantara<br /> University</span>
+                                        <span class="app-name">Corporate<br /> Name</span>
+                                    </span>
+                                </span>
+
+                                <ul class="menu left">
+                                    <li class="expand-menu expand-item-menu">
+                                        <a href="#" class="expand-action-menu">
+                                            <i class="icon icon-burger-menu"></i>
+                                            <span class="label">Menu</span>
+                                        </a>
+                                        <div class="expand-menu-container">
+                                            <ul class="sub-menu main-menu primary-menu">
+                                                <li><a href="@Url.Action("Index", "Home")">Dashboard</a></li>
+                                                <li><a href="@Url.Action("Index", "Question")">Assessment</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <ul class="menu right">
+                                    <li class="expand-notification expand-item has-child">
+                                        <a href="#" class="expand-action">
+                                            <i class="icon icon-information"></i>
+                                            <span class="notif-count">999</span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li class="sub-title">
+                                                Notification
+                                                <a href="#">Read All</a>
+                                            </li>
+                                            <li class="list-notification">
+                                                <div class="notification">
+                                                    <span class="thumbnail">
+                                                        <img src="~/Content/images/statics/avatar.png" alt="">
+                                                    </span>
+                                                    <span class="details">
+                                                        <span class="description">
+                                                            New Comment on <a href="#">Designing Web Interface</a>
+                                                        </span>
+                                                        <span class="date">28 Oktober 2014 | 11.00 pm</span>
+                                                    </span>
+                                                </div>
+                                                <div class="notification">
+                                                    <span class="thumbnail">
+                                                        <img src="~/Content/images/statics/avatar.png" alt="">
+                                                    </span>
+                                                    <span class="details">
+                                                        <span class="description">
+                                                            New Comment on <a href="#">Designing Web Interface</a>
+                                                        </span>
+                                                        <span class="date">28 Oktober 2014 | 11.00 pm</span>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="view-all">
+                                                <a href="sample-notification.php">View All Notification</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="expand-settings expand-item has-child">
+                                        <a href="#" class="expand-action">
+                                            <span class="label">Rebecca Setiadi</span>
+                                            <img src="~/Content/images/statics/avatar.png" alt="">
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li class="sub-title">Profile</li>
+                                            <li class="setting-content">
+                                                <div class="avatar"><img src="~/Content/images/statics/avatar.png" alt=""></div>
+                                                <div class="details">
+                                                    <span class="student-name">Rebecca Setiadi</span>
+                                                    <span class="email-address">rsetiadi@gmail.com</span>
+                                                    <span class="link">
+                                                        <a href="#">Dashboard</a>
+                                                    </span>
+                                                    <span class="link">
+                                                        <a href="#">Account Settings</a>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="logout">
+                                                <a href="logout.php">Log Out</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="expand-search-form">
+                                        <span class="wrapper">
+                                            <span class="icon-click-area"></span>
+                                            <i class="icon icon-search"></i>
+                                            <form action="get" action="index.php" class="search-form">
+                                                <span class="search-wrap">
+                                                    <input type="text" name="search-keyword" id="search-keyword" class="search-form-field" placeholder="Type and press enter..">
+                                                </span>
+                                            </form>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </section>
+                </div>
+            </div>
+        </header>
+
+
+        @RenderBody()
+
+
+        <footer class="footer new-layout" id="footer">
+
+            <section class="footer-widget">
+                <div class="container">
+                    <div class="group-item">
+                        <div class="item has-padding-right">
+                            <div class="footer-title">
+                                <h2 class="title" title="Social Media tooltip">Social Media</h2>
+                            </div>
+                            <div class="social-media">
+                                <a href="#" class="icon icon-twitter"></a>
+                                <a href="#" class="icon icon-facebook"></a>
+                                <a href="#" class="icon icon-google-plus"></a>
+                                <a href="#" class="icon icon-youtube"></a>
+                                <a href="#" class="icon icon-rss"></a>
+                                <a href="#" class="icon icon-website"></a>
+                                <a href="#" class="icon icon-line"></a>
+                                <a href="#" class="icon icon-whatsapp"></a>
+                                <a href="#" class="icon icon-linkedin"></a>
+                                <a href="#" class="icon icon-instagram"></a>
+                                <a href="#" class="icon icon-print"></a>
+                                <a href="#" class="icon icon-contact-mail"></a>
+                            </div>
+                        </div>
+                        <div class="item has-padding">
+                            <div class="footer-title">
+                                <h2 class="title">Feedback &amp; Bug</h2>
+                            </div>
+                            <div class="feedback-area">
+                                <a href="#" class="button button-primary wide" id="show-form-feedback">Report Feedback &amp; Bug</a>
+                                <div class="feedback-popup">
+                                    <a href="#" class="feedback-close" id="close-form-feedback"></a>
+                                    <form action="#" method="post">
+                                        <p>
+                                            <input type="text" name="input[]" placeholder="Subject">
+                                        </p>
+                                        <p>
+                                            <textarea name="input[]" rowspan="2" placeholder="Message"></textarea>
+                                        </p>
+                                        <p>
+                                            <input type="submit" class="button button-primary wide" value="Send">
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item has-padding-left bottom-direction">
+                            <div class="corporate-area">
+                                <h1 class="main-title">BINUS University</h1>
+                                <h3 class="pre-title">Corporate Name</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- .footer-widget -->
+        </footer>
+        <!-- #footer -->
+    </div><!-- #page -->
+
+
+    @*
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    *@
+
+
+
+
+    <!-- Vendor -->
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery-ui/jquery.ui.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.browser.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.fancyfields.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.fancybox.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.mcustomscrollbar.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/datatables/jquery.datatables.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/datatables/jquery.datatables.fixedcolumns.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.chosen.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.qtip.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/raphael.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/lib/formalhaut/build/formalhaut.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/multiselect.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/autosize.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery-ui/jquery.ui.timepicker.js"></script>
+
+    <!-- Calendar -->
+    <script type="text/javascript" src="~/Content/js/development/vendor/date.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.formbubble.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/fullcalendar.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/fullcalendar/fullcalendar.viewmore.js"></script>
+
+    <!-- Global -->
+    <script type="text/javascript" src="~/Content/js/development/script.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/script.navigation.js"></script>
+
+    <!-- Plugins -->
+    <script type="text/javascript" src="~/Content/js/development/plugins/accordion-toggle.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/advanced-combobox.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/body-navigation.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/combobox.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/datepicker.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/editor.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/freeze-pane.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/fullcalendar.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/scrollbar.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/tabulation.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/tooltip.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/uploader.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/widgets.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/multiselect.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/chatting.js"></script>
+
+    <!-- Main JS -->
+    <script type="text/javascript" src="~/Content/js/development/main.js"></script>
+
+    <!-- Modules -->
+    <!-- BINUS Career
+    <link rel="stylesheet" type="text/css" href="modules/binus-career/css/style.css">
+    <script type="text/javascript" src="modules/binus-career/js/script.js"></script>-->
+    <!-- BINUS LMS
+    <link rel="stylesheet" type="text/css" href="modules/binus-lms/css/style.css">
+    <script type="text/javascript" src="modules/binus-lms/js/script.js"></script>-->
+    <!-- BINUS AMI
+    <link rel="stylesheet" type="text/css" href="modules/binus-ami/css/style.css">
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="modules/binus-ami/js/fullcalendar.custom.js"></script>
+    <script type="text/javascript" src="modules/binus-ami/js/script.js"></script>-->
+    <!-- BINUS Portal
+    <link rel="stylesheet" type="text/css" href="modules/binus-portal/css/style.css">-->
+    <!-- BINUSMAYA
+    <link rel="stylesheet" type="text/css" href="modules/binusmaya/css/style.css">
+    <script type="text/javascript" src="modules/binusmaya/js/script.js"></script>-->
+
+    @*JQUERY 3.3.1*@
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+
+    <script type="text/javascript">
+        (function ($) {
+            $(document).ready(function () {
+                $('.update-freeze-pane').click(function (e) {
+                    e.preventDefault();
+                    $('.freeze-pane').data('has-init', 'no');
+
+                    $('.freeze-pane').binus_freeze_pane({
+                        fixed_left: 0,
+                        on_window_load: false
+                    });
+                });
+            });
+        })(jQuery);
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

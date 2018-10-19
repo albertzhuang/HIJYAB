@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BinusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="assessment_1">
+    <Key>
+      <PropertyRef Name="assessment_id" />
+    </Key>
+    <Property Name="assessment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="varchar(max)" />
+    <Property Name="description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="assessment_types">
+    <Key>
+      <PropertyRef Name="assessment_type_id" />
+    </Key>
+    <Property Name="assessment_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="assessment_type" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="languages">
+    <Key>
+      <PropertyRef Name="language_id" />
+    </Key>
+    <Property Name="language_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="language" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="statement_details">
+    <Key>
+      <PropertyRef Name="statement_detail_id" />
+    </Key>
+    <Property Name="statement_detail_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="statement_id" Type="int" />
+    <Property Name="statement_detail" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="statements">
+    <Key>
+      <PropertyRef Name="statement_id" />
+    </Key>
+    <Property Name="statement_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="assessment_id" Type="int" />
+    <Property Name="statement" Type="varchar(max)" />
+  </EntityType>
+  <Association Name="FK__statement__asses__3D5E1FD2">
+    <End Role="assessment_1" Type="Self.assessment_1" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="statements" Type="Self.statements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="assessment_1">
+        <PropertyRef Name="assessment_id" />
+      </Principal>
+      <Dependent Role="statements">
+        <PropertyRef Name="assessment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__statement__state__403A8C7D">
+    <End Role="statements" Type="Self.statements" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="statement_details" Type="Self.statement_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="statements">
+        <PropertyRef Name="statement_id" />
+      </Principal>
+      <Dependent Role="statement_details">
+        <PropertyRef Name="statement_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BinusModelStoreContainer">
+    <EntitySet Name="assessment_1" EntityType="Self.assessment_1" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="assessment_types" EntityType="Self.assessment_types" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="languages" EntityType="Self.languages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="statement_details" EntityType="Self.statement_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="statements" EntityType="Self.statements" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__statement__asses__3D5E1FD2" Association="Self.FK__statement__asses__3D5E1FD2">
+      <End Role="assessment_1" EntitySet="assessment_1" />
+      <End Role="statements" EntitySet="statements" />
+    </AssociationSet>
+    <AssociationSet Name="FK__statement__state__403A8C7D" Association="Self.FK__statement__state__403A8C7D">
+      <End Role="statements" EntitySet="statements" />
+      <End Role="statement_details" EntitySet="statement_details" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

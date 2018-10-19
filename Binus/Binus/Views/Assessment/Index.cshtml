@@ -1,0 +1,343 @@
+﻿@*@model ProjectFEP.ViewModel.AddCaseViewModel*@
+
+@{
+    ViewBag.Title = "AddAssessment";
+}
+
+@section css
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/css/AddAssessment.css">
+}
+
+<div class="site-content" id="site-content">
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="wrap">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Assessment</a></li>
+                    <li>Add Assessment</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-heading">
+        <div class="container">
+            <h1>Add Assessment</h1>
+        </div>
+    </section>
+
+    <div class="main-content has-widget" id="main-content">
+        <div class="container">
+            <div class="box-container">
+                <div class="single-content popup-content" id="target-id">
+                    <div class="page-sub-heading">
+                        <div class="row" style="height:30px;">
+                            <div class="column two-thirds ">
+                                <h2 style="line-height:40px;">Assessment Detail</h2>
+                            </div>
+                            <div class="column one-third">
+                                <p style="float:right;">
+                                    <a href="#popup_confirmation" class="fancybox-trigger fancbox.ajax button button-primary" id="button_save">Save</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="hapusQuestion">
+                        <p>
+                            <label>Assessment Type</label>
+                            <span class="custom-combobox">
+                                <select id="select_assessment_type">
+                                    <option disabled selected value="0"> -- SELECT AN OPTION -- </option>
+                                </select>
+                            </span>
+                        </p>
+
+                        <p>
+                            <label>Assessment Title<span class="required">*</span></label>
+                            <input type="text" name="input_assessment_title">
+                        </p>
+
+                        <p>
+                            <label>Description<span class="required">*</span></label>
+                            <textarea name="textarea_description"></textarea>
+                        </p>
+
+                        <div id="createCase0" class="assessment">
+                            <p>
+                                <a class="button button-primary with-icon icon-btn-add" onclick="appendCase();">Subquestion </a>
+                            </p>
+
+                            <p>
+                                <label>1<span class="required">*</span></label>
+                                <input type="text" name="input_statements[]"/>
+                            </p>
+
+                            <ol type="a" id="parentchoice0">
+                                <li>
+                                    <p>
+                                        <input class="input_statement_details[]" type="text" name="input_statement_details[]" style="display:inline-block; width:97%;" />
+                                    </p>
+                                </li>
+                            </ol>
+
+                            <p>
+                                <a onclick="appendChoice(0);" class="button button-primary with-icon icon-btn-add">Choice </a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popup-content-dialog" id="popup_confirmation" style="display:none;"> 
+    <form>
+        <p>Save confirmation</p>
+        <div class="action" style="text-align:center;">
+            <a href="#" class="button button-primary" id="button_yes">Yes</a>
+            <a href="#" class="button button-primary" id="button_no">No</a> 
+        </div>
+    </form>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var idx = 1;
+        var hapusChoice = 0;
+
+        function appendChoice(parentchoice) {
+            var handler = $('#parentchoice' + parentchoice);
+            handler.append
+                (
+                '<div class="subchoice' + hapusChoice + '">' +
+                    '<li>' +
+                        '<p>' +
+                            '<input class="input_statement_details[]" type="text" name="input_statement_details[]"  style="display:inline-block; width:97%;"/>' +
+                            '<a onclick="deletes(' + hapusChoice + ')"> <i class="icon icon-trash"></i></a>' +
+                        '</p>' +
+                    '</li>' +
+                '</div>'
+                );
+            idx++;
+            hapusChoice++;
+        }
+
+        function deletes(id) {
+            var deletex = $('.subchoice' + id);
+            deletex.html('');
+        }
+
+
+
+
+        var nomorSoal = 2;
+        var parentchoice = 1;
+
+        function deletescase(id) {
+            var deletex = $('#createCase' + id);
+            deletex.html('');
+            nomorSoal--;
+        }
+
+        function appendCase() {
+            var handler = $('.hapusQuestion');
+            handler.append(
+                '<div id="createCase' + parentchoice + '" class=""assessment"">' +
+                    '<p>' +
+                        '<a onclick="deletescase(' + parentchoice + ')"> <i class="icon icon-trash"></i></a>' +
+                        '<label>' + nomorSoal + '<span class="required">*</span></label>' +
+                        '<input type="text" name="input_statements[]"/>' +
+                    '</p>' +
+                    '<ol type="a" id="parentchoice' + parentchoice + '">' +
+                        '<li>' +
+                            '<p>' +
+                                '<input type="text" name="input_statement_details[]" value=" "  style="display:inline-block; width:97%;"/>' +
+                            '</p>' +
+                        '</li>' +
+                    '</ol>' +
+                    '<p>' +
+                        '<a onclick="appendChoice(' + parentchoice + ');" class="button button-primary with-icon icon-btn-add" >Choice </a>' +
+                    '</p>' +
+                '</div>'
+            );
+            nomorSoal++;
+            parentchoice++;
+        }
+
+
+        $(document).ready(function () {
+
+            $('#createCase').show();
+            $('#createCaseProcrastonator').hide();
+            $('#createCaseSensory').hide();
+
+        });
+
+        function appendCaseProcrastinator() {
+            var handler = $('.hapusQuestion');
+            handler.append('<div id="createCaseProcrastonator' + parentchoice + '">' +
+                '<p>' +
+                '<a onclick="deletescaseProcrastinator(' + parentchoice + ')"> <i class="icon icon-trash"></i></a>' +
+                '<label>' + nomorSoal + '<span class="required">*</span></label>' +
+                '<input type="text" name="rows[case][' + parentchoice + ']"/>' +
+                '</p>' +
+                '</div>'
+            );
+            nomorSoal++;
+            parentchoice++;
+        }
+
+        function deletescaseProcrastinator(id) {
+            var deletex = $('#createCaseProcrastonator' + id);
+            deletex.html('');
+            nomorSoal--;
+        }
+
+        var index = 1;
+        function addScoreProcrastinator() {
+            var handler = $('.addScoreProcrastinator');
+            handler.append(
+
+                '<div class="column one-half proc' + index + '">' +
+
+                '<p>' +
+
+                '<label>' +
+                'Score' +
+                '</label>' +
+                '<input type="text" name="rowsp[' + index + '][score]" />' +
+                '</p>' +
+                '</div>' +
+                '<div class="column one-half">' +
+                '<p>' +
+                '<label>Word</label>' +
+                '<input type="text" name="rowsp[' + index + '][word]" />' +
+                '</p>' +
+                '</div>'
+
+            );
+            index++;
+        }
+
+
+        function test() {
+            var casetype = $('select[name=casetype]').val();
+
+            if (casetype == 1) {
+                $('#createCase').show();
+                $('#createCaseProcrastonator').hide();
+                $('#createCaseSensory').hide();
+            }
+            else if (casetype == 2) {
+                $('#createCase').hide();
+                $('#createCaseProcrastonator').show();
+                $('#createCaseSensory').hide();
+            }
+            else if (casetype == 3) {
+                $('#createCase').hide();
+                $('#createCaseProcrastonator').hide();
+                $('#createCaseSensory').show();
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        var statements = [];
+        
+
+        $(document).ready(function () {
+            $.ajax
+                ({
+                    method: "GET",
+                    url: "/api/assessment/getAll",
+                    success: function (data) {
+                        data.forEach(function (value) {
+                            $("#select_assessment_type").append("<option value=" + value.assessment_type_id + ">" + value.assessment_type + "</option>")
+                        });
+                    }
+                });    
+        });
+
+        $("#button_yes").click(function ()
+        {
+            var idx = 0;
+            $("input[name='input_statements[]']").each(function () {
+                
+                var temp = $(this).val();
+                var temp_detail = [];
+                //statements.push($(this).val());
+
+                $("#createCase" + idx).find("input[name='input_statement_details[]']").each(function () {
+                    temp_detail.push($(this).val());
+                    //console.log($(this).val());
+                });
+                console.log(temp_detail);
+                //$("input[name='input_statement_details[]']").each(function () {
+                //    temp_detail.push($(this).val());  
+                //});
+
+                //console.log(temp);
+                //console.log(temp_detail);
+                idx++;
+
+                $.ajax
+                ({
+                    method: "POST",
+                    url: "/api/assessment/post",
+                    data:
+                    {
+                        title: "assessment_test",
+                        description: "description_Test",
+                        type: "type_test",
+
+                        statements:
+                            [
+                                //{ statement: temp, statementDetails: [{ statement_detail: "test1" }, { statement_detail: "test" }] }
+                                { statement: temp, statementDetails: temp_detail }
+                            ],
+                    },
+                    success: function (data)
+                    {
+                        console.log(data);
+                    }
+                });
+            });
+
+            //console.log(statements);
+
+            //console.log(statements);
+            //$.ajax
+            //    ({
+            //        method: "POST",
+            //        url: "/api/assessment/post",
+            //        data:
+            //        {
+
+            //            //title: "assessment_test",
+            //            //description: "description_Test",
+            //            //type: "type_test",
+
+            //            //statements:
+            //            //    [
+            //            //        { statement: "header_test", statementDetails: ["test1","test2"]}
+            //            //    ],
+            //        },
+            //        success: function (data)
+            //        {
+            //            console.log(data);
+            //        }
+            //    });
+        });
+
+        function Statement(statement, statement_detail)
+        {
+            this.statement = statement;
+            this.statement_detail = statement_detail;
+        }
+    </script>
+}
+
