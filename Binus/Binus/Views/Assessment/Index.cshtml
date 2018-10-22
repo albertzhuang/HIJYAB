@@ -1,7 +1,7 @@
 ﻿@*@model ProjectFEP.ViewModel.AddCaseViewModel*@
 
 @{
-    ViewBag.Title = "AddAssessment";
+    ViewBag.Title = "Assessment - Binus Maya";
 }
 
 @section css
@@ -180,12 +180,13 @@
 
         function appendCaseProcrastinator() {
             var handler = $('.hapusQuestion');
-            handler.append('<div id="createCaseProcrastonator' + parentchoice + '">' +
-                '<p>' +
-                '<a onclick="deletescaseProcrastinator(' + parentchoice + ')"> <i class="icon icon-trash"></i></a>' +
-                '<label>' + nomorSoal + '<span class="required">*</span></label>' +
-                '<input type="text" name="rows[case][' + parentchoice + ']"/>' +
-                '</p>' +
+            handler.append(
+                '<div id="createCaseProcrastonator' + parentchoice + '">' +
+                    '<p>' +
+                        '<a onclick="deletescaseProcrastinator(' + parentchoice + ')"> <i class="icon icon-trash"></i></a>' +
+                        '<label>' + nomorSoal + '<span class="required">*</span></label>' +
+                        '<input type="text" name="rows[case][' + parentchoice + ']"/>' +
+                    '</p>' +
                 '</div>'
             );
             nomorSoal++;
@@ -203,19 +204,18 @@
             var handler = $('.addScoreProcrastinator');
             handler.append(
                 '<div class="column one-half proc' + index + '">' +
-                '<p>' +
-
-                '<label>' +
-                'Score' +
-                '</label>' +
-                '<input type="text" name="rowsp[' + index + '][score]" />' +
-                '</p>' +
+                    '<p>' +
+                        '<label>' +
+                            'Score' +
+                        '</label>' +
+                        '<input type="text" name="rowsp[' + index + '][score]" />' +
+                    '</p>' +
                 '</div>' +
                 '<div class="column one-half">' +
-                '<p>' +
-                '<label>Word</label>' +
-                '<input type="text" name="rowsp[' + index + '][word]" />' +
-                '</p>' +
+                    '<p>' +
+                        '<label>Word</label>' +
+                        '<input type="text" name="rowsp[' + index + '][word]" />' +
+                    '</p>' +
                 '</div>'
 
             );

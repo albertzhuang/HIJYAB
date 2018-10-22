@@ -32,6 +32,23 @@ namespace Binus.Controllers.Api
             }
         }
 
+        [HttpGet]
+        public HttpResponseMessage getAllAssessment()
+        {
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new StringContent(JsonConvert.SerializeObject(db.AssessmentTypes1.ToList()));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
+
         [HttpPost]
         public HttpResponseMessage post(Assessment assessment)
         {
