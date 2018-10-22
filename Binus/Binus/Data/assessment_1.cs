@@ -12,19 +12,19 @@ namespace Binus.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class assessment_1
+    public partial class Assessment_1
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public assessment_1()
+        public Assessment_1()
         {
-            this.statements = new HashSet<statements>();
+            this.Statements = new HashSet<Statements>();
         }
     
-        public int assessment_id { get; set; }
-        public string title { get; set; }
-        public string description { get; set; }
+        public int AssessmentID { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<statements> statements { get; set; }
+        public virtual ICollection<Statements> Statements { get; set; }
     }
 }

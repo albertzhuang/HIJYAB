@@ -1,87 +1,87 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="BinusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="assessment_types">
-    <Key>
-      <PropertyRef Name="assessment_type_id" />
-    </Key>
-    <Property Name="assessment_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="assessment_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityContainer Name="BinusEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="assessment_types" EntityType="Self.assessment_types" />
-    <EntitySet Name="languages1" EntityType="BinusModel.languages" />
-    <EntitySet Name="assessment_1" EntityType="BinusModel.assessment_1" />
-    <EntitySet Name="statement_details" EntityType="BinusModel.statement_details" />
-    <EntitySet Name="statements1" EntityType="BinusModel.statements" />
-    <AssociationSet Name="FK__statement__asses__3D5E1FD2" Association="BinusModel.FK__statement__asses__3D5E1FD2">
-      <End Role="assessment_1" EntitySet="assessment_1" />
-      <End Role="statement" EntitySet="statements1" />
+    <EntitySet Name="Assessment_1" EntityType="BinusModel.Assessment_1" />
+    <EntitySet Name="AssessmentTypes1" EntityType="BinusModel.AssessmentTypes" />
+    <EntitySet Name="Languages1" EntityType="BinusModel.Languages" />
+    <EntitySet Name="StatementDetails1" EntityType="BinusModel.StatementDetails" />
+    <EntitySet Name="Statements1" EntityType="BinusModel.Statements" />
+    <AssociationSet Name="FK__Statement__Asses__48CFD27E" Association="BinusModel.FK__Statement__Asses__48CFD27E">
+      <End Role="Assessment_1" EntitySet="Assessment_1" />
+      <End Role="Statement" EntitySet="Statements1" />
     </AssociationSet>
-    <AssociationSet Name="FK__statement__state__403A8C7D" Association="BinusModel.FK__statement__state__403A8C7D">
-      <End Role="statement" EntitySet="statements1" />
-      <End Role="statement_details" EntitySet="statement_details" />
+    <AssociationSet Name="FK__Statement__State__4BAC3F29" Association="BinusModel.FK__Statement__State__4BAC3F29">
+      <End Role="Statement" EntitySet="Statements1" />
+      <End Role="StatementDetail" EntitySet="StatementDetails1" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="languages">
+  <EntityType Name="Assessment_1">
     <Key>
-      <PropertyRef Name="language_id" />
+      <PropertyRef Name="AssessmentID" />
     </Key>
-    <Property Name="language_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="language" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="AssessmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Statements" Relationship="BinusModel.FK__Statement__Asses__48CFD27E" FromRole="Assessment_1" ToRole="Statement" />
   </EntityType>
-  <EntityType Name="assessment_1">
+  <EntityType Name="AssessmentTypes">
     <Key>
-      <PropertyRef Name="assessment_id" />
+      <PropertyRef Name="AssessmentTypeID" />
     </Key>
-    <Property Name="assessment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="statements" Relationship="BinusModel.FK__statement__asses__3D5E1FD2" FromRole="assessment_1" ToRole="statement" />
+    <Property Name="AssessmentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AssessmentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="statement_details">
+  <EntityType Name="Languages">
     <Key>
-      <PropertyRef Name="statement_detail_id" />
+      <PropertyRef Name="LanguageID" />
     </Key>
-    <Property Name="statement_detail_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="statement_id" Type="Int32" />
-    <Property Name="statement_detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="statement" Relationship="BinusModel.FK__statement__state__403A8C7D" FromRole="statement_details" ToRole="statement" />
+    <Property Name="LanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Language" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="statements">
+  <EntityType Name="StatementDetails">
     <Key>
-      <PropertyRef Name="statement_id" />
+      <PropertyRef Name="StatementDetailID" />
     </Key>
-    <Property Name="statement_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="assessment_id" Type="Int32" />
-    <Property Name="statement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="assessment_1" Relationship="BinusModel.FK__statement__asses__3D5E1FD2" FromRole="statement" ToRole="assessment_1" />
-    <NavigationProperty Name="statement_details" Relationship="BinusModel.FK__statement__state__403A8C7D" FromRole="statement" ToRole="statement_details" />
+    <Property Name="StatementDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatementID" Type="Int32" />
+    <Property Name="StatementDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Statement" Relationship="BinusModel.FK__Statement__State__4BAC3F29" FromRole="StatementDetail" ToRole="Statement" />
   </EntityType>
-  <Association Name="FK__statement__asses__3D5E1FD2">
-    <End Type="BinusModel.assessment_1" Role="assessment_1" Multiplicity="0..1">
+  <EntityType Name="Statements">
+    <Key>
+      <PropertyRef Name="StatementID" />
+    </Key>
+    <Property Name="StatementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AssessmentID" Type="Int32" />
+    <Property Name="Statement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Assessment_1" Relationship="BinusModel.FK__Statement__Asses__48CFD27E" FromRole="Statement" ToRole="Assessment_1" />
+    <NavigationProperty Name="StatementDetails" Relationship="BinusModel.FK__Statement__State__4BAC3F29" FromRole="Statement" ToRole="StatementDetail" />
+  </EntityType>
+  <Association Name="FK__Statement__Asses__48CFD27E">
+    <End Type="BinusModel.Assessment_1" Role="Assessment_1" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Type="BinusModel.statements" Role="statement" Multiplicity="*" />
+    <End Type="BinusModel.Statements" Role="Statement" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="assessment_1">
-        <PropertyRef Name="assessment_id" />
+      <Principal Role="Assessment_1">
+        <PropertyRef Name="AssessmentID" />
       </Principal>
-      <Dependent Role="statement">
-        <PropertyRef Name="assessment_id" />
+      <Dependent Role="Statement">
+        <PropertyRef Name="AssessmentID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__statement__state__403A8C7D">
-    <End Type="BinusModel.statements" Role="statement" Multiplicity="0..1">
+  <Association Name="FK__Statement__State__4BAC3F29">
+    <End Type="BinusModel.Statements" Role="Statement" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Type="BinusModel.statement_details" Role="statement_details" Multiplicity="*" />
+    <End Type="BinusModel.StatementDetails" Role="StatementDetail" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="statement">
-        <PropertyRef Name="statement_id" />
+      <Principal Role="Statement">
+        <PropertyRef Name="StatementID" />
       </Principal>
-      <Dependent Role="statement_details">
-        <PropertyRef Name="statement_id" />
+      <Dependent Role="StatementDetail">
+        <PropertyRef Name="StatementID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

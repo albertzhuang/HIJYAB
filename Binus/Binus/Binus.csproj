@@ -198,10 +198,10 @@
     <Compile Include="Controllers\AssessmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Data\assessment_1.cs">
+    <Compile Include="Data\AssessmentTypes.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\assessment_types.cs">
+    <Compile Include="Data\Assessment_1.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\BinusModel.Context.cs">
@@ -219,13 +219,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BinusModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Data\languages.cs">
+    <Compile Include="Data\Languages.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\statements.cs">
+    <Compile Include="Data\StatementDetails.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\statement_details.cs">
+    <Compile Include="Data\Statements.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">

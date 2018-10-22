@@ -1,84 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="BinusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="assessment_1">
+  <EntityType Name="Assessment_1">
     <Key>
-      <PropertyRef Name="assessment_id" />
+      <PropertyRef Name="AssessmentID" />
     </Key>
-    <Property Name="assessment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="title" Type="varchar(max)" />
-    <Property Name="description" Type="varchar(max)" />
+    <Property Name="AssessmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
   </EntityType>
-  <EntityType Name="assessment_types">
+  <EntityType Name="AssessmentTypes">
     <Key>
-      <PropertyRef Name="assessment_type_id" />
+      <PropertyRef Name="AssessmentTypeID" />
     </Key>
-    <Property Name="assessment_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="assessment_type" Type="varchar(max)" />
+    <Property Name="AssessmentTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssessmentType" Type="varchar(max)" />
   </EntityType>
-  <EntityType Name="languages">
+  <EntityType Name="Languages">
     <Key>
-      <PropertyRef Name="language_id" />
+      <PropertyRef Name="LanguageID" />
     </Key>
-    <Property Name="language_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="language" Type="varchar(max)" />
+    <Property Name="LanguageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Language" Type="varchar(max)" />
   </EntityType>
-  <EntityType Name="statement_details">
+  <EntityType Name="StatementDetails">
     <Key>
-      <PropertyRef Name="statement_detail_id" />
+      <PropertyRef Name="StatementDetailID" />
     </Key>
-    <Property Name="statement_detail_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="statement_id" Type="int" />
-    <Property Name="statement_detail" Type="varchar(max)" />
+    <Property Name="StatementDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatementID" Type="int" />
+    <Property Name="StatementDetail" Type="varchar(max)" />
   </EntityType>
-  <EntityType Name="statements">
+  <EntityType Name="Statements">
     <Key>
-      <PropertyRef Name="statement_id" />
+      <PropertyRef Name="StatementID" />
     </Key>
-    <Property Name="statement_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="assessment_id" Type="int" />
-    <Property Name="statement" Type="varchar(max)" />
+    <Property Name="StatementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssessmentID" Type="int" />
+    <Property Name="Statement" Type="varchar(max)" />
   </EntityType>
-  <Association Name="FK__statement__asses__3D5E1FD2">
-    <End Role="assessment_1" Type="Self.assessment_1" Multiplicity="0..1">
+  <Association Name="FK__Statement__Asses__48CFD27E">
+    <End Role="Assessment_1" Type="Self.Assessment_1" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="statements" Type="Self.statements" Multiplicity="*" />
+    <End Role="Statements" Type="Self.Statements" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="assessment_1">
-        <PropertyRef Name="assessment_id" />
+      <Principal Role="Assessment_1">
+        <PropertyRef Name="AssessmentID" />
       </Principal>
-      <Dependent Role="statements">
-        <PropertyRef Name="assessment_id" />
+      <Dependent Role="Statements">
+        <PropertyRef Name="AssessmentID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__statement__state__403A8C7D">
-    <End Role="statements" Type="Self.statements" Multiplicity="0..1">
+  <Association Name="FK__Statement__State__4BAC3F29">
+    <End Role="Statements" Type="Self.Statements" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="statement_details" Type="Self.statement_details" Multiplicity="*" />
+    <End Role="StatementDetails" Type="Self.StatementDetails" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="statements">
-        <PropertyRef Name="statement_id" />
+      <Principal Role="Statements">
+        <PropertyRef Name="StatementID" />
       </Principal>
-      <Dependent Role="statement_details">
-        <PropertyRef Name="statement_id" />
+      <Dependent Role="StatementDetails">
+        <PropertyRef Name="StatementID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="BinusModelStoreContainer">
-    <EntitySet Name="assessment_1" EntityType="Self.assessment_1" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="assessment_types" EntityType="Self.assessment_types" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="languages" EntityType="Self.languages" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="statement_details" EntityType="Self.statement_details" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="statements" EntityType="Self.statements" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__statement__asses__3D5E1FD2" Association="Self.FK__statement__asses__3D5E1FD2">
-      <End Role="assessment_1" EntitySet="assessment_1" />
-      <End Role="statements" EntitySet="statements" />
+    <EntitySet Name="Assessment_1" EntityType="Self.Assessment_1" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AssessmentTypes" EntityType="Self.AssessmentTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StatementDetails" EntityType="Self.StatementDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Statements" EntityType="Self.Statements" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Statement__Asses__48CFD27E" Association="Self.FK__Statement__Asses__48CFD27E">
+      <End Role="Assessment_1" EntitySet="Assessment_1" />
+      <End Role="Statements" EntitySet="Statements" />
     </AssociationSet>
-    <AssociationSet Name="FK__statement__state__403A8C7D" Association="Self.FK__statement__state__403A8C7D">
-      <End Role="statements" EntitySet="statements" />
-      <End Role="statement_details" EntitySet="statement_details" />
+    <AssociationSet Name="FK__Statement__State__4BAC3F29" Association="Self.FK__Statement__State__4BAC3F29">
+      <End Role="Statements" EntitySet="Statements" />
+      <End Role="StatementDetails" EntitySet="StatementDetails" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

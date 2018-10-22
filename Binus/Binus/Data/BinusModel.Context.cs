@@ -25,10 +25,10 @@ namespace Binus.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<assessment_types> assessment_types { get; set; }
-        public virtual DbSet<languages> languages1 { get; set; }
-        public virtual DbSet<assessment_1> assessment_1 { get; set; }
-        public virtual DbSet<statement_details> statement_details { get; set; }
-        public virtual DbSet<statements> statements1 { get; set; }
+        public virtual DbSet<Assessment_1> Assessment_1 { get; set; }
+        public virtual DbSet<AssessmentTypes> AssessmentTypes1 { get; set; }
+        public virtual DbSet<Languages> Languages1 { get; set; }
+        public virtual DbSet<StatementDetails> StatementDetails1 { get; set; }
+        public virtual DbSet<Statements> Statements1 { get; set; }
     }
 }

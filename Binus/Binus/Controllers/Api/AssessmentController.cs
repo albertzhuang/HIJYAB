@@ -21,7 +21,7 @@ namespace Binus.Controllers.Api
             try
             {
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
-                result.Content = new StringContent(JsonConvert.SerializeObject(db.assessment_types.ToList()));
+                result.Content = new StringContent(JsonConvert.SerializeObject(db.AssessmentTypes1.ToList()));
                 result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                 return result;
@@ -32,58 +32,47 @@ namespace Binus.Controllers.Api
             }
         }
 
-        //[HttpPost]
-        //public IHttpActionResult post(Assessment assessment)
-        //{
-        //    return Json(assessment);
-        //}
-
         [HttpPost]
-        public HttpResponseMessage postData(Assessment assessment)
+        public HttpResponseMessage post(Assessment assessment)
         {
+            Assessment_1 assessment_1 = new Assessment_1();
+            assessment_1.Title = assessment.title;
+            assessment_1.Description = assessment.description;
+            db.Assessment_1.Add(assessment_1);
+            db.SaveChanges();
 
-            //assessment_types test = new assessment_types
-            //{
-            //    assessment_type_id = 2,
-            //    assessment_type = "test ac"
-            //};
-            assessment_1 assessment_1 = new assessment_1();
-            assessment_1.title = assessment.title;
-            assessment_1.description = assessment.description;
-            db.assessment_1.Add(assessment_1);
-
-            foreach (var value in assessment.statements)
+            int fk_assessmentID = int.Parse(db.Assessment_1.OrderByDescending(x => x.AssessmentID).Select(x => x.AssessmentID).First().ToString());
+            
+            foreach(var value in assessment.statements)
             {
-                statements statement = new statements();
-                statement.statement_id = 1;
-                statement.statement = value.statement;
-                db.statements1.Add(statement);
+                Statements statement = new Statements();
+                statement.AssessmentID = fk_assessmentID;
+                statement.Statement = value.statement;
+                db.Statements1.Add(statement);
+                db.SaveChanges();
 
-                
-                foreach (string val in value.statementDetails)
+                int fk_statementID = int.Parse(db.Statements1.OrderByDescending(x => x.StatementID).Select(x => x.StatementID).First().ToString());
+                foreach (var valueDetail in value.statementDetails)
                 {
-                    statement_details statement_detail = new statement_details();
-                    
-                    //statement_detail = val;
-                    //db.statement_details.Add(statement_detail);
+                    StatementDetails statementDetail = new StatementDetails();
+                    statementDetail.StatementID = fk_statementID;
+                    statementDetail.StatementDetail = valueDetail.statementDetail;
+                    db.StatementDetails1.Add(statementDetail);
+                    db.SaveChanges();
                 }
             }
 
             try
             {
-                db.SaveChanges();
                 var result = new HttpResponseMessage(HttpStatusCode.Accepted);
-
                 result.Content = new StringContent(JsonConvert.SerializeObject(assessment));
                 result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 return result;
             }
             catch
             {
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError); 
             }
         }
-
-
     }
 }

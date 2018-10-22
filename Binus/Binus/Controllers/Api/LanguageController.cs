@@ -19,7 +19,7 @@ namespace Binus.Controllers.Api
             try
             {
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
-                result.Content = new StringContent(JsonConvert.SerializeObject(db.languages1.ToList()));
+                result.Content = new StringContent(JsonConvert.SerializeObject(db.Languages1.ToList()));
                 result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                 return result;

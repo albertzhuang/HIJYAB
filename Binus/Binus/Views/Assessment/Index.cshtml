@@ -65,7 +65,7 @@
                             <textarea name="textarea_description"></textarea>
                         </p>
 
-                        <div id="createCase0" class="assessment">
+                        <div id="createCase0" class="statement">
                             <p>
                                 <a class="button button-primary with-icon icon-btn-add" onclick="appendCase();">Subquestion </a>
                             </p>
@@ -147,7 +147,7 @@
         function appendCase() {
             var handler = $('.hapusQuestion');
             handler.append(
-                '<div id="createCase' + parentchoice + '" class=""assessment"">' +
+                '<div id="createCase' + parentchoice + '" class=""statement"">' +
                     '<p>' +
                         '<a onclick="deletescase(' + parentchoice + ')"> <i class="icon icon-trash"></i></a>' +
                         '<label>' + nomorSoal + '<span class="required">*</span></label>' +
@@ -202,9 +202,7 @@
         function addScoreProcrastinator() {
             var handler = $('.addScoreProcrastinator');
             handler.append(
-
                 '<div class="column one-half proc' + index + '">' +
-
                 '<p>' +
 
                 '<label>' +
@@ -247,44 +245,41 @@
     </script>
     <script type="text/javascript">
         var statements = [];
+        var statementDetails = [];
+        var index = 0;
         
-
         $(document).ready(function () {
             $.ajax
                 ({
                     method: "GET",
                     url: "/api/assessment/getAll",
-                    success: function (data) {
+                    success: function (data) {                     
                         data.forEach(function (value) {
-                            $("#select_assessment_type").append("<option value=" + value.assessment_type_id + ">" + value.assessment_type + "</option>")
+                            $("#select_assessment_type").append("<option value=" + value.AssessmentTypeID + ">" + value.AssessmentType + "</option>")
                         });
                     }
                 });    
         });
 
-        $("#button_yes").click(function ()
-        {
-            var idx = 0;
+        $("#button_yes").click(function () {
+            index = 0;
             $("input[name='input_statements[]']").each(function () {
-                
-                var temp = $(this).val();
-                var temp_detail = [];
-                //statements.push($(this).val());
-
-                $("#createCase" + idx).find("input[name='input_statement_details[]']").each(function () {
-                    temp_detail.push($(this).val());
-                    //console.log($(this).val());
+                $("#createCase" + index).find("input[name='input_statement_details[]']").each(function () {
+                    statementDetails.push
+                        ({ statementDetail: $(this).val() });
                 });
-                console.log(temp_detail);
-                //$("input[name='input_statement_details[]']").each(function () {
-                //    temp_detail.push($(this).val());  
-                //});
 
-                //console.log(temp);
-                //console.log(temp_detail);
-                idx++;
+                statements.push
+                    ({
+                        statement: $(this).val(),
+                        statementDetails: statementDetails
+                    });
+                statementDetails = [];
 
-                $.ajax
+                index++;
+            });
+
+            $.ajax
                 ({
                     method: "POST",
                     url: "/api/assessment/post",
@@ -293,51 +288,15 @@
                         title: "assessment_test",
                         description: "description_Test",
                         type: "type_test",
-
-                        statements:
-                            [
-                                //{ statement: temp, statementDetails: [{ statement_detail: "test1" }, { statement_detail: "test" }] }
-                                { statement: temp, statementDetails: temp_detail }
-                            ],
+                        statements: statements  
                     },
                     success: function (data)
                     {
                         console.log(data);
                     }
                 });
-            });
-
-            //console.log(statements);
-
-            //console.log(statements);
-            //$.ajax
-            //    ({
-            //        method: "POST",
-            //        url: "/api/assessment/post",
-            //        data:
-            //        {
-
-            //            //title: "assessment_test",
-            //            //description: "description_Test",
-            //            //type: "type_test",
-
-            //            //statements:
-            //            //    [
-            //            //        { statement: "header_test", statementDetails: ["test1","test2"]}
-            //            //    ],
-            //        },
-            //        success: function (data)
-            //        {
-            //            console.log(data);
-            //        }
-            //    });
         });
 
-        function Statement(statement, statement_detail)
-        {
-            this.statement = statement;
-            this.statement_detail = statement_detail;
-        }
     </script>
 }
 

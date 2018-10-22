@@ -12,9 +12,12 @@ namespace Binus.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class assessment_types
+    public partial class StatementDetails
     {
-        public int assessment_type_id { get; set; }
-        public string assessment_type { get; set; }
+        public int StatementDetailID { get; set; }
+        public Nullable<int> StatementID { get; set; }
+        public string StatementDetail { get; set; }
+    
+        public virtual Statements Statement { get; set; }
     }
 }

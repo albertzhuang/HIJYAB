@@ -12,9 +12,9 @@ namespace Binus.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class languages
+    public partial class Languages
     {
-        public int language_id { get; set; }
-        public string language { get; set; }
+        public int LanguageID { get; set; }
+        public string Language { get; set; }
     }
 }

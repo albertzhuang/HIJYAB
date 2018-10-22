@@ -7,6 +7,6 @@ namespace Binus.Models
 {
     public class StatementDetail
     {
-        public string statement_detail { get; set; }
+        public string statementDetail { get; set; }
     }
 }

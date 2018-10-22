@@ -8,6 +8,6 @@ namespace Binus.Models
     public class Statement
     {
         public string statement { get; set; }
-        public string[] statementDetails { get; set; }
+        public StatementDetail[] statementDetails { get; set; }
     }
 }
