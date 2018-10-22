@@ -1899,7 +1899,9 @@
     <Content Include="Views\Home\FinalResult.cshtml" />
     <Content Include="Views\Home\ViewCase.cshtml" />
     <Content Include="Views\Assessment\Index.cshtml" />
-    <Content Include="Views\Assessment\Manage.cshtml" />
+    <Content Include="Views\Assessment\ViewListAssessment.cshtml" />
+    <Content Include="Views\Assessment\ViewIntelligenceAssessment.cshtml" />
+    <Content Include="Views\Assessment\ResultAssessment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

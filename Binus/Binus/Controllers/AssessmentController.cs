@@ -14,9 +14,22 @@ namespace Binus.Controllers
             return View();
         }
 
-        public ActionResult Manage()
+    
+
+        public ActionResult ViewListAssessment()
         {
             return View();
         }
+
+        public ActionResult ViewIntelligenceAssessment()
+        {
+            return View();
+        }
+
+        public ActionResult ResultAssessment()
+        {
+            return View();
+        }
+
     }
 }

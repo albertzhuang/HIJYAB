@@ -48,9 +48,12 @@
                     <form class="hapusQuestion">
                         <p>
                             <label>Assessment Type</label>
-                            <span class="custom-combobox">
-                                <select id="select_assessment_type">
+                            <span class="custom-combobox"> 
+                                <select id="select_assessment_type" name="casetype" onclick="changeTest();">
                                     <option disabled selected value="0"> -- SELECT AN OPTION -- </option>
+                                    <option value="1">Intelligence Type </option>
+                                    <option value="2"> Procrasnator Type </option>
+                                    <option value="3"> Sensory Type </option>
                                 </select>
                             </span>
                         </p>
@@ -65,7 +68,8 @@
                             <textarea name="textarea_description"></textarea>
                         </p>
 
-                        <div id="createCase0" class="statement">
+                        <!--Case Intelligence-->
+                        <div id="createCase" class="statement">
                             <p>
                                 <a class="button button-primary with-icon icon-btn-add" onclick="appendCase();">Subquestion </a>
                             </p>
@@ -87,6 +91,99 @@
                                 <a onclick="appendChoice(0);" class="button button-primary with-icon icon-btn-add">Choice </a>
                             </p>
                         </div>
+
+
+                        <!--Case Procrasnator-->
+
+                        <div id="createCaseProcrastonator">
+                            <p>
+                                <a onclick="addScoreProcrastinator();" class="button button-primary with-icon icon-btn-add">Score </a>
+                            </p>
+                            Kolom Jawaban
+                            <div class="row content addScoreProcrastinator">
+
+                                <div class="column">
+                                    <p>
+                                        <label>Score</label>
+                                        <input type="text" name="" />
+                                    </p>
+                                </div>
+                                <div class="column">
+                                    <p>
+                                        <label>Word</label>
+                                        <input type="text" name="" />
+                                    </p>
+                                </div>
+                            </div>
+
+                            <p>
+                                <a class="button button-primary with-icon icon-btn-add" onclick="appendCaseProcrastinator();">Subquestion </a>
+                            </p>
+                            Soal
+                            <p>
+                                <label>1<span class="required">*</span></label>
+                                <input type="text" name="rowsp[case][0]" />
+                            </p>
+                        </div>
+
+
+                        <!--Case Sensory-->
+                        <div id="createCaseSensory">
+                            <div class="column" style="margin-top:10px;">
+                                <p>
+                                    <a onclick="appendSensoryPenilaian();" class="button button-primary with-icon icon-btn-add">Kolom Penilaian </a>
+                                </p>
+                            </div>
+
+
+                            <div class="row content addkolompenilaian">
+
+                                <div class="column">
+                                    <p>
+                                        <label>Kolom Penilaian</label>
+                                        <input type="text" name="" />
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="row content addscoresensory">
+                                <div class="column" style="margin-top:10px;">
+                                    <p>
+                                        <a onclick="appendScoreSensory();" class="button button-primary with-icon icon-btn-add">Score</a>
+                                    </p>
+                                </div>
+
+                                <div class="column">
+                                    <p>
+                                        <label>Score</label>
+                                        <input type="text" name="" />
+                                    </p>
+                                </div>
+                                <div class="column">
+                                    <p>
+                                        <label>Word</label>
+                                        <input type="text" name="" />
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="row content addcasesensory">
+                                <p>
+                                    <a class="button button-primary with-icon icon-btn-add" onclick="appendcasesensory();">Subquestion </a>
+                                </p>
+
+                                Soal
+                                <p>
+                                    <label>1<span class="required">*</span></label>
+                                    <input type="text" name="" />
+                                </p>
+                            </div>
+
+                        </div>
+
+
                     </form>
                 </div>
             </div>
@@ -107,6 +204,17 @@
 @section scripts
 {
     <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#createCase').show();
+            $('#createCaseProcrastonator').hide();
+            $('#createCaseSensory').hide();
+
+        });
+
+        //----------- JAVASCRIPT UNTUK CASE INTELLIGENCE ---------------//
+
         var idx = 1;
         var hapusChoice = 0;
 
@@ -138,11 +246,7 @@
         var nomorSoal = 2;
         var parentchoice = 1;
 
-        function deletescase(id) {
-            var deletex = $('#createCase' + id);
-            deletex.html('');
-            nomorSoal--;
-        }
+        
 
         function appendCase() {
             var handler = $('.hapusQuestion');
@@ -169,24 +273,45 @@
             parentchoice++;
         }
 
+        function deletescase(id) {
+            var deletex = $('#createCase' + id);
+            deletex.html('');
+            nomorSoal--;
+        }
 
-        $(document).ready(function () {
 
-            $('#createCase').show();
-            $('#createCaseProcrastonator').hide();
-            $('#createCaseSensory').hide();
 
-        });
+        function clearIntelligence() {
+
+            for (var i = 0; i < hapusChoice; i++) {
+                var deletex = $('.subchoice' + i);
+                deletex.html('');
+
+            }
+
+            for (var j = 1; j < parentchoice; j++) {
+                var deletex = $('#createCase' + j);
+                deletex.html('');
+                nomorSoal = 2;
+            }
+
+        }
+
+
+
+
+     
+
+        //----------- JAVASCRIPT UNTUK CASE PROCRASTINATOR ---------------//
 
         function appendCaseProcrastinator() {
             var handler = $('.hapusQuestion');
-            handler.append(
-                '<div id="createCaseProcrastonator' + parentchoice + '">' +
-                    '<p>' +
-                        '<a onclick="deletescaseProcrastinator(' + parentchoice + ')"> <i class="icon icon-trash"></i></a>' +
-                        '<label>' + nomorSoal + '<span class="required">*</span></label>' +
-                        '<input type="text" name="rows[case][' + parentchoice + ']"/>' +
-                    '</p>' +
+            handler.append('<div id="createCaseProcrastonator' + parentchoice + '">' +
+                '<p>' +
+                '<a onclick="deletescaseProcrastinator(' + parentchoice + ')"> <i class="icon icon-trash"></i></a>' +
+                '<label>' + nomorSoal + '<span class="required">*</span></label>' +
+                '<input type="text" name=""/>' +
+                '</p>' +
                 '</div>'
             );
             nomorSoal++;
@@ -203,46 +328,187 @@
         function addScoreProcrastinator() {
             var handler = $('.addScoreProcrastinator');
             handler.append(
-                '<div class="column one-half proc' + index + '">' +
-                    '<p>' +
-                        '<label>' +
-                            'Score' +
-                        '</label>' +
-                        '<input type="text" name="rowsp[' + index + '][score]" />' +
-                    '</p>' +
+                '<div class="proc' + index + '">' +
+                '<div class="column">' +
+                '<p>' +
+                '<label>' +
+                'Score' +
+                '<a onclick="deleteScore(' + index + ')"> <i class="icon icon-trash"></i></a>' +
+                '</label>' +
+                '<input type="text" name="" />' +
+                '</p>' +
                 '</div>' +
-                '<div class="column one-half">' +
-                    '<p>' +
-                        '<label>Word</label>' +
-                        '<input type="text" name="rowsp[' + index + '][word]" />' +
-                    '</p>' +
+                '<div class="column">' +
+                '<p>' +
+                '<label>Word</label>' +
+                '<input type="text" name="" />' +
+                '</p>' +
+                '</div>' +
                 '</div>'
 
             );
             index++;
         }
 
+        function deleteScore(id) {
+            var deletex = $('.proc' + id);
+            deletex.html('');
+        }
 
-        function test() {
+
+        function clearProcrastinator() {
+
+            for (var i = 1; i < parentchoice; i++) {
+                var deletex = $('#createCaseProcrastonator' + i);
+                deletex.html('');
+                nomorSoal = 2;
+            }
+            for (var j = 1; j < index; j++) {
+                var deletex = $('.proc' + j);
+                deletex.html('');
+            }
+
+        }
+
+
+
+        //----------- JAVASCRIPT UNTUK CASE SENSORY ---------------//
+
+
+        var tempindex = 1;
+        function appendSensoryPenilaian() {
+
+            var handler = $('.addkolompenilaian');
+            handler.append(
+                '<div class="penilaian' + tempindex + '">' +
+                '<div class="column">' +
+                '<p>' +
+                '<label>' +
+                'Kolom Penilaian' +
+                '<a onclick="deletekolompenilaian(' + tempindex + ')"> <i class="icon icon-trash"></i></a>' +
+                '</label>' +
+                '<input type="text" name="" />' +
+                '</p>' +
+                '</div>' +
+                '</div>'
+            );
+
+            tempindex++;
+
+        }
+
+        function deletekolompenilaian(id) {
+            var deletex = $('.penilaian' + id);
+            deletex.html('');
+        }
+
+
+        var scoresensoryindex = 1;
+        function appendScoreSensory() {
+            var handler = $('.addscoresensory');
+            handler.append(
+                '<div class="scoresensory' + scoresensoryindex + '">' +
+                '<div class="column">' +
+                '<p>' +
+                '<label>' +
+                'Score ' +
+                '<a onclick="deletescoresensory(' + scoresensoryindex + ')"> <i class="icon icon-trash"></i></a>' +
+                '</label>' +
+                '<input type="text" name="" />' +
+                '</p>' +
+                '</div>' +
+                '<div class="column">' +
+                '<p>' +
+                '<label>Word</label>' +
+                '<input type="text" name="" />' +
+                '</p>' +
+                '</div>' +
+                '</div>'
+            );
+
+            scoresensoryindex++;
+        }
+
+        function deletescoresensory(id) {
+            var deletex = $('.scoresensory' + id);
+            deletex.html('');
+        }
+
+
+        var nomorSoalsensory = 2;
+        var casesensoryindex = 1;
+
+        function appendcasesensory() {
+            var handler = $('.addcasesensory');
+            handler.append('<div id="createCaseSensory' + casesensoryindex + '">' +
+                '<p>' +
+                '<a onclick="deletescasesensory(' + casesensoryindex + ')"> <i class="icon icon-trash"></i></a>' +
+                '<label>' + nomorSoalsensory + '<span class="required">*</span></label>' +
+                '<input type="text" name=""/>' +
+                '</p>' +
+                '</div>'
+                );
+            nomorSoalsensory++;
+            casesensoryindex++;
+        }
+
+        function deletescasesensory(id) {
+            var deletex = $('#createCaseSensory' + id);
+            deletex.html('');
+            nomorSoalsensory--;
+        }
+
+
+        function clearSensory() {
+
+            for (var i = 1; i < casesensoryindex; i++) {
+                var deletex = $('#createCaseSensory' + i);
+                deletex.html('');
+                nomorSoalsensory = 2;
+            }
+            for (var j = 1; j < scoresensoryindex; j++) {
+                var deletex = $('.scoresensory' + j);
+                deletex.html('');
+            }
+            for (var b = 1; b < tempindex; b++) {
+                var deletex = $('.penilaian' + b);
+                deletex.html('');
+            }
+
+        }
+
+
+
+
+
+        function changeTest() {
             var casetype = $('select[name=casetype]').val();
 
             if (casetype == 1) {
                 $('#createCase').show();
                 $('#createCaseProcrastonator').hide();
                 $('#createCaseSensory').hide();
+                clearProcrastinator();
+                clearSensory();
+
             }
             else if (casetype == 2) {
                 $('#createCase').hide();
                 $('#createCaseProcrastonator').show();
                 $('#createCaseSensory').hide();
+                clearIntelligence();
+                clearSensory();
             }
             else if (casetype == 3) {
                 $('#createCase').hide();
                 $('#createCaseProcrastonator').hide();
                 $('#createCaseSensory').show();
+                clearProcrastinator();
+                clearIntelligence();
             }
         }
     </script>
+
     <script type="text/javascript">
         var statements = [];
         var statementDetails = [];

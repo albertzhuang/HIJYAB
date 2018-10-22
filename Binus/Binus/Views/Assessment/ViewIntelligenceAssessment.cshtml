@@ -1,0 +1,732 @@
+﻿
+@{
+    ViewBag.Title = "ViewIntelligenceAssessment";
+}
+
+<div class="main-content has-widget" id="main-content">
+    <div class="container">
+        <div class="box-container">
+            <div class="single-content popup-content" id="target-id">
+                <div class="page-sub-heading">
+                    <h1><strong>Your Intelligence Profile</strong></h1>
+                    <p>
+                        <strong>Instructions</strong><br />
+                        Beginning courses in college will give you an opportunity ti experiment with and improve different kinds of intelligence. See how different college course promote specific kinds of intelligence.
+                        Then indicate your strengths by identifying all the characteristic that apply to you.
+                        Mark the space using the following codes: 2 _very much like me, 1 _ somewhat like me , 0 _ not like me
+                    </p>
+                </div>
+
+                <div class="headerquestion" id="case-1">
+                    <p>Verbal-Linguistic(Great Books, Composition, History)</p>
+                    <ol type="a">
+                        <li>
+                            I like read.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I enjoy finding out the meanings of new words.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I appreciate humor involving wordplay
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I enjoy telling or writing spoems or stories.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I recall written or verbal material well
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="headerquestion" id="case-2">
+                    <p>Logical-Mathematical (Algebra,Philosophy,Chemistry)</p>
+                    <ol type="a">
+                        <li>
+                            I like working with symbols.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            Math comes fairly easy to me.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I like to analyze and solve problems.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I like to discover logical weakness in an argument.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I enjoy listening to a good debate.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="headerquestion" id="case-3">
+                    <p>Musical (Music Appreciation, Orchestra)</p>
+                    <ol type="a">
+                        <li>
+                            I enjoy singing or making rhythmic sounds.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I like to listen to favorite tapes and records
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I sometimes make up my own tunes.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I would enjoy learning to play a new musical instrument.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I enjoy music deeply even when it has no lyric
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="headerquestion" id="case-4">
+                    <p>Bodily-Kinesthetic(Recreation Studies, Engineering)</p>
+                    <ol type="a">
+                        <li>
+                            I enjoy working with my hands.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            It's hard for me to sit still for long periods of time.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        <li>
+                            I am good in at least one sport.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I enjoy a well-executed physical movement.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I am physically comfortable with my body.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="headerquestion" id="case-5">
+                    <p>Spatial (Geometry, Art, Computer Science)</p>
+                    <ol type="a">
+                        <li>
+                            I can easily visualize objects.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I tend to find beauty things that others don't.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I can usually get around without going the wrong way.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I enjoy working on arts, crafts, or drawing.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            People often comment on my "good taste".
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="headerquestion" id="case-6">
+                    <p>Interpersonal(Pyschology, Sociology, Nursing)</p>
+                    <ol type="a">
+                        <li>
+                            I like to be around people, and I make friends easily.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I have a knack for remembering names and faces.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I have demonstrated natural leadership tendencies.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I notice subtle differences among people.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I understand people better than many other people do.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="headerquestion" id="case-7">
+                    <p>Intrapersonal (Religious Studies, Film Studies)</p>
+                    <ol type="a">
+                        <li>
+                            I prefer solitary activities to group work.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I enjoy quiet time.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I am very sensitive to emotional experiences.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I know myself very well.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I prefer to have a few deep friendships rather than lots of friends.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                    </ol>
+                </div>
+                <div class="headerquestion" id="case-8">
+                    <p>Naturalist (Biology, Evolution, Forensic Science)</p>
+                    <ol type="a">
+                        <li>
+                            I have a strong curiosity about how nature works.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I enjoy looking for patterns in things.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I can learn more easily outdoors than indoors.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            Science classes tend to be easy for me.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                        <li>
+                            I have at least one collection that I keep in careful order.
+                            <select name="detailquestion">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </li>
+                    </ol>
+                </div>
+
+
+
+
+                <p>
+
+                    <a class="button button-secondary" id="prevBtn">Previous</a>
+                    <a class="button button-primary" id="nextBtn">Next</a>
+
+                    <a id="btnFinish" class="button button-orange">Finish</a>
+                </p>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#btnFinish').click(function (e) {
+                e.preventDefault();
+                //validasi answer harus 10
+                var headerQuestions = $('.headerquestion');
+                for (var i = 0 ; i < headerQuestions.length ; i++)
+                {
+                    var detailQuestions = $(headerQuestions[i]).find('[name=detailquestion]');
+                    var result = 0;
+                    var totalDetailQuestion = detailQuestions.length;
+                    for (var j = 0 ; j < totalDetailQuestion ; j++) {
+                        result += parseInt(detailQuestions[j].value) || 0;
+                    }
+                    console.log('Question ' + (i + 1) + ' : ' + result);
+
+                    if (result > 10) {
+                        alert('total answer case ke ' + (i + 1) + ' harus 10');
+                        return;
+                    }
+
+                }
+
+                var role1 = 0;
+                role1 += parseInt($(headerQuestions[0]).find('[name=detailquestion]')[0].value) || 0;
+                role1 += parseInt($(headerQuestions[0]).find('[name=detailquestion]')[1].value) || 0;
+                role1 += parseInt($(headerQuestions[0]).find('[name=detailquestion]')[2].value) || 0;
+                role1 += parseInt($(headerQuestions[0]).find('[name=detailquestion]')[3].value) || 0;
+                role1 += parseInt($(headerQuestions[0]).find('[name=detailquestion]')[4].value) || 0;
+
+
+                var role2 = 0;
+                role2 += parseInt($(headerQuestions[1]).find('[name=detailquestion]')[0].value) || 0;
+                role2 += parseInt($(headerQuestions[1]).find('[name=detailquestion]')[1].value) || 0;
+                role2 += parseInt($(headerQuestions[1]).find('[name=detailquestion]')[2].value) || 0;
+                role2 += parseInt($(headerQuestions[1]).find('[name=detailquestion]')[3].value) || 0;
+                role2 += parseInt($(headerQuestions[1]).find('[name=detailquestion]')[4].value) || 0;
+
+
+                var role3 = 0;
+                role3 += parseInt($(headerQuestions[0]).find('[name=detailquestion]')[0].value) || 0;
+                role3 += parseInt($(headerQuestions[1]).find('[name=detailquestion]')[1].value) || 0;
+                role3 += parseInt($(headerQuestions[2]).find('[name=detailquestion]')[2].value) || 0;
+                role3 += parseInt($(headerQuestions[3]).find('[name=detailquestion]')[3].value) || 0;
+                role3 += parseInt($(headerQuestions[4]).find('[name=detailquestion]')[4].value) || 0;
+
+
+                var role4 = 0;
+                role4 += parseInt($(headerQuestions[0]).find('[name=detailquestion]')[0].value) || 0;
+                role4 += parseInt($(headerQuestions[1]).find('[name=detailquestion]')[1].value) || 0;
+                role4 += parseInt($(headerQuestions[2]).find('[name=detailquestion]')[2].value) || 0;
+                role4 += parseInt($(headerQuestions[3]).find('[name=detailquestion]')[3].value) || 0;
+                role4 += parseInt($(headerQuestions[4]).find('[name=detailquestion]')[4].value) || 0;
+
+                var role5 = 0;
+                role5 += parseInt($(headerQuestions[0]).find('[name=detailquestion]')[0].value) || 0;
+                role5 += parseInt($(headerQuestions[1]).find('[name=detailquestion]')[1].value) || 0;
+                role5 += parseInt($(headerQuestions[2]).find('[name=detailquestion]')[2].value) || 0;
+                role5 += parseInt($(headerQuestions[3]).find('[name=detailquestion]')[3].value) || 0;
+                role5 += parseInt($(headerQuestions[4]).find('[name=detailquestion]')[4].value) || 0;
+
+                var role6 = 0;
+                role6 += parseInt($(headerQuestions[0]).find('[name=detailquestion]')[0].value) || 0;
+                role6 += parseInt($(headerQuestions[1]).find('[name=detailquestion]')[1].value) || 0;
+                role6 += parseInt($(headerQuestions[2]).find('[name=detailquestion]')[2].value) || 0;
+                role6 += parseInt($(headerQuestions[3]).find('[name=detailquestion]')[3].value) || 0;
+                role6 += parseInt($(headerQuestions[4]).find('[name=detailquestion]')[4].value) || 0;
+
+
+                var role7 = 0;
+                role7 += parseInt($(headerQuestions[0]).find('[name=detailquestion]')[0].value) || 0;
+                role7 += parseInt($(headerQuestions[1]).find('[name=detailquestion]')[1].value) || 0;
+                role7 += parseInt($(headerQuestions[2]).find('[name=detailquestion]')[2].value) || 0;
+                role7 += parseInt($(headerQuestions[3]).find('[name=detailquestion]')[3].value) || 0;
+                role7 += parseInt($(headerQuestions[4]).find('[name=detailquestion]')[4].value) || 0;
+
+
+                var role8 = 0;
+                role8 += parseInt($(headerQuestions[0]).find('[name=detailquestion]')[0].value) || 0;
+                role8 += parseInt($(headerQuestions[1]).find('[name=detailquestion]')[1].value) || 0;
+                role8 += parseInt($(headerQuestions[2]).find('[name=detailquestion]')[2].value) || 0;
+                role8 += parseInt($(headerQuestions[3]).find('[name=detailquestion]')[3].value) || 0;
+                role8 += parseInt($(headerQuestions[4]).find('[name=detailquestion]')[4].value) || 0;
+
+
+
+
+                var arrfinalResult = [role1, role2, role3, role4, role5, role6, role7, role8];
+                var hasil = 0;
+                for (var i = 1 ; i < arrfinalResult.length; i++)
+                {
+                    hasil = (arrfinalResult[hasil] > arrfinalResult[i]) ? hasil : i;
+                }
+                console.log("role 1 :" + role1 + " role 2 :" + role2 + " role 3 :" + role3 + " role 4 :" + role4 + " role 5 :" + role5 + " role 6 :" + role6 + " role 7 :" + role7 + " role 8 :" + role8);
+                console.log("hasil :" + (hasil+1));
+
+
+
+
+                var role = "";
+                if((hasil+1) == 1)
+                    role = "Verbal-Linguistic"
+                else if ((hasil + 1) == 2)
+                    role = "Logical-Mathematical"
+                else if ((hasil + 1) == 3)
+                    role = "Musical"
+                else if ((hasil + 1) == 4)
+                    role = "Bodily-Kinesthetic"
+                else if ((hasil + 1) == 5)
+                    role = "Spatial"
+                else if ((hasil + 1) == 6)
+                        role = "Interpersonal"
+                else if ((hasil + 1) == 7)
+                    role = "Intrapersonal"
+                else if ((hasil + 1) == 8)
+                    role = "Naturalist"
+
+                console.log(role);
+
+                location.href = "ResultAssessment/"+role;
+            });
+
+
+            var case1 = $('#case-1');
+            var case2 = $('#case-2');
+            var case3 = $('#case-3');
+            var case4 = $('#case-4');
+            var case5 = $('#case-5');
+            var case6 = $('#case-6');
+            var case7 = $('#case-7');
+            var case8 = $('#case-8');
+            var finish = $('#btnFinish');
+            var prv = $('#prevBtn');
+            var nxt = $('#nextBtn');
+
+            case2.hide();
+            case3.hide();
+            case4.hide();
+            case5.hide();
+            case6.hide();
+            case7.hide();
+            case8.hide();
+
+            finish.hide();
+
+            var indexClick = 0;
+
+            prv.click(function () {
+                indexClick--;
+                if (indexClick < 0)
+                    indexClick = 0
+                else
+                {
+                    if (indexClick == 0)
+                    {
+                        case3.hide();
+                        case4.hide();
+                        case5.hide();
+                        case6.hide();
+                        case7.hide();
+                        case2.hide();
+                        finish.hide();
+                        case8.hide();
+                        case1.show();
+                    }
+                    else if (indexClick == 1)
+                    {
+                        case3.hide();
+                        case4.hide();
+                        case5.hide();
+                        case6.hide();
+                        case7.hide();
+                        case1.hide();
+                        finish.hide();
+                        case8.hide();
+                        case2.show();
+                    }
+                    else if (indexClick == 2)
+                    {
+                        case1.hide();
+                        case4.hide();
+                        case5.hide();
+                        case6.hide();
+                        case7.hide();
+                        case2.hide();
+                        finish.hide();
+                        case8.hide();
+                        case3.show();
+                    }
+                    else if (indexClick == 3)
+                    {
+                        case2.hide();
+                        case1.hide();
+                        case5.hide();
+                        case6.hide();
+                        case7.hide();
+                        case3.hide();
+                        finish.hide();
+                        case8.hide();
+                        case4.show();
+                    }
+                    else if (indexClick == 4)
+                    {
+                        case3.hide();
+                        case4.hide();
+                        case1.hide();
+                        case6.hide();
+                        case7.hide();
+                        case2.hide();
+                        finish.hide();
+                        case8.hide();
+                        case5.show();
+                    }
+                    else if (indexClick == 5) {
+                        case3.hide();
+                        case1.hide();
+                        case5.hide();
+                        case2.hide();
+                        case7.hide();
+                        case4.hide();
+                        finish.hide();
+                        case6.show();
+                        case8.hide();
+                    }
+                    else if (indexClick == 6) {
+                        case3.hide();
+                        case1.hide();
+                        case5.hide();
+                        case2.hide();
+                        case7.show();
+                        case4.hide();
+                        finish.hide();
+                        case6.hide();
+                        case8.hide();
+                        nxt.show();
+                    }
+
+                }
+
+            });
+
+            nxt.click(function () {
+
+
+                if (validateJawab(indexClick) == true)
+                {
+                    indexClick++;
+                    console.log(indexClick);
+                }
+
+
+
+
+                if (indexClick > 7)
+                    indexClick = 7;
+                else
+                {
+                    if (indexClick == 1)
+                    {
+                        case1.hide();
+                        case2.show();
+                    }
+                    else if (indexClick == 2) {
+                        case2.hide();
+                        case3.show();
+                    }
+                    else if (indexClick == 3) {
+                        case3.hide();
+                        case4.show();
+                    }
+                    else if (indexClick == 4) {
+                        case4.hide();
+                        case5.show();
+                    }
+                    else if (indexClick == 5) {
+                        case5.hide();
+                        case6.show();
+                    }
+                    else if (indexClick == 6) {
+                        case6.hide();
+                        case7.show();
+                    }
+                    else if (indexClick == 7) {
+                        case7.hide();
+                        case8.show();
+                        finish.show();
+                        nxt.hide();
+                    }
+                }
+            });
+
+
+
+
+            function validateJawab(angka)
+            {
+
+                var headerQuestions = $('.headerquestion');
+
+                var detailQuestions = $(headerQuestions[angka]).find('[name=detailquestion]');
+                    var result = 0;
+                    var totalDetailQuestion = detailQuestions.length;
+                    for (var j = 0 ; j < totalDetailQuestion ; j++) {
+                        result += parseInt(detailQuestions[j].value) || 0;
+                    }
+                    console.log('Question ' + (angka+1) + ' : ' + result);
+
+                    if (result > 10) {
+                        alert('total answer case ke ' + (angka+1) + ' tidak boleh lebih dari 10');
+                        return false;
+                    }
+
+                return true;
+
+            }
+
+
+
+
+
+        });
+    </script>
+}
+
+
+
+

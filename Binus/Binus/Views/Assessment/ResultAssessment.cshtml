@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "ResultAssessment";
+    var role = HttpContext.Current.Server.UrlDecode(Request.Url.Segments[3]);
+}
+<style>
+    body {
+    }
+
+    .tk-title {
+        font-size: 40px;
+        font-weight: 700;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .role-title {
+        font-size: 20px;
+        font-weight: 700;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .role-description {
+        text-align: center;
+        font-weight: 700;
+    }
+
+    #myTable_length label {
+        line-height: 80px !important;
+    }
+
+    .headerquestion > p, .headerquestion > ol {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+        .headerquestion > ol > li {
+            padding-bottom: 10px;
+        }
+
+    .gambar {
+        background: url(../template/images/logo.png) no-repeat top left;
+        display: block;
+        width: 150px;
+        height: 80px;
+    }
+</style>
+
+
+<div class="main-content has-widget" id="main-content">
+    <div class="container">
+        <div class="box-container">
+            <div class="single-content popup-content" id="target-id">
+                <h1 class="tk-title">THANKYOU, HENDRA EFFENDI</h1>
+
+                <blockquote>
+                    <h3 class="role-title">Your Belbins Role Result</h3>
+                    @using (Html.BeginForm())
+                    {
+                        if (role == "")
+                        {
+                            role = "none";
+                        }
+                        <h1 class="tk-title">@role</h1>
+
+                        if (role == "Verbal-Linguistic")
+                        {
+                            <h3 class="role-description">
+                                Great Books, Composition, History
+                            </h3>
+                        }
+                        else if (role == "none")
+                        {
+                            <h3 class="role-description">
+                                Please Fill the Test First!
+                            </h3>
+                        }
+                        else if (role == "Logical-Mathematical")
+                        {
+                            <h3 class="role-description">
+                                Algebra, Philosophy, Chemistry
+                            </h3>
+                        }
+                        else if (role == "Musical")
+                        {
+                            <h3 class="role-description">
+                                Music Appreciation, Orchestra
+                            </h3>
+                        }
+                        else if (role == "Bodily-Kinesthetic")
+                        {
+                            <h3 class="role-description">
+                                Recreation Studies, Engineering
+                            </h3>
+                        }
+                        else if (role == "Spatial")
+                        {
+                            <h3 class="role-description">
+                                Geometry, Art, Computer Science
+                            </h3>
+                        }
+                        else if (role == "Interpersonal")
+                        {
+                            <h3 class="role-description">
+                                Pyschology, Sociology, Nursing
+                            </h3>
+                        }
+                        else if (role == "Intrapersonal")
+                        {
+                            <h3 class="role-description">
+                                Religious Studies, Film Studies
+                            </h3>
+                        }
+                        else if (role == "Naturalist")
+                        {
+                            <h3 class="role-description">
+                                Biology, Evolution, Forensic Science
+                            </h3>
+                        }
+
+
+                    }
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
+
+
