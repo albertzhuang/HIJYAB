@@ -1902,6 +1902,8 @@
     <Content Include="Views\Assessment\ViewListAssessment.cshtml" />
     <Content Include="Views\Assessment\ViewIntelligenceAssessment.cshtml" />
     <Content Include="Views\Assessment\ResultAssessment.cshtml" />
+    <Content Include="Views\Assessment\ViewProcrastinatorAssessment.cshtml" />
+    <Content Include="Views\Assessment\ViewSensoryAssessment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

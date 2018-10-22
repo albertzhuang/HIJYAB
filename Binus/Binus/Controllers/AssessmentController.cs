@@ -26,6 +26,15 @@ namespace Binus.Controllers
             return View();
         }
 
+        public ActionResult ViewProcrastinatorAssessment()
+        {
+            return View();
+        }
+        public ActionResult ViewSensoryAssessment()
+        {
+            return View();
+        }
+
         public ActionResult ResultAssessment()
         {
             return View();
