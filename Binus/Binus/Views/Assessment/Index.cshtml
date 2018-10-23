@@ -129,24 +129,6 @@
 
                         <!--Case Sensory-->
                         <div id="createCaseSensory">
-                            <div class="column" style="margin-top:10px;">
-                                <p>
-                                    <a onclick="appendSensoryPenilaian();" class="button button-primary with-icon icon-btn-add">Kolom Penilaian </a>
-                                </p>
-                            </div>
-
-
-                            <div class="row content addkolompenilaian">
-
-                                <div class="column">
-                                    <p>
-                                        <label>Kolom Penilaian</label>
-                                        <input type="text" name="" />
-                                    </p>
-                                </div>
-                            </div>
-
-
                             <div class="row content addscoresensory">
                                 <div class="column" style="margin-top:10px;">
                                     <p>
@@ -179,6 +161,13 @@
                                     <label>1<span class="required">*</span></label>
                                     <input type="text" name="" />
                                 </p>
+                                <ol style="list-style-type:none">
+                                    <li>
+                                        <p>
+                                            Keyword : <input class="input_statement_details[]" type="text" name="input_statement_details[]" style="display:inline-block; width:97%;" />
+                                        </p>
+                                    </li>
+                                </ol>
                             </div>
 
                         </div>
@@ -345,7 +334,6 @@
                 '</p>' +
                 '</div>' +
                 '</div>'
-
             );
             index++;
         }
@@ -358,12 +346,12 @@
 
         function clearProcrastinator() {
 
-            for (var i = 1; i < parentchoice; i++) {
+            for (var i = 1; i <= parentchoice; i++) {
                 var deletex = $('#createCaseProcrastonator' + i);
                 deletex.html('');
                 nomorSoal = 2;
             }
-            for (var j = 1; j < index; j++) {
+            for (var j = 0; j < index; j++) {
                 var deletex = $('.proc' + j);
                 deletex.html('');
             }
@@ -373,35 +361,6 @@
 
 
         //----------- JAVASCRIPT UNTUK CASE SENSORY ---------------//
-
-
-        var tempindex = 1;
-        function appendSensoryPenilaian() {
-
-            var handler = $('.addkolompenilaian');
-            handler.append(
-                '<div class="penilaian' + tempindex + '">' +
-                '<div class="column">' +
-                '<p>' +
-                '<label>' +
-                'Kolom Penilaian' +
-                '<a onclick="deletekolompenilaian(' + tempindex + ')"> <i class="icon icon-trash"></i></a>' +
-                '</label>' +
-                '<input type="text" name="" />' +
-                '</p>' +
-                '</div>' +
-                '</div>'
-            );
-
-            tempindex++;
-
-        }
-
-        function deletekolompenilaian(id) {
-            var deletex = $('.penilaian' + id);
-            deletex.html('');
-        }
-
 
         var scoresensoryindex = 1;
         function appendScoreSensory() {
@@ -445,6 +404,13 @@
                 '<a onclick="deletescasesensory(' + casesensoryindex + ')"> <i class="icon icon-trash"></i></a>' +
                 '<label>' + nomorSoalsensory + '<span class="required">*</span></label>' +
                 '<input type="text" name=""/>' +
+                '<ol style="list-style-type:none">'+
+                '<li>'+
+                '<p>'+
+                'Keyword : <input class="input_statement_details[]" type="text" name="input_statement_details[]" style="display:inline-block; width:97%;" />'+
+                '</p>'+
+                '</li>'+
+                '</ol>' +
                 '</p>' +
                 '</div>'
                 );
@@ -470,10 +436,7 @@
                 var deletex = $('.scoresensory' + j);
                 deletex.html('');
             }
-            for (var b = 1; b < tempindex; b++) {
-                var deletex = $('.penilaian' + b);
-                deletex.html('');
-            }
+           
 
         }
 
