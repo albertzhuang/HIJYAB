@@ -2,6 +2,10 @@
 @{
     ViewBag.Title = "ResultAssessment";
     var role = HttpContext.Current.Server.UrlDecode(Request.Url.Segments[3]);
+    var test = HttpContext.Current.Server.UrlDecode(Request.Url.Segments[4]);
+
+    var rolesss =  role.Split('/');
+    var hasilTest = rolesss[0];
 }
 <style>
     body {
@@ -55,64 +59,64 @@
                 <h1 class="tk-title">THANKYOU, HENDRA EFFENDI</h1>
 
                 <blockquote>
-                    <h3 class="role-title">Your Belbins Role Result</h3>
+                    <h3 class="role-title">Your Psikotest @test Result</h3>
                     @using (Html.BeginForm())
                     {
                         if (role == "")
                         {
                             role = "none";
                         }
-                        <h1 class="tk-title">@role</h1>
+                        <h1 class="tk-title">@hasilTest</h1>
 
-                        if (role == "Verbal-Linguistic")
+                        if (hasilTest == "Verbal-Linguistic")
                         {
                             <h3 class="role-description">
                                 Great Books, Composition, History
                             </h3>
                         }
-                        else if (role == "none")
+                        else if (hasilTest == "none")
                         {
                             <h3 class="role-description">
                                 Please Fill the Test First!
                             </h3>
                         }
-                        else if (role == "Logical-Mathematical")
+                        else if (hasilTest == "Logical-Mathematical")
                         {
                             <h3 class="role-description">
                                 Algebra, Philosophy, Chemistry
                             </h3>
                         }
-                        else if (role == "Musical")
+                        else if (hasilTest == "Musical")
                         {
                             <h3 class="role-description">
                                 Music Appreciation, Orchestra
                             </h3>
                         }
-                        else if (role == "Bodily-Kinesthetic")
+                        else if (hasilTest == "Bodily-Kinesthetic")
                         {
                             <h3 class="role-description">
                                 Recreation Studies, Engineering
                             </h3>
                         }
-                        else if (role == "Spatial")
+                        else if (hasilTest == "Spatial")
                         {
                             <h3 class="role-description">
                                 Geometry, Art, Computer Science
                             </h3>
                         }
-                        else if (role == "Interpersonal")
+                        else if (hasilTest == "Interpersonal")
                         {
                             <h3 class="role-description">
                                 Pyschology, Sociology, Nursing
                             </h3>
                         }
-                        else if (role == "Intrapersonal")
+                        else if (hasilTest == "Intrapersonal")
                         {
                             <h3 class="role-description">
                                 Religious Studies, Film Studies
                             </h3>
                         }
-                        else if (role == "Naturalist")
+                        else if (hasilTest == "Naturalist")
                         {
                             <h3 class="role-description">
                                 Biology, Evolution, Forensic Science
