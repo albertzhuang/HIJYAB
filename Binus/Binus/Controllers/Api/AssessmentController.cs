@@ -7,31 +7,15 @@ using System.Web.Http;
 using Binus.Data;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
-using Binus.Models;
+using Binus.Models.AssessmentProcrasiantor;
+using Binus.Models.AssessmentIntelligence;
 
 namespace Binus.Controllers.Api
 {
     public class AssessmentController : ApiController
     {
         BinusEntities db = new BinusEntities();
-
-        [HttpGet]
-        public HttpResponseMessage getAll()
-        {
-            try
-            {
-                var result = new HttpResponseMessage(HttpStatusCode.OK);
-                result.Content = new StringContent(JsonConvert.SerializeObject(db.AssessmentTypes1.ToList()));
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                return result;
-            }
-            catch
-            {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            }
-        }
-
+        
         [HttpGet]
         public HttpResponseMessage getAllAssessment()
         {
@@ -49,40 +33,56 @@ namespace Binus.Controllers.Api
             }
         }
 
-        [HttpPost]
-        public HttpResponseMessage post(Assessment assessment)
+        /*[HttpPost]
+        public HttpResponseMessage createAssessmentIntelligence(AssessmentIntelligence model)
         {
-            Assessment_1 assessment_1 = new Assessment_1();
-            assessment_1.Title = assessment.title;
-            assessment_1.Description = assessment.description;
-            db.Assessment_1.Add(assessment_1);
+            AssessmentIntelligences assessmentIntelligence = new AssessmentIntelligences();
+            assessmentIntelligence.AssessmentTitle = model.assessmentTitle;
+            assessmentIntelligence.AssessmentDescription = model.assessmentDescription;
+            db.AssessmentIntelligences1.Add(assessmentIntelligence);
             db.SaveChanges();
+            int fk_assessmentIntelligenceID = int.Parse(db.AssessmentIntelligences1
+                .OrderByDescending(x => x.AssessmentIntelligenceID)
+                .Select(x => x.AssessmentIntelligenceID).First().ToString());
 
-            int fk_assessmentID = int.Parse(db.Assessment_1.OrderByDescending(x => x.AssessmentID).Select(x => x.AssessmentID).First().ToString());
-            
-            foreach(var value in assessment.statements)
+
+            foreach(var value in model.statementIntelligences)
             {
-                Statements statement = new Statements();
-                statement.AssessmentID = fk_assessmentID;
-                statement.Statement = value.statement;
-                db.Statements1.Add(statement);
+                StatementIntelligences statementIntelligence = new StatementIntelligences();
+                statementIntelligence.AssessmentIntelligenceID = fk_assessmentIntelligenceID;
+                statementIntelligence.StatementIntelligence = value.statementIntelligence;
+
+                db.StatementIntelligences1.Add(statementIntelligence);
                 db.SaveChanges();
 
-                int fk_statementID = int.Parse(db.Statements1.OrderByDescending(x => x.StatementID).Select(x => x.StatementID).First().ToString());
-                foreach (var valueDetail in value.statementDetails)
+                int fk_statementIntelligenceID = int.Parse(db.StatementIntelligences1
+                    .OrderByDescending(x => x.StatementIntelligenceID)
+                    .Select(x => x.StatementIntelligenceID).First().ToString());
+
+                foreach (var valueDetail in value.statementDetailIntelligences)
                 {
-                    StatementDetails statementDetail = new StatementDetails();
-                    statementDetail.StatementID = fk_statementID;
-                    statementDetail.StatementDetail = valueDetail.statementDetail;
-                    db.StatementDetails1.Add(statementDetail);
+                    StatementDetailIntelligences statementDetailIntelligence = new StatementDetailIntelligences();
+                    statementDetailIntelligence.StatementIntelligenceID = fk_statementIntelligenceID;
+                    statementDetailIntelligence.StatementDetailIntelligence = valueDetail.statementDetailIntelligence;
+                    db.StatementDetailIntelligences1.Add(statementDetailIntelligence);
                     db.SaveChanges();
                 }
+            }
+
+            foreach (var value in model.scoreIntelligences)
+            {
+                ScoreIntelligences scoreIntelligence = new ScoreIntelligences();
+                scoreIntelligence.AssessmentIntelligenceID = fk_assessmentIntelligenceID;
+                scoreIntelligence.ScoreValue = value.scoreValue;
+                scoreIntelligence.ScoreWord = value.scoreWord;
+                db.ScoreIntelligences1.Add(scoreIntelligence);
+                db.SaveChanges();
             }
 
             try
             {
                 var result = new HttpResponseMessage(HttpStatusCode.Accepted);
-                result.Content = new StringContent(JsonConvert.SerializeObject(assessment));
+                result.Content = new StringContent(JsonConvert.SerializeObject(model));
                 result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 return result;
             }
@@ -91,5 +91,63 @@ namespace Binus.Controllers.Api
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError); 
             }
         }
+
+        [HttpPost]
+        public HttpResponseMessage createAssessmentProcrasinator(AssessmentProcrasinator model)
+        {
+            AssessmentProcrasinators assessmentProcrasinator = new AssessmentProcrasinators();
+            assessmentProcrasinator.AssessmentTitle = model.assessmentTitle;
+            assessmentProcrasinator.AssessmentDescription = model.assessmentDescription;
+
+            db.AssessmentProcrasinators1.Add(assessmentProcrasinator);
+            db.SaveChanges();
+            int fk_assessmentProcrasinatorID = int.Parse(db.AssessmentProcrasinators1
+                .OrderByDescending(x => x.AssessmentProcrasinatorID)
+                .Select(x => x.AssessmentProcrasinatorID).First().ToString());
+
+            foreach(var value in model.agreements)
+            {
+                Agreements agreement = new Agreements();
+                agreement.Agreement = value.agreement;
+                agreement.AssessmentProcrasinatorID = fk_assessmentProcrasinatorID;
+
+                db.Agreements1.Add(agreement);
+                db.SaveChanges();
+            }
+
+            foreach(var value in model.statementProcrasinators)
+            {
+                StatementProcrasinators statementProcrasinator = new StatementProcrasinators();
+                statementProcrasinator.AssessmentProcrasinatorID = fk_assessmentProcrasinatorID;
+                statementProcrasinator.StatementProcrasinator = value.statementProcrasinator;
+
+                db.StatementProcrasinators1.Add(statementProcrasinator);
+                db.SaveChanges();
+            }
+
+            foreach(var value in model.scoreProcrasinators)
+            {
+                ScoreProcrasinators scoreProcrasinator = new ScoreProcrasinators();
+                scoreProcrasinator.AssessmentProcrasinatorID = fk_assessmentProcrasinatorID;
+                scoreProcrasinator.ScoreWord = value.scoreWord;
+                scoreProcrasinator.StartValue = value.startValue;
+                scoreProcrasinator.EndValue = value.endValue;
+
+                db.ScoreProcrasinators1.Add(scoreProcrasinator);
+                db.SaveChanges();
+            }
+
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.Accepted);
+                result.Content = new StringContent(JsonConvert.SerializeObject(model));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
+        }*/
     }
 }

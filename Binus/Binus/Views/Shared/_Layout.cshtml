@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    
+
     @Scripts.Render("~/bundles/modernizr")
 
     <!-- Favicon -->
@@ -12,20 +12,14 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="~/Content/css/themes/university/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/master.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/grid.min.css">
 
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-    <![endif]-->
 
     @RenderSection("css", required: false)
 </head>
 <body>
-    @*
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-        </div>
-    *@
+
 
     <div id="page" class="main-container">
         <section class="tagline-banner new-layout">
@@ -43,7 +37,7 @@
             <div class="header-top">
                 <div class="container">
                     <section class="logo">
-                        <a href="/">
+                        <a href="index.php">
                             <img src="~/Content/images/logo.png" alt="Logo">
                         </a>
                     </section>
@@ -71,7 +65,7 @@
                                         <div class="expand-menu-container">
                                             <ul class="sub-menu main-menu primary-menu">
                                                 <li><a href="@Url.Action("Index", "Home")">Dashboard</a></li>
-                                                <li><a href="@Url.Action("ViewListAssessment", "Assessment")">Assessment</a></li>
+                                                <li><a href="@Url.Action("Index", "Question")">Assessment</a></li>
                                             </ul>
                                         </div>
                                     </li>
@@ -224,8 +218,6 @@
         </footer>
         <!-- #footer -->
     </div><!-- #page -->
-
-
     @*
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
@@ -283,6 +275,10 @@
     <!-- Main JS -->
     <script type="text/javascript" src="~/Content/js/development/main.js"></script>
 
+    @*[if lt IE 9]*@
+    <script src="~/Content/js/vendor/html5shiv.js"></script>
+    @*[endif]*@
+
     <!-- Modules -->
     <!-- BINUS Career
     <link rel="stylesheet" type="text/css" href="modules/binus-career/css/style.css">
@@ -302,7 +298,8 @@
     <script type="text/javascript" src="modules/binusmaya/js/script.js"></script>-->
 
     @*JQUERY 3.3.1*@
-    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+    @*ALERT : NOT SUPPORT FANCY BOX*@
+    @*<script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>*@
 
 
     <script type="text/javascript">

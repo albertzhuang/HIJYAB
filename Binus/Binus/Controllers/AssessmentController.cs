@@ -8,37 +8,14 @@ namespace Binus.Controllers
 {
     public class AssessmentController : Controller
     {
-        // GET: Assessment
-        public ActionResult Index()
+        public ActionResult AddAssessment()
         {
             return View();
         }
 
-    
-
-        public ActionResult ViewListAssessment()
+        public ActionResult Manage()
         {
             return View();
         }
-
-        public ActionResult ViewIntelligenceAssessment()
-        {
-            return View();
-        }
-
-        public ActionResult ViewProcrastinatorAssessment()
-        {
-            return View();
-        }
-        public ActionResult ViewSensoryAssessment()
-        {
-            return View();
-        }
-
-        public ActionResult ResultAssessment()
-        {
-            return View();
-        }
-
     }
 }
