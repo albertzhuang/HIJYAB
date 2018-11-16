@@ -1,11 +1,4 @@
-﻿# git ls-files --others --exclude-from=.git/info/exclude
-# Lines that start with '#' are comments.
-# For a project mostly in C, the following would be a good set of
-# exclude patterns (uncomment them if you want to use them):
-# *.[oa]
-# *~
-
-###################
+﻿###################
 # compiled source #
 ###################
 *.com
@@ -16,6 +9,11 @@
 *.dll.config
 *.cache
 *.suo
+# Include dlls if they’re in the NuGet packages directory
+!/packages/*/lib/*.dll
+!/packages/*/lib/*/*.dll
+# Include dlls if they're in the CommonReferences directory
+!*CommonReferences/*.dll
 ####################
 # VS Upgrade stuff #
 ####################
@@ -24,7 +22,9 @@ _UpgradeReport_Files/
 ###############
 # Directories #
 ###############
-Data/
+bin/
+obj/
+TestResults/
 ###################
 # Web publish log #
 ###################
@@ -52,6 +52,7 @@ Data/
 ######################
 *.log
 *.sqlite
+/Data/
 *.lock
 # OS generated files #
 ######################
@@ -66,8 +67,11 @@ Thumbs.db
 *.user
 *.[Cc]ache
 *[Rr]esharper*
+packages
+NuGet.exe
 _[Ss]cripts
 *.exe
+*.dll
 *.nupkg
 *.ncrunchsolution
 *.dot[Cc]over
