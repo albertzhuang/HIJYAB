@@ -5,9 +5,6 @@
 # *.[oa]
 # *~
 
-
-
-*.lock
 ###################
 # compiled source #
 ###################
@@ -19,8 +16,6 @@
 *.dll.config
 *.cache
 *.suo
-# Include dlls if they're in the CommonReferences directory
-!*CommonReferences/*.dll
 ####################
 # VS Upgrade stuff #
 ####################
@@ -57,6 +52,7 @@ Data/
 ######################
 *.log
 *.sqlite
+*.lock
 # OS generated files #
 ######################
 .DS_Store?
@@ -72,7 +68,6 @@ Thumbs.db
 *[Rr]esharper*
 _[Ss]cripts
 *.exe
-*.dll
 *.nupkg
 *.ncrunchsolution
 *.dot[Cc]over

@@ -211,7 +211,7 @@
     <Compile Include="Data\Assessments.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\AssessmentSensory.cs">
+    <Compile Include="Data\AssessmentSensories.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\AssessmentTypes.cs">
@@ -238,7 +238,7 @@
     <Compile Include="Data\ScoreIntelligences.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\ScoreProcrasinators.cs">
+    <Compile Include="Data\ScoreProcrasinator.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\ScoreSensories.cs">
@@ -262,7 +262,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AssessmentIntelligence.cs" />
     <Compile Include="Models\AssessmentIntelligence\AssessmentIntelligence.cs" />
     <Compile Include="Models\AssessmentProcrasiantor\Agreement.cs" />
     <Compile Include="Models\AssessmentProcrasiantor\AssessmentProcrasinator.cs" />
@@ -271,15 +270,6 @@
     <Compile Include="Models\AssessmentIntelligence\ScoreIntelligence.cs" />
     <Compile Include="Models\AssessmentIntelligence\StatementIntelligence.cs" />
     <Compile Include="Models\AssessmentIntelligence\StatementDetailIntelligence.cs" />
-    <Compile Include="Models\AssessmentSensory\AssessmentSensory.cs" />
-    <Compile Include="Models\AssessmentSensory\ScoreSensory.cs" />
-    <Compile Include="Models\AssessmentSensory\Sensory.cs" />
-    <Compile Include="Models\AssessmentSensory\StatementSensory.cs" />
-    <Compile Include="Models\ResultAssessment.cs" />
-    <Compile Include="Models\ScoreIntelligence.cs" />
-    <Compile Include="Models\SearchBinusian.cs" />
-    <Compile Include="Models\StatementDetailIntelligence.cs" />
-    <Compile Include="Models\StatementIntelligence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -291,7 +281,6 @@
     <Content Include="Content\css\AddAssessment.css" />
     <Content Include="Content\css\grid.min.css" />
     <Content Include="Content\css\master.css" />
-    <Content Include="Content\css\ShowAssessment.css" />
     <Content Include="Content\css\themes\affiliation\css\login.css" />
     <Content Include="Content\css\themes\affiliation\css\style.css" />
     <Content Include="Content\css\themes\affiliation\images\bg-login-overlay.png" />
@@ -1955,6 +1944,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\TEst\" />
     <Folder Include="Views\Route\" />
   </ItemGroup>
   <ItemGroup>
