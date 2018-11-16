@@ -4,8 +4,9 @@
 # exclude patterns (uncomment them if you want to use them):
 # *.[oa]
 # *~
-Data/
-*.txt
+
+
+
 *.lock
 ###################
 # compiled source #
@@ -18,9 +19,6 @@ Data/
 *.dll.config
 *.cache
 *.suo
-# Include dlls if they’re in the NuGet packages directory
-!/packages/*/lib/*.dll
-!/packages/*/lib/*/*.dll
 # Include dlls if they're in the CommonReferences directory
 !*CommonReferences/*.dll
 ####################
@@ -31,9 +29,7 @@ _UpgradeReport_Files/
 ###############
 # Directories #
 ###############
-bin/
-obj/
-TestResults/
+Data/
 ###################
 # Web publish log #
 ###################
