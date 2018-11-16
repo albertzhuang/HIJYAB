@@ -16,6 +16,8 @@ namespace Binus.Controllers.Api
     {
         BinusEntities db = new BinusEntities();
         
+        
+
         [HttpGet]
         public HttpResponseMessage getAllAssessment()
         {
