@@ -20,26 +20,20 @@ namespace Binus.Data
             this.AssessmentIntelligences = new HashSet<AssessmentIntelligences>();
             this.AssessmentProcrasinators = new HashSet<AssessmentProcrasinators>();
             this.AssessmentSensories = new HashSet<AssessmentSensories>();
-            this.ResultAssessments = new HashSet<ResultAssessments>();
-            this.Transactions = new HashSet<Transaction>();
         }
     
         public int AssessmentID { get; set; }
-        public int AssessmentTypeID { get; set; }
+        public Nullable<int> AssessmentTypeID { get; set; }
         public string AssessmentTitle { get; set; }
         public string AssessmentDescription { get; set; }
-        public System.DateTime LastUpdate { get; set; }
+        public Nullable<System.DateTime> LastUpdate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssessmentIntelligences> AssessmentIntelligences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssessmentProcrasinators> AssessmentProcrasinators { get; set; }
+        public virtual AssessmentTypes AssessmentType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssessmentSensories> AssessmentSensories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ResultAssessments> ResultAssessments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction> Transactions { get; set; }
-        public virtual AssessmentTypes AssessmentType { get; set; }
     }
 }

@@ -18,18 +18,18 @@ namespace Binus.Data
         public AssessmentProcrasinators()
         {
             this.Agreements = new HashSet<Agreements>();
-            this.ScoreProcrasinators = new HashSet<ScoreProcrasinators>();
+            this.ScoreProcrasinators = new HashSet<ScoreProcrasinator>();
             this.StatementProcrasinators = new HashSet<StatementProcrasinators>();
         }
     
         public int AssessmentProcrasinatorID { get; set; }
-        public Nullable<int> AssessmentID { get; set; }
+        public int AssessmentID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Agreements> Agreements { get; set; }
         public virtual Assessments Assessment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ScoreProcrasinators> ScoreProcrasinators { get; set; }
+        public virtual ICollection<ScoreProcrasinator> ScoreProcrasinators { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StatementProcrasinators> StatementProcrasinators { get; set; }
     }

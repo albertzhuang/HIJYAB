@@ -16,7 +16,7 @@ namespace Binus.Data
     {
         public int StatementProcrasiantorID { get; set; }
         public int AssessmentProcrasinatorID { get; set; }
-        public string StatementProcrasinator1 { get; set; }
+        public string StatementProcrasinator { get; set; }
     
         public virtual AssessmentProcrasinators AssessmentProcrasinator { get; set; }
     }

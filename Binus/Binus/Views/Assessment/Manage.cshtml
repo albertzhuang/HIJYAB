@@ -44,26 +44,47 @@
                         </div>
                     </div>
 
-                    @*<p id="tipesoal">
-                            <input type="radio" name="tipe" value="intelligence"/>Intelligence
-                            <input type="radio" name="tipe" value="sensory"/>Sensory
-                            <input type="radio" name="tipe" value="procrastinator"/>Procrastinator
-                        </p>*@
-
-
-
                     <div class="freeze-pane">
                         <table class="bordered zebra" id="myTable">
                             <thead>
                                 <tr>
                                     <th>NO</th>
                                     <th>TITLE</th>
-                                    <th>TYPE</th>
+                                    <th>ASSESSMENT TYPE</th>
                                     <th>LAST UPDATE</th>
                                     <th>ACTION</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                @*<tr>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        Belbins Role
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        2018-05-07 15:24:44
+                                    </td>
+                                    <td>
+                                        <span>
+                                            <a href="#">
+                                                <i class="icon-edit"></i>
+                                            </a>
+                                        </span>
+
+                                        <span>
+                                            @Html.ActionLink(" ", "CaseDetail", "Home")
+                                            <a href="CaseDetail">
+                                                <i class="icon-view"></i>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>*@
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -85,144 +106,14 @@
 @section scripts
 {
     <script type="text/javascript">
-        //$.ajax({
-        //        method:"GET",
-        //        url :  "/api/assessmenttype/getAll",
-        //        success: function(data)
-        //        {
-        //            console.log(data);
-        //        }
-        //    });
-            
         $.ajax
-                    ({
-                        method: "GET",
-                        url: "/api/assessment/getAllAssessmentList",
-
-                        success: function (data) {
-                            console.log(data);
-
-                            var output = [], l = data.length, i;
-                            var cekBinusianID = "";
-
-
-                            for (i = 0 ; i < l ; i++) {
-                                console.log(data[i].ResultAssessments);
-                          //      output.push(appendDataTableRows((i + 1), data[i].AssessmentTitle, data[i].AssessmentType.AssessmentType, data[i].LastUpdate, data[i].AssessmentID, data[i].AssessmentType.AssessmentTypeID));
-
-                                if (data[i].ResultAssessments.length != 0) {
-                                    if (data[i].ResultAssessments[0].BinusianID == "bn190151515") {
-                                        cekBinusianID = "ada";
-                                        output.push(appendDataTableRows((i + 1), data[i].AssessmentTitle, data[i].AssessmentType.AssessmentType, data[i].LastUpdate, data[i].AssessmentID, data[i].AssessmentType.AssessmentTypeID, cekBinusianID));
-                                    }
-                                    else {
-                                        cekBinusianID = "tidakada";
-                                        output.push(appendDataTableRows((i + 1), data[i].AssessmentTitle, data[i].AssessmentType.AssessmentType, data[i].LastUpdate, data[i].AssessmentID, data[i].AssessmentType.AssessmentTypeID, cekBinusianID));
-                                    }
-                                } else {
-                                    cekBinusianID = "tidakada";
-                                    output.push(appendDataTableRows((i + 1), data[i].AssessmentTitle, data[i].AssessmentType.AssessmentType, data[i].LastUpdate, data[i].AssessmentID, data[i].AssessmentType.AssessmentTypeID, cekBinusianID));
-                                }
-
-                                $table = $('#myTable').DataTable();
-                                $table.clear();
-                                $table.rows.add(output);
-                                $table.draw();
-                            }
-                        }
-                    });
-
-
-
-        function appendDataTableRows(no, title, type, lastupdate,idAssessment,tipeIdAssessment,cekBinusian,resultIdAssessment) {
-            // , idx, checkBinusian, idResulTest, tipetest
-
-
-            var url = "@Url.Action("ShowAssessment", "Assessment",new { id = "-1" ,tipeid = "tipe"})";
-            url = url.replace("-1", idAssessment);
-            url = url.replace("tipe", tipeIdAssessment);
-
-
-            var urlView = "@Url.Action("ResultPage", "Assessment", new { id = "-1", tipeid = "tipe" })";
-            urlView = urlView.replace("-1", idAssessment);
-            urlView = urlView.replace("tipe", tipeIdAssessment);
-
-
-
-            var d = new Date(lastupdate);
-
-
-            if (cekBinusian == "ada") {
-                var array = [
-                    "<tr>" +
-                    "<td>" + no + "</td>" +
-                    "</tr>",
-
-                    "<tr>" +
-                    "<td>" + title + "</td>" +
-                    "</tr>",
-
-                    "<tr>" +
-                    "<td>" + type + "</td>" +
-                    "</tr>",
-
-                    "<tr>" +
-                    "<td>" + d.toLocaleString() + "</td>" +
-                    "</tr>",
-
-                    "<tr>" +
-                    "<td>" +
-
-                    "<a href='" + urlView + "'>" +
-                    "<span style='cursor: pointer'><i class='icon-view'></i></span>" +
-                    "</a>" +
-
-
-                    "</td>" +
-                    "</tr>"
-                ];
-            }
-            else if (cekBinusian == "tidakada")
-            {
-                var array = [
-                    "<tr>" +
-                    "<td>" + no + "</td>" +
-                    "</tr>",
-
-                    "<tr>" +
-                    "<td>" + title + "</td>" +
-                    "</tr>",
-
-                    "<tr>" +
-                    "<td>" + type + "</td>" +
-                    "</tr>",
-
-                    "<tr>" +
-                    "<td>" + d.toLocaleString() + "</td>" +
-                    "</tr>",
-
-                    "<tr>" +
-                    "<td>" +
-
-                    "<a href='" + url + "'>" +
-                    "<span style='cursor: pointer'> <i class='icon-edit'></i> </span>" +
-                    "</a>" +
-
-
-                    "</td>" +
-                    "</tr>"
-                ];
-            }
-
-
-
-
-            return array;
-        };
-
-
-
-
-
+            ({
+                method: "GET",
+                url: "/api/assessment/getAllAssessment",
+                
+                success: function (data) {
+                    console.log(data);
+                }
+            });
     </script>
 }

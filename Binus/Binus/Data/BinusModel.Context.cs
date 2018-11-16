@@ -30,17 +30,15 @@ namespace Binus.Data
         public virtual DbSet<AssessmentProcrasinators> AssessmentProcrasinators1 { get; set; }
         public virtual DbSet<Assessments> Assessments1 { get; set; }
         public virtual DbSet<AssessmentSensories> AssessmentSensories1 { get; set; }
+        public virtual DbSet<AssessmentTypes> AssessmentTypes1 { get; set; }
         public virtual DbSet<Languages> Languages1 { get; set; }
-        public virtual DbSet<ResultAssessments> ResultAssessments1 { get; set; }
         public virtual DbSet<ScoreIntelligences> ScoreIntelligences1 { get; set; }
-        public virtual DbSet<ScoreProcrasinators> ScoreProcrasinators1 { get; set; }
+        public virtual DbSet<ScoreProcrasinator> ScoreProcrasinators { get; set; }
         public virtual DbSet<ScoreSensories> ScoreSensories1 { get; set; }
         public virtual DbSet<Sensories> Sensories1 { get; set; }
+        public virtual DbSet<StatementDetailIntelligences> StatementDetailIntelligences1 { get; set; }
         public virtual DbSet<StatementIntelligences> StatementIntelligences1 { get; set; }
         public virtual DbSet<StatementProcrasinators> StatementProcrasinators1 { get; set; }
         public virtual DbSet<StatementSensories> StatementSensories1 { get; set; }
-        public virtual DbSet<Transaction> Transactions { get; set; }
-        public virtual DbSet<StatementDetailIntelligences> StatementDetailIntelligences1 { get; set; }
-        public virtual DbSet<AssessmentTypes> AssessmentTypes1 { get; set; }
     }
 }

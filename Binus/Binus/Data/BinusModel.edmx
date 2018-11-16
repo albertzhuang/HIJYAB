@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BinusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BinusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Agreements">
           <Key>
             <PropertyRef Name="AgreementID" />
@@ -25,17 +25,17 @@
             <PropertyRef Name="AssessmentProcrasinatorID" />
           </Key>
           <Property Name="AssessmentProcrasinatorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AssessmentID" Type="int" />
+          <Property Name="AssessmentID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Assessments">
           <Key>
             <PropertyRef Name="AssessmentID" />
           </Key>
           <Property Name="AssessmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AssessmentTypeID" Type="int" Nullable="false" />
+          <Property Name="AssessmentTypeID" Type="int" />
           <Property Name="AssessmentTitle" Type="varchar(max)" Nullable="false" />
           <Property Name="AssessmentDescription" Type="varchar(max)" Nullable="false" />
-          <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdate" Type="datetime" />
         </EntityType>
         <EntityType Name="AssessmentSensories">
           <Key>
@@ -58,24 +58,6 @@
           <Property Name="LanguageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Language" Type="varchar(max)" Nullable="false" />
         </EntityType>
-        <EntityType Name="ResultAssessments">
-          <Key>
-            <PropertyRef Name="ResultAssessmentID" />
-          </Key>
-          <Property Name="ResultAssessmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AssessmentID" Type="int" Nullable="false" />
-          <Property Name="Institution" Type="varchar(max)" Nullable="false" />
-          <Property Name="AcademikCareer" Type="varchar(max)" Nullable="false" />
-          <Property Name="Campus" Type="varchar(max)" Nullable="false" />
-          <Property Name="AcademicGroup" Type="varchar(max)" Nullable="false" />
-          <Property Name="AcademicOrganization" Type="varchar(max)" Nullable="false" />
-          <Property Name="AcademicProgram" Type="varchar(max)" Nullable="false" />
-          <Property Name="AcademicYear" Type="varchar(max)" Nullable="false" />
-          <Property Name="Status" Type="varchar(max)" Nullable="false" />
-          <Property Name="BinusianID" Type="varchar(max)" Nullable="false" />
-          <Property Name="Result" Type="varchar(max)" Nullable="false" />
-          <Property Name="Describe" Type="varchar(max)" Nullable="false" />
-        </EntityType>
         <EntityType Name="ScoreIntelligences">
           <Key>
             <PropertyRef Name="ScoreIntelligenceID" />
@@ -91,9 +73,9 @@
           </Key>
           <Property Name="ScoreProcrasinatorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentProcrasinatorID" Type="int" Nullable="false" />
+          <Property Name="ScoreWord" Type="varchar(max)" Nullable="false" />
           <Property Name="StartValue" Type="int" Nullable="false" />
           <Property Name="EndValue" Type="int" Nullable="false" />
-          <Property Name="ScoreWord" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="ScoreSensories">
           <Key>
@@ -109,6 +91,7 @@
             <PropertyRef Name="SensoryID" />
           </Key>
           <Property Name="SensoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatementSensoryID" Type="int" Nullable="false" />
           <Property Name="Sensory" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="StatementDetailIntelligences">
@@ -141,27 +124,9 @@
           </Key>
           <Property Name="StatementSensoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSensoryID" Type="int" Nullable="false" />
-          <Property Name="SensoryID" Type="int" Nullable="false" />
           <Property Name="StatementSensory" Type="varchar(max)" Nullable="false" />
         </EntityType>
-        <EntityType Name="Transactions">
-          <Key>
-            <PropertyRef Name="TransactionID" />
-          </Key>
-          <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AssessmentID" Type="int" Nullable="false" />
-          <Property Name="Institution" Type="varchar(max)" Nullable="false" />
-          <Property Name="AcademikCareer" Type="varchar(max)" Nullable="false" />
-          <Property Name="Campus" Type="varchar(max)" Nullable="false" />
-          <Property Name="AcademicGroup" Type="varchar(max)" Nullable="false" />
-          <Property Name="AcademicOrganization" Type="varchar(max)" Nullable="false" />
-          <Property Name="AcademicProgram" Type="varchar(max)" Nullable="false" />
-          <Property Name="AcademicYear" Type="varchar(max)" Nullable="false" />
-          <Property Name="Status" Type="varchar(max)" Nullable="false" />
-          <Property Name="BinusianID" Type="varchar(max)" Nullable="false" />
-          <Property Name="TransactionDate" Type="datetime" Nullable="false" />
-        </EntityType>
-        <Association Name="FK__Agreement__Asses__4222D4EF">
+        <Association Name="FK__Agreement__Asses__40058253">
           <End Role="AssessmentProcrasinators" Type="Self.AssessmentProcrasinators" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -175,8 +140,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Assessmen__Asses__0519C6AF">
-          <End Role="AssessmentTypes" Type="Self.AssessmentTypes" Multiplicity="1">
+        <Association Name="FK__Assessmen__Asses__19DFD96B">
+          <End Role="AssessmentTypes" Type="Self.AssessmentTypes" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Assessments" Type="Self.Assessments" Multiplicity="*" />
@@ -189,7 +154,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Assessmen__Asses__1273C1CD">
+        <Association Name="FK__Assessmen__Asses__1CBC4616">
           <End Role="Assessments" Type="Self.Assessments" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -203,7 +168,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Assessmen__Asses__25869641">
+        <Association Name="FK__Assessmen__Asses__2EDAF651">
           <End Role="Assessments" Type="Self.Assessments" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -217,8 +182,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Assessmen__Asses__38996AB5">
-          <End Role="Assessments" Type="Self.Assessments" Multiplicity="0..1">
+        <Association Name="FK__Assessmen__Asses__3A4CA8FD">
+          <End Role="Assessments" Type="Self.Assessments" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="AssessmentProcrasinators" Type="Self.AssessmentProcrasinators" Multiplicity="*" />
@@ -231,21 +196,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ResultAss__Asses__4BAC3F29">
-          <End Role="Assessments" Type="Self.Assessments" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ResultAssessments" Type="Self.ResultAssessments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Assessments">
-              <PropertyRef Name="AssessmentID" />
-            </Principal>
-            <Dependent Role="ResultAssessments">
-              <PropertyRef Name="AssessmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ScoreInte__Asses__20C1E124">
+        <Association Name="FK__ScoreInte__Asses__25518C17">
           <End Role="AssessmentIntelligences" Type="Self.AssessmentIntelligences" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -259,7 +210,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ScoreProc__Asses__46E78A0C">
+        <Association Name="FK__ScoreProc__Asses__42E1EEFE">
           <End Role="AssessmentProcrasinators" Type="Self.AssessmentProcrasinators" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -273,7 +224,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ScoreSens__Asses__33D4B598">
+        <Association Name="FK__ScoreSens__Asses__37703C52">
           <End Role="AssessmentSensories" Type="Self.AssessmentSensories" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -287,7 +238,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Statement__Asses__173876EA">
+        <Association Name="FK__Sensories__State__3493CFA7">
+          <End Role="StatementSensories" Type="Self.StatementSensories" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sensories" Type="Self.Sensories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatementSensories">
+              <PropertyRef Name="StatementSensoryID" />
+            </Principal>
+            <Dependent Role="Sensories">
+              <PropertyRef Name="StatementSensoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Statement__Asses__1F98B2C1">
           <End Role="AssessmentIntelligences" Type="Self.AssessmentIntelligences" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -301,7 +266,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Statement__Asses__2E1BDC42">
+        <Association Name="FK__Statement__Asses__31B762FC">
           <End Role="AssessmentSensories" Type="Self.AssessmentSensories" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -315,7 +280,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Statement__Asses__3D5E1FD2">
+        <Association Name="FK__Statement__Asses__3D2915A8">
           <End Role="AssessmentProcrasinators" Type="Self.AssessmentProcrasinators" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -329,21 +294,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Statement__Senso__2F10007B">
-          <End Role="Sensories" Type="Self.Sensories" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="StatementSensories" Type="Self.StatementSensories" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sensories">
-              <PropertyRef Name="SensoryID" />
-            </Principal>
-            <Dependent Role="StatementSensories">
-              <PropertyRef Name="SensoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Statement__State__5070F446">
+        <Association Name="FK__Statement__State__22751F6C">
           <End Role="StatementIntelligences" Type="Self.StatementIntelligences" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -357,20 +308,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Transacti__Asses__0DAF0CB0">
-          <End Role="Assessments" Type="Self.Assessments" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Assessments">
-              <PropertyRef Name="AssessmentID" />
-            </Principal>
-            <Dependent Role="Transactions">
-              <PropertyRef Name="AssessmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="BinusModelStoreContainer">
           <EntitySet Name="Agreements" EntityType="Self.Agreements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssessmentIntelligences" EntityType="Self.AssessmentIntelligences" Schema="dbo" store:Type="Tables" />
@@ -379,7 +316,6 @@
           <EntitySet Name="AssessmentSensories" EntityType="Self.AssessmentSensories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssessmentTypes" EntityType="Self.AssessmentTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ResultAssessments" EntityType="Self.ResultAssessments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScoreIntelligences" EntityType="Self.ScoreIntelligences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScoreProcrasinators" EntityType="Self.ScoreProcrasinators" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScoreSensories" EntityType="Self.ScoreSensories" Schema="dbo" store:Type="Tables" />
@@ -388,80 +324,140 @@
           <EntitySet Name="StatementIntelligences" EntityType="Self.StatementIntelligences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatementProcrasinators" EntityType="Self.StatementProcrasinators" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatementSensories" EntityType="Self.StatementSensories" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Agreement__Asses__4222D4EF" Association="Self.FK__Agreement__Asses__4222D4EF">
+          <AssociationSet Name="FK__Agreement__Asses__40058253" Association="Self.FK__Agreement__Asses__40058253">
             <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators" />
             <End Role="Agreements" EntitySet="Agreements" />
           </AssociationSet>
-          <AssociationSet Name="FK__Assessmen__Asses__0519C6AF" Association="Self.FK__Assessmen__Asses__0519C6AF">
+          <AssociationSet Name="FK__Assessmen__Asses__19DFD96B" Association="Self.FK__Assessmen__Asses__19DFD96B">
             <End Role="AssessmentTypes" EntitySet="AssessmentTypes" />
             <End Role="Assessments" EntitySet="Assessments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Assessmen__Asses__1273C1CD" Association="Self.FK__Assessmen__Asses__1273C1CD">
+          <AssociationSet Name="FK__Assessmen__Asses__1CBC4616" Association="Self.FK__Assessmen__Asses__1CBC4616">
             <End Role="Assessments" EntitySet="Assessments" />
             <End Role="AssessmentIntelligences" EntitySet="AssessmentIntelligences" />
           </AssociationSet>
-          <AssociationSet Name="FK__Assessmen__Asses__25869641" Association="Self.FK__Assessmen__Asses__25869641">
+          <AssociationSet Name="FK__Assessmen__Asses__2EDAF651" Association="Self.FK__Assessmen__Asses__2EDAF651">
             <End Role="Assessments" EntitySet="Assessments" />
             <End Role="AssessmentSensories" EntitySet="AssessmentSensories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Assessmen__Asses__38996AB5" Association="Self.FK__Assessmen__Asses__38996AB5">
+          <AssociationSet Name="FK__Assessmen__Asses__3A4CA8FD" Association="Self.FK__Assessmen__Asses__3A4CA8FD">
             <End Role="Assessments" EntitySet="Assessments" />
             <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators" />
           </AssociationSet>
-          <AssociationSet Name="FK__ResultAss__Asses__4BAC3F29" Association="Self.FK__ResultAss__Asses__4BAC3F29">
-            <End Role="Assessments" EntitySet="Assessments" />
-            <End Role="ResultAssessments" EntitySet="ResultAssessments" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ScoreInte__Asses__20C1E124" Association="Self.FK__ScoreInte__Asses__20C1E124">
+          <AssociationSet Name="FK__ScoreInte__Asses__25518C17" Association="Self.FK__ScoreInte__Asses__25518C17">
             <End Role="AssessmentIntelligences" EntitySet="AssessmentIntelligences" />
             <End Role="ScoreIntelligences" EntitySet="ScoreIntelligences" />
           </AssociationSet>
-          <AssociationSet Name="FK__ScoreProc__Asses__46E78A0C" Association="Self.FK__ScoreProc__Asses__46E78A0C">
+          <AssociationSet Name="FK__ScoreProc__Asses__42E1EEFE" Association="Self.FK__ScoreProc__Asses__42E1EEFE">
             <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators" />
             <End Role="ScoreProcrasinators" EntitySet="ScoreProcrasinators" />
           </AssociationSet>
-          <AssociationSet Name="FK__ScoreSens__Asses__33D4B598" Association="Self.FK__ScoreSens__Asses__33D4B598">
+          <AssociationSet Name="FK__ScoreSens__Asses__37703C52" Association="Self.FK__ScoreSens__Asses__37703C52">
             <End Role="AssessmentSensories" EntitySet="AssessmentSensories" />
             <End Role="ScoreSensories" EntitySet="ScoreSensories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Statement__Asses__173876EA" Association="Self.FK__Statement__Asses__173876EA">
+          <AssociationSet Name="FK__Sensories__State__3493CFA7" Association="Self.FK__Sensories__State__3493CFA7">
+            <End Role="StatementSensories" EntitySet="StatementSensories" />
+            <End Role="Sensories" EntitySet="Sensories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Statement__Asses__1F98B2C1" Association="Self.FK__Statement__Asses__1F98B2C1">
             <End Role="AssessmentIntelligences" EntitySet="AssessmentIntelligences" />
             <End Role="StatementIntelligences" EntitySet="StatementIntelligences" />
           </AssociationSet>
-          <AssociationSet Name="FK__Statement__Asses__2E1BDC42" Association="Self.FK__Statement__Asses__2E1BDC42">
+          <AssociationSet Name="FK__Statement__Asses__31B762FC" Association="Self.FK__Statement__Asses__31B762FC">
             <End Role="AssessmentSensories" EntitySet="AssessmentSensories" />
             <End Role="StatementSensories" EntitySet="StatementSensories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Statement__Asses__3D5E1FD2" Association="Self.FK__Statement__Asses__3D5E1FD2">
+          <AssociationSet Name="FK__Statement__Asses__3D2915A8" Association="Self.FK__Statement__Asses__3D2915A8">
             <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators" />
             <End Role="StatementProcrasinators" EntitySet="StatementProcrasinators" />
           </AssociationSet>
-          <AssociationSet Name="FK__Statement__Senso__2F10007B" Association="Self.FK__Statement__Senso__2F10007B">
-            <End Role="Sensories" EntitySet="Sensories" />
-            <End Role="StatementSensories" EntitySet="StatementSensories" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Statement__State__5070F446" Association="Self.FK__Statement__State__5070F446">
+          <AssociationSet Name="FK__Statement__State__22751F6C" Association="Self.FK__Statement__State__22751F6C">
             <End Role="StatementIntelligences" EntitySet="StatementIntelligences" />
             <End Role="StatementDetailIntelligences" EntitySet="StatementDetailIntelligences" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Transacti__Asses__0DAF0CB0" Association="Self.FK__Transacti__Asses__0DAF0CB0">
-            <End Role="Assessments" EntitySet="Assessments" />
-            <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BinusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BinusEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agreements1" EntityType="BinusModel.Agreements" />
+          <EntitySet Name="AssessmentIntelligences1" EntityType="BinusModel.AssessmentIntelligences" />
+          <EntitySet Name="AssessmentProcrasinators1" EntityType="BinusModel.AssessmentProcrasinators" />
+          <EntitySet Name="Assessments1" EntityType="BinusModel.Assessments" />
+          <EntitySet Name="AssessmentSensories1" EntityType="BinusModel.AssessmentSensories" />
+          <EntitySet Name="AssessmentTypes1" EntityType="BinusModel.AssessmentTypes" />
+          <EntitySet Name="Languages1" EntityType="BinusModel.Languages" />
+          <EntitySet Name="ScoreIntelligences1" EntityType="BinusModel.ScoreIntelligences" />
+          <EntitySet Name="ScoreProcrasinators" EntityType="BinusModel.ScoreProcrasinator" />
+          <EntitySet Name="ScoreSensories1" EntityType="BinusModel.ScoreSensories" />
+          <EntitySet Name="Sensories1" EntityType="BinusModel.Sensories" />
+          <EntitySet Name="StatementDetailIntelligences1" EntityType="BinusModel.StatementDetailIntelligences" />
+          <EntitySet Name="StatementIntelligences1" EntityType="BinusModel.StatementIntelligences" />
+          <EntitySet Name="StatementProcrasinators1" EntityType="BinusModel.StatementProcrasinators" />
+          <EntitySet Name="StatementSensories1" EntityType="BinusModel.StatementSensories" />
+          <AssociationSet Name="FK__Agreement__Asses__40058253" Association="BinusModel.FK__Agreement__Asses__40058253">
+            <End Role="AssessmentProcrasinator" EntitySet="AssessmentProcrasinators1" />
+            <End Role="Agreement" EntitySet="Agreements1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Assessmen__Asses__1CBC4616" Association="BinusModel.FK__Assessmen__Asses__1CBC4616">
+            <End Role="Assessment" EntitySet="Assessments1" />
+            <End Role="AssessmentIntelligence" EntitySet="AssessmentIntelligences1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ScoreInte__Asses__25518C17" Association="BinusModel.FK__ScoreInte__Asses__25518C17">
+            <End Role="AssessmentIntelligence" EntitySet="AssessmentIntelligences1" />
+            <End Role="ScoreIntelligence" EntitySet="ScoreIntelligences1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Statement__Asses__1F98B2C1" Association="BinusModel.FK__Statement__Asses__1F98B2C1">
+            <End Role="AssessmentIntelligence" EntitySet="AssessmentIntelligences1" />
+            <End Role="StatementIntelligence" EntitySet="StatementIntelligences1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Assessmen__Asses__3A4CA8FD" Association="BinusModel.FK__Assessmen__Asses__3A4CA8FD">
+            <End Role="Assessment" EntitySet="Assessments1" />
+            <End Role="AssessmentProcrasinator" EntitySet="AssessmentProcrasinators1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ScoreProc__Asses__42E1EEFE" Association="BinusModel.FK__ScoreProc__Asses__42E1EEFE">
+            <End Role="AssessmentProcrasinator" EntitySet="AssessmentProcrasinators1" />
+            <End Role="ScoreProcrasinator" EntitySet="ScoreProcrasinators" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Statement__Asses__3D2915A8" Association="BinusModel.FK__Statement__Asses__3D2915A8">
+            <End Role="AssessmentProcrasinator" EntitySet="AssessmentProcrasinators1" />
+            <End Role="StatementProcrasinator" EntitySet="StatementProcrasinators1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Assessmen__Asses__19DFD96B" Association="BinusModel.FK__Assessmen__Asses__19DFD96B">
+            <End Role="AssessmentType" EntitySet="AssessmentTypes1" />
+            <End Role="Assessment" EntitySet="Assessments1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Assessmen__Asses__2EDAF651" Association="BinusModel.FK__Assessmen__Asses__2EDAF651">
+            <End Role="Assessment" EntitySet="Assessments1" />
+            <End Role="AssessmentSensory" EntitySet="AssessmentSensories1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ScoreSens__Asses__37703C52" Association="BinusModel.FK__ScoreSens__Asses__37703C52">
+            <End Role="AssessmentSensory" EntitySet="AssessmentSensories1" />
+            <End Role="ScoreSensory" EntitySet="ScoreSensories1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Statement__Asses__31B762FC" Association="BinusModel.FK__Statement__Asses__31B762FC">
+            <End Role="AssessmentSensory" EntitySet="AssessmentSensories1" />
+            <End Role="StatementSensory" EntitySet="StatementSensories1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sensories__State__3493CFA7" Association="BinusModel.FK__Sensories__State__3493CFA7">
+            <End Role="StatementSensory" EntitySet="StatementSensories1" />
+            <End Role="Sensory" EntitySet="Sensories1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Statement__State__22751F6C" Association="BinusModel.FK__Statement__State__22751F6C">
+            <End Role="StatementIntelligence" EntitySet="StatementIntelligences1" />
+            <End Role="StatementDetailIntelligence" EntitySet="StatementDetailIntelligences1" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Agreements">
           <Key>
             <PropertyRef Name="AgreementID" />
           </Key>
           <Property Name="AgreementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentProcrasinatorID" Type="Int32" Nullable="false" />
-          <Property Name="Agreement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="AssessmentProcrasinator" Relationship="Self.FK__Agreement__Asses__4222D4EF" FromRole="Agreements" ToRole="AssessmentProcrasinators" />
+          <Property Name="Agreement" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AssessmentProcrasinator" Relationship="BinusModel.FK__Agreement__Asses__40058253" FromRole="Agreement" ToRole="AssessmentProcrasinator" />
         </EntityType>
         <EntityType Name="AssessmentIntelligences">
           <Key>
@@ -469,36 +465,34 @@
           </Key>
           <Property Name="AssessmentIntelligenceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Assessment" Relationship="Self.FK__Assessmen__Asses__1273C1CD" FromRole="AssessmentIntelligences" ToRole="Assessments" />
-          <NavigationProperty Name="ScoreIntelligences" Relationship="Self.FK__ScoreInte__Asses__20C1E124" FromRole="AssessmentIntelligences" ToRole="ScoreIntelligences" />
-          <NavigationProperty Name="StatementIntelligences" Relationship="Self.FK__Statement__Asses__173876EA" FromRole="AssessmentIntelligences" ToRole="StatementIntelligences" />
+          <NavigationProperty Name="Assessment" Relationship="BinusModel.FK__Assessmen__Asses__1CBC4616" FromRole="AssessmentIntelligence" ToRole="Assessment" />
+          <NavigationProperty Name="ScoreIntelligences" Relationship="BinusModel.FK__ScoreInte__Asses__25518C17" FromRole="AssessmentIntelligence" ToRole="ScoreIntelligence" />
+          <NavigationProperty Name="StatementIntelligences" Relationship="BinusModel.FK__Statement__Asses__1F98B2C1" FromRole="AssessmentIntelligence" ToRole="StatementIntelligence" />
         </EntityType>
         <EntityType Name="AssessmentProcrasinators">
           <Key>
             <PropertyRef Name="AssessmentProcrasinatorID" />
           </Key>
           <Property Name="AssessmentProcrasinatorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssessmentID" Type="Int32" />
-          <NavigationProperty Name="Agreements" Relationship="Self.FK__Agreement__Asses__4222D4EF" FromRole="AssessmentProcrasinators" ToRole="Agreements" />
-          <NavigationProperty Name="Assessment" Relationship="Self.FK__Assessmen__Asses__38996AB5" FromRole="AssessmentProcrasinators" ToRole="Assessments" />
-          <NavigationProperty Name="ScoreProcrasinators" Relationship="Self.FK__ScoreProc__Asses__46E78A0C" FromRole="AssessmentProcrasinators" ToRole="ScoreProcrasinators" />
-          <NavigationProperty Name="StatementProcrasinators" Relationship="Self.FK__Statement__Asses__3D5E1FD2" FromRole="AssessmentProcrasinators" ToRole="StatementProcrasinators" />
+          <Property Name="AssessmentID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Agreements" Relationship="BinusModel.FK__Agreement__Asses__40058253" FromRole="AssessmentProcrasinator" ToRole="Agreement" />
+          <NavigationProperty Name="Assessment" Relationship="BinusModel.FK__Assessmen__Asses__3A4CA8FD" FromRole="AssessmentProcrasinator" ToRole="Assessment" />
+          <NavigationProperty Name="ScoreProcrasinators" Relationship="BinusModel.FK__ScoreProc__Asses__42E1EEFE" FromRole="AssessmentProcrasinator" ToRole="ScoreProcrasinator" />
+          <NavigationProperty Name="StatementProcrasinators" Relationship="BinusModel.FK__Statement__Asses__3D2915A8" FromRole="AssessmentProcrasinator" ToRole="StatementProcrasinator" />
         </EntityType>
         <EntityType Name="Assessments">
           <Key>
             <PropertyRef Name="AssessmentID" />
           </Key>
           <Property Name="AssessmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssessmentTypeID" Type="Int32" Nullable="false" />
-          <Property Name="AssessmentTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AssessmentDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastUpdate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AssessmentIntelligences" Relationship="Self.FK__Assessmen__Asses__1273C1CD" FromRole="Assessments" ToRole="AssessmentIntelligences" />
-          <NavigationProperty Name="AssessmentProcrasinators" Relationship="Self.FK__Assessmen__Asses__38996AB5" FromRole="Assessments" ToRole="AssessmentProcrasinators" />
-          <NavigationProperty Name="AssessmentSensories" Relationship="Self.FK__Assessmen__Asses__25869641" FromRole="Assessments" ToRole="AssessmentSensories" />
-          <NavigationProperty Name="ResultAssessments" Relationship="Self.FK__ResultAss__Asses__4BAC3F29" FromRole="Assessments" ToRole="ResultAssessments" />
-          <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__Asses__0DAF0CB0" FromRole="Assessments" ToRole="Transactions" />
-          <NavigationProperty Name="AssessmentType" Relationship="BinusModel.FK__Assessmen__Asses__0519C6AF" FromRole="Assessments" ToRole="AssessmentType" />
+          <Property Name="AssessmentTypeID" Type="Int32" />
+          <Property Name="AssessmentTitle" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AssessmentDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LastUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AssessmentIntelligences" Relationship="BinusModel.FK__Assessmen__Asses__1CBC4616" FromRole="Assessment" ToRole="AssessmentIntelligence" />
+          <NavigationProperty Name="AssessmentProcrasinators" Relationship="BinusModel.FK__Assessmen__Asses__3A4CA8FD" FromRole="Assessment" ToRole="AssessmentProcrasinator" />
+          <NavigationProperty Name="AssessmentType" Relationship="BinusModel.FK__Assessmen__Asses__19DFD96B" FromRole="Assessment" ToRole="AssessmentType" />
+          <NavigationProperty Name="AssessmentSensories" Relationship="BinusModel.FK__Assessmen__Asses__2EDAF651" FromRole="Assessment" ToRole="AssessmentSensory" />
         </EntityType>
         <EntityType Name="AssessmentSensories">
           <Key>
@@ -506,35 +500,24 @@
           </Key>
           <Property Name="AssessmentSensoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Assessment" Relationship="Self.FK__Assessmen__Asses__25869641" FromRole="AssessmentSensories" ToRole="Assessments" />
-          <NavigationProperty Name="ScoreSensories" Relationship="Self.FK__ScoreSens__Asses__33D4B598" FromRole="AssessmentSensories" ToRole="ScoreSensories" />
-          <NavigationProperty Name="StatementSensories" Relationship="Self.FK__Statement__Asses__2E1BDC42" FromRole="AssessmentSensories" ToRole="StatementSensories" />
+          <NavigationProperty Name="Assessment" Relationship="BinusModel.FK__Assessmen__Asses__2EDAF651" FromRole="AssessmentSensory" ToRole="Assessment" />
+          <NavigationProperty Name="ScoreSensories" Relationship="BinusModel.FK__ScoreSens__Asses__37703C52" FromRole="AssessmentSensory" ToRole="ScoreSensory" />
+          <NavigationProperty Name="StatementSensories" Relationship="BinusModel.FK__Statement__Asses__31B762FC" FromRole="AssessmentSensory" ToRole="StatementSensory" />
+        </EntityType>
+        <EntityType Name="AssessmentTypes">
+          <Key>
+            <PropertyRef Name="AssessmentTypeID" />
+          </Key>
+          <Property Name="AssessmentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssessmentType" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Assessments" Relationship="BinusModel.FK__Assessmen__Asses__19DFD96B" FromRole="AssessmentType" ToRole="Assessment" />
         </EntityType>
         <EntityType Name="Languages">
           <Key>
             <PropertyRef Name="LanguageID" />
           </Key>
           <Property Name="LanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Language" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ResultAssessments">
-          <Key>
-            <PropertyRef Name="ResultAssessmentID" />
-          </Key>
-          <Property Name="ResultAssessmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssessmentID" Type="Int32" Nullable="false" />
-          <Property Name="Institution" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AcademikCareer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Campus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AcademicGroup" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AcademicOrganization" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AcademicProgram" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AcademicYear" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BinusianID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Assessment" Relationship="Self.FK__ResultAss__Asses__4BAC3F29" FromRole="ResultAssessments" ToRole="Assessments" />
+          <Property Name="Language" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ScoreIntelligences">
           <Key>
@@ -543,19 +526,19 @@
           <Property Name="ScoreIntelligenceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentIntelligenceID" Type="Int32" Nullable="false" />
           <Property Name="ScoreValue" Type="Int32" Nullable="false" />
-          <Property Name="ScoreWord" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="AssessmentIntelligence" Relationship="Self.FK__ScoreInte__Asses__20C1E124" FromRole="ScoreIntelligences" ToRole="AssessmentIntelligences" />
+          <Property Name="ScoreWord" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AssessmentIntelligence" Relationship="BinusModel.FK__ScoreInte__Asses__25518C17" FromRole="ScoreIntelligence" ToRole="AssessmentIntelligence" />
         </EntityType>
-        <EntityType Name="ScoreProcrasinators">
+        <EntityType Name="ScoreProcrasinator">
           <Key>
             <PropertyRef Name="ScoreProcrasinatorID" />
           </Key>
           <Property Name="ScoreProcrasinatorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentProcrasinatorID" Type="Int32" Nullable="false" />
+          <Property Name="ScoreWord" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="StartValue" Type="Int32" Nullable="false" />
           <Property Name="EndValue" Type="Int32" Nullable="false" />
-          <Property Name="ScoreWord" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="AssessmentProcrasinator" Relationship="Self.FK__ScoreProc__Asses__46E78A0C" FromRole="ScoreProcrasinators" ToRole="AssessmentProcrasinators" />
+          <NavigationProperty Name="AssessmentProcrasinator" Relationship="BinusModel.FK__ScoreProc__Asses__42E1EEFE" FromRole="ScoreProcrasinator" ToRole="AssessmentProcrasinator" />
         </EntityType>
         <EntityType Name="ScoreSensories">
           <Key>
@@ -564,326 +547,18 @@
           <Property Name="ScoreSensoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSensoryID" Type="Int32" Nullable="false" />
           <Property Name="ScoreValue" Type="Int32" Nullable="false" />
-          <Property Name="ScoreWord" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="AssessmentSensory" Relationship="Self.FK__ScoreSens__Asses__33D4B598" FromRole="ScoreSensories" ToRole="AssessmentSensories" />
+          <Property Name="ScoreWord" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AssessmentSensory" Relationship="BinusModel.FK__ScoreSens__Asses__37703C52" FromRole="ScoreSensory" ToRole="AssessmentSensory" />
         </EntityType>
         <EntityType Name="Sensories">
           <Key>
             <PropertyRef Name="SensoryID" />
           </Key>
           <Property Name="SensoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Sensory" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="StatementSensories" Relationship="Self.FK__Statement__Senso__2F10007B" FromRole="Sensories" ToRole="StatementSensories" />
+          <Property Name="StatementSensoryID" Type="Int32" Nullable="false" />
+          <Property Name="Sensory" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StatementSensory" Relationship="BinusModel.FK__Sensories__State__3493CFA7" FromRole="Sensory" ToRole="StatementSensory" />
         </EntityType>
-        <EntityType Name="StatementIntelligences">
-          <Key>
-            <PropertyRef Name="StatementIntelligenceID" />
-          </Key>
-          <Property Name="StatementIntelligenceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssessmentIntelligenceID" Type="Int32" Nullable="false" />
-          <Property Name="StatementIntelligence" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="AssessmentIntelligence" Relationship="Self.FK__Statement__Asses__173876EA" FromRole="StatementIntelligences" ToRole="AssessmentIntelligences" />
-          <NavigationProperty Name="StatementDetailIntelligences" Relationship="BinusModel.FK__Statement__State__5070F446" FromRole="StatementIntelligences" ToRole="StatementDetailIntelligence" />
-        </EntityType>
-        <EntityType Name="StatementProcrasinators">
-          <Key>
-            <PropertyRef Name="StatementProcrasiantorID" />
-          </Key>
-          <Property Name="StatementProcrasiantorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssessmentProcrasinatorID" Type="Int32" Nullable="false" />
-          <Property Name="StatementProcrasinator1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="AssessmentProcrasinator" Relationship="Self.FK__Statement__Asses__3D5E1FD2" FromRole="StatementProcrasinators" ToRole="AssessmentProcrasinators" />
-        </EntityType>
-        <EntityType Name="StatementSensories">
-          <Key>
-            <PropertyRef Name="StatementSensoryID" />
-          </Key>
-          <Property Name="StatementSensoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssessmentSensoryID" Type="Int32" Nullable="false" />
-          <Property Name="SensoryID" Type="Int32" Nullable="false" />
-          <Property Name="StatementSensory" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="AssessmentSensory" Relationship="Self.FK__Statement__Asses__2E1BDC42" FromRole="StatementSensories" ToRole="AssessmentSensories" />
-          <NavigationProperty Name="Sensory" Relationship="Self.FK__Statement__Senso__2F10007B" FromRole="StatementSensories" ToRole="Sensories" />
-        </EntityType>
-        <EntityType Name="Transaction">
-          <Key>
-            <PropertyRef Name="TransactionID" />
-          </Key>
-          <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssessmentID" Type="Int32" Nullable="false" />
-          <Property Name="Institution" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AcademikCareer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Campus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AcademicGroup" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AcademicOrganization" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AcademicProgram" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AcademicYear" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BinusianID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Assessment" Relationship="Self.FK__Transacti__Asses__0DAF0CB0" FromRole="Transactions" ToRole="Assessments" />
-        </EntityType>
-        <Association Name="FK__Agreement__Asses__4222D4EF">
-          <End Role="AssessmentProcrasinators" Type="BinusModel.AssessmentProcrasinators" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Agreements" Type="BinusModel.Agreements" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssessmentProcrasinators">
-              <PropertyRef Name="AssessmentProcrasinatorID" />
-            </Principal>
-            <Dependent Role="Agreements">
-              <PropertyRef Name="AssessmentProcrasinatorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Assessmen__Asses__1273C1CD">
-          <End Role="Assessments" Type="BinusModel.Assessments" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AssessmentIntelligences" Type="BinusModel.AssessmentIntelligences" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Assessments">
-              <PropertyRef Name="AssessmentID" />
-            </Principal>
-            <Dependent Role="AssessmentIntelligences">
-              <PropertyRef Name="AssessmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ScoreInte__Asses__20C1E124">
-          <End Role="AssessmentIntelligences" Type="BinusModel.AssessmentIntelligences" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ScoreIntelligences" Type="BinusModel.ScoreIntelligences" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssessmentIntelligences">
-              <PropertyRef Name="AssessmentIntelligenceID" />
-            </Principal>
-            <Dependent Role="ScoreIntelligences">
-              <PropertyRef Name="AssessmentIntelligenceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Statement__Asses__173876EA">
-          <End Role="AssessmentIntelligences" Type="BinusModel.AssessmentIntelligences" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="StatementIntelligences" Type="BinusModel.StatementIntelligences" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssessmentIntelligences">
-              <PropertyRef Name="AssessmentIntelligenceID" />
-            </Principal>
-            <Dependent Role="StatementIntelligences">
-              <PropertyRef Name="AssessmentIntelligenceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Assessmen__Asses__38996AB5">
-          <End Role="Assessments" Type="BinusModel.Assessments" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AssessmentProcrasinators" Type="BinusModel.AssessmentProcrasinators" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Assessments">
-              <PropertyRef Name="AssessmentID" />
-            </Principal>
-            <Dependent Role="AssessmentProcrasinators">
-              <PropertyRef Name="AssessmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ScoreProc__Asses__46E78A0C">
-          <End Role="AssessmentProcrasinators" Type="BinusModel.AssessmentProcrasinators" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ScoreProcrasinators" Type="BinusModel.ScoreProcrasinators" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssessmentProcrasinators">
-              <PropertyRef Name="AssessmentProcrasinatorID" />
-            </Principal>
-            <Dependent Role="ScoreProcrasinators">
-              <PropertyRef Name="AssessmentProcrasinatorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Statement__Asses__3D5E1FD2">
-          <End Role="AssessmentProcrasinators" Type="BinusModel.AssessmentProcrasinators" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="StatementProcrasinators" Type="BinusModel.StatementProcrasinators" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssessmentProcrasinators">
-              <PropertyRef Name="AssessmentProcrasinatorID" />
-            </Principal>
-            <Dependent Role="StatementProcrasinators">
-              <PropertyRef Name="AssessmentProcrasinatorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Assessmen__Asses__25869641">
-          <End Role="Assessments" Type="BinusModel.Assessments" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AssessmentSensories" Type="BinusModel.AssessmentSensories" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Assessments">
-              <PropertyRef Name="AssessmentID" />
-            </Principal>
-            <Dependent Role="AssessmentSensories">
-              <PropertyRef Name="AssessmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ResultAss__Asses__4BAC3F29">
-          <End Role="Assessments" Type="BinusModel.Assessments" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ResultAssessments" Type="BinusModel.ResultAssessments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Assessments">
-              <PropertyRef Name="AssessmentID" />
-            </Principal>
-            <Dependent Role="ResultAssessments">
-              <PropertyRef Name="AssessmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Transacti__Asses__0DAF0CB0">
-          <End Role="Assessments" Type="BinusModel.Assessments" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Assessments">
-              <PropertyRef Name="AssessmentID" />
-            </Principal>
-            <Dependent Role="Transactions">
-              <PropertyRef Name="AssessmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ScoreSens__Asses__33D4B598">
-          <End Role="AssessmentSensories" Type="BinusModel.AssessmentSensories" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ScoreSensories" Type="BinusModel.ScoreSensories" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssessmentSensories">
-              <PropertyRef Name="AssessmentSensoryID" />
-            </Principal>
-            <Dependent Role="ScoreSensories">
-              <PropertyRef Name="AssessmentSensoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Statement__Asses__2E1BDC42">
-          <End Role="AssessmentSensories" Type="BinusModel.AssessmentSensories" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="StatementSensories" Type="BinusModel.StatementSensories" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssessmentSensories">
-              <PropertyRef Name="AssessmentSensoryID" />
-            </Principal>
-            <Dependent Role="StatementSensories">
-              <PropertyRef Name="AssessmentSensoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Statement__Senso__2F10007B">
-          <End Role="Sensories" Type="BinusModel.Sensories" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="StatementSensories" Type="BinusModel.StatementSensories" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sensories">
-              <PropertyRef Name="SensoryID" />
-            </Principal>
-            <Dependent Role="StatementSensories">
-              <PropertyRef Name="SensoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="BinusEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Agreements1" EntityType="BinusModel.Agreements" />
-          <EntitySet Name="AssessmentIntelligences1" EntityType="BinusModel.AssessmentIntelligences" />
-          <EntitySet Name="AssessmentProcrasinators1" EntityType="BinusModel.AssessmentProcrasinators" />
-          <EntitySet Name="Assessments1" EntityType="BinusModel.Assessments" />
-          <EntitySet Name="AssessmentSensories1" EntityType="BinusModel.AssessmentSensories" />
-          <EntitySet Name="Languages1" EntityType="BinusModel.Languages" />
-          <EntitySet Name="ResultAssessments1" EntityType="BinusModel.ResultAssessments" />
-          <EntitySet Name="ScoreIntelligences1" EntityType="BinusModel.ScoreIntelligences" />
-          <EntitySet Name="ScoreProcrasinators1" EntityType="BinusModel.ScoreProcrasinators" />
-          <EntitySet Name="ScoreSensories1" EntityType="BinusModel.ScoreSensories" />
-          <EntitySet Name="Sensories1" EntityType="BinusModel.Sensories" />
-          <EntitySet Name="StatementIntelligences1" EntityType="BinusModel.StatementIntelligences" />
-          <EntitySet Name="StatementProcrasinators1" EntityType="BinusModel.StatementProcrasinators" />
-          <EntitySet Name="StatementSensories1" EntityType="BinusModel.StatementSensories" />
-          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
-          <AssociationSet Name="FK__Agreement__Asses__4222D4EF" Association="Self.FK__Agreement__Asses__4222D4EF">
-            <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators1" />
-            <End Role="Agreements" EntitySet="Agreements1" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Assessmen__Asses__1273C1CD" Association="Self.FK__Assessmen__Asses__1273C1CD">
-            <End Role="Assessments" EntitySet="Assessments1" />
-            <End Role="AssessmentIntelligences" EntitySet="AssessmentIntelligences1" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ScoreInte__Asses__20C1E124" Association="Self.FK__ScoreInte__Asses__20C1E124">
-            <End Role="AssessmentIntelligences" EntitySet="AssessmentIntelligences1" />
-            <End Role="ScoreIntelligences" EntitySet="ScoreIntelligences1" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Statement__Asses__173876EA" Association="Self.FK__Statement__Asses__173876EA">
-            <End Role="AssessmentIntelligences" EntitySet="AssessmentIntelligences1" />
-            <End Role="StatementIntelligences" EntitySet="StatementIntelligences1" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Assessmen__Asses__38996AB5" Association="Self.FK__Assessmen__Asses__38996AB5">
-            <End Role="Assessments" EntitySet="Assessments1" />
-            <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators1" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ScoreProc__Asses__46E78A0C" Association="Self.FK__ScoreProc__Asses__46E78A0C">
-            <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators1" />
-            <End Role="ScoreProcrasinators" EntitySet="ScoreProcrasinators1" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Statement__Asses__3D5E1FD2" Association="Self.FK__Statement__Asses__3D5E1FD2">
-            <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators1" />
-            <End Role="StatementProcrasinators" EntitySet="StatementProcrasinators1" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Assessmen__Asses__25869641" Association="Self.FK__Assessmen__Asses__25869641">
-            <End Role="Assessments" EntitySet="Assessments1" />
-            <End Role="AssessmentSensories" EntitySet="AssessmentSensories1" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ResultAss__Asses__4BAC3F29" Association="Self.FK__ResultAss__Asses__4BAC3F29">
-            <End Role="Assessments" EntitySet="Assessments1" />
-            <End Role="ResultAssessments" EntitySet="ResultAssessments1" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Transacti__Asses__0DAF0CB0" Association="Self.FK__Transacti__Asses__0DAF0CB0">
-            <End Role="Assessments" EntitySet="Assessments1" />
-            <End Role="Transactions" EntitySet="Transactions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ScoreSens__Asses__33D4B598" Association="Self.FK__ScoreSens__Asses__33D4B598">
-            <End Role="AssessmentSensories" EntitySet="AssessmentSensories1" />
-            <End Role="ScoreSensories" EntitySet="ScoreSensories1" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Statement__Asses__2E1BDC42" Association="Self.FK__Statement__Asses__2E1BDC42">
-            <End Role="AssessmentSensories" EntitySet="AssessmentSensories1" />
-            <End Role="StatementSensories" EntitySet="StatementSensories1" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Statement__Senso__2F10007B" Association="Self.FK__Statement__Senso__2F10007B">
-            <End Role="Sensories" EntitySet="Sensories1" />
-            <End Role="StatementSensories" EntitySet="StatementSensories1" />
-          </AssociationSet>
-          <EntitySet Name="StatementDetailIntelligences1" EntityType="BinusModel.StatementDetailIntelligences" />
-          <AssociationSet Name="FK__Statement__State__5070F446" Association="BinusModel.FK__Statement__State__5070F446">
-            <End Role="StatementIntelligences" EntitySet="StatementIntelligences1" />
-            <End Role="StatementDetailIntelligence" EntitySet="StatementDetailIntelligences1" />
-          </AssociationSet>
-          <EntitySet Name="AssessmentTypes1" EntityType="BinusModel.AssessmentTypes" />
-          <AssociationSet Name="FK__Assessmen__Asses__0519C6AF" Association="BinusModel.FK__Assessmen__Asses__0519C6AF">
-            <End Role="AssessmentType" EntitySet="AssessmentTypes1" />
-            <End Role="Assessments" EntitySet="Assessments1" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="StatementDetailIntelligences">
           <Key>
             <PropertyRef Name="StatementDetailIntelligenceID" />
@@ -891,15 +566,212 @@
           <Property Name="StatementDetailIntelligenceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StatementIntelligenceID" Type="Int32" Nullable="false" />
           <Property Name="StatementDetailIntelligence" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="StatementIntelligence" Relationship="BinusModel.FK__Statement__State__5070F446" FromRole="StatementDetailIntelligence" ToRole="StatementIntelligences" />
+          <NavigationProperty Name="StatementIntelligence" Relationship="BinusModel.FK__Statement__State__22751F6C" FromRole="StatementDetailIntelligence" ToRole="StatementIntelligence" />
         </EntityType>
-        <Association Name="FK__Statement__State__5070F446">
-          <End Type="BinusModel.StatementIntelligences" Role="StatementIntelligences" Multiplicity="1">
+        <EntityType Name="StatementIntelligences">
+          <Key>
+            <PropertyRef Name="StatementIntelligenceID" />
+          </Key>
+          <Property Name="StatementIntelligenceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssessmentIntelligenceID" Type="Int32" Nullable="false" />
+          <Property Name="StatementIntelligence" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AssessmentIntelligence" Relationship="BinusModel.FK__Statement__Asses__1F98B2C1" FromRole="StatementIntelligence" ToRole="AssessmentIntelligence" />
+          <NavigationProperty Name="StatementDetailIntelligences" Relationship="BinusModel.FK__Statement__State__22751F6C" FromRole="StatementIntelligence" ToRole="StatementDetailIntelligence" />
+        </EntityType>
+        <EntityType Name="StatementProcrasinators">
+          <Key>
+            <PropertyRef Name="StatementProcrasiantorID" />
+          </Key>
+          <Property Name="StatementProcrasiantorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssessmentProcrasinatorID" Type="Int32" Nullable="false" />
+          <Property Name="StatementProcrasinator" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AssessmentProcrasinator" Relationship="BinusModel.FK__Statement__Asses__3D2915A8" FromRole="StatementProcrasinator" ToRole="AssessmentProcrasinator" />
+        </EntityType>
+        <EntityType Name="StatementSensories">
+          <Key>
+            <PropertyRef Name="StatementSensoryID" />
+          </Key>
+          <Property Name="StatementSensoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssessmentSensoryID" Type="Int32" Nullable="false" />
+          <Property Name="StatementSensory" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AssessmentSensory" Relationship="BinusModel.FK__Statement__Asses__31B762FC" FromRole="StatementSensory" ToRole="AssessmentSensory" />
+          <NavigationProperty Name="Sensories" Relationship="BinusModel.FK__Sensories__State__3493CFA7" FromRole="StatementSensory" ToRole="Sensory" />
+        </EntityType>
+        <Association Name="FK__Agreement__Asses__40058253">
+          <End Type="BinusModel.AssessmentProcrasinators" Role="AssessmentProcrasinator" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.Agreements" Role="Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentProcrasinator">
+              <PropertyRef Name="AssessmentProcrasinatorID" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="AssessmentProcrasinatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Assessmen__Asses__1CBC4616">
+          <End Type="BinusModel.Assessments" Role="Assessment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.AssessmentIntelligences" Role="AssessmentIntelligence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assessment">
+              <PropertyRef Name="AssessmentID" />
+            </Principal>
+            <Dependent Role="AssessmentIntelligence">
+              <PropertyRef Name="AssessmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ScoreInte__Asses__25518C17">
+          <End Type="BinusModel.AssessmentIntelligences" Role="AssessmentIntelligence" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.ScoreIntelligences" Role="ScoreIntelligence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentIntelligence">
+              <PropertyRef Name="AssessmentIntelligenceID" />
+            </Principal>
+            <Dependent Role="ScoreIntelligence">
+              <PropertyRef Name="AssessmentIntelligenceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Statement__Asses__1F98B2C1">
+          <End Type="BinusModel.AssessmentIntelligences" Role="AssessmentIntelligence" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.StatementIntelligences" Role="StatementIntelligence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentIntelligence">
+              <PropertyRef Name="AssessmentIntelligenceID" />
+            </Principal>
+            <Dependent Role="StatementIntelligence">
+              <PropertyRef Name="AssessmentIntelligenceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Assessmen__Asses__3A4CA8FD">
+          <End Type="BinusModel.Assessments" Role="Assessment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.AssessmentProcrasinators" Role="AssessmentProcrasinator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assessment">
+              <PropertyRef Name="AssessmentID" />
+            </Principal>
+            <Dependent Role="AssessmentProcrasinator">
+              <PropertyRef Name="AssessmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ScoreProc__Asses__42E1EEFE">
+          <End Type="BinusModel.AssessmentProcrasinators" Role="AssessmentProcrasinator" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.ScoreProcrasinator" Role="ScoreProcrasinator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentProcrasinator">
+              <PropertyRef Name="AssessmentProcrasinatorID" />
+            </Principal>
+            <Dependent Role="ScoreProcrasinator">
+              <PropertyRef Name="AssessmentProcrasinatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Statement__Asses__3D2915A8">
+          <End Type="BinusModel.AssessmentProcrasinators" Role="AssessmentProcrasinator" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.StatementProcrasinators" Role="StatementProcrasinator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentProcrasinator">
+              <PropertyRef Name="AssessmentProcrasinatorID" />
+            </Principal>
+            <Dependent Role="StatementProcrasinator">
+              <PropertyRef Name="AssessmentProcrasinatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Assessmen__Asses__19DFD96B">
+          <End Type="BinusModel.AssessmentTypes" Role="AssessmentType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.Assessments" Role="Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentType">
+              <PropertyRef Name="AssessmentTypeID" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="AssessmentTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Assessmen__Asses__2EDAF651">
+          <End Type="BinusModel.Assessments" Role="Assessment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.AssessmentSensories" Role="AssessmentSensory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assessment">
+              <PropertyRef Name="AssessmentID" />
+            </Principal>
+            <Dependent Role="AssessmentSensory">
+              <PropertyRef Name="AssessmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ScoreSens__Asses__37703C52">
+          <End Type="BinusModel.AssessmentSensories" Role="AssessmentSensory" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.ScoreSensories" Role="ScoreSensory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentSensory">
+              <PropertyRef Name="AssessmentSensoryID" />
+            </Principal>
+            <Dependent Role="ScoreSensory">
+              <PropertyRef Name="AssessmentSensoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Statement__Asses__31B762FC">
+          <End Type="BinusModel.AssessmentSensories" Role="AssessmentSensory" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.StatementSensories" Role="StatementSensory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentSensory">
+              <PropertyRef Name="AssessmentSensoryID" />
+            </Principal>
+            <Dependent Role="StatementSensory">
+              <PropertyRef Name="AssessmentSensoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sensories__State__3493CFA7">
+          <End Type="BinusModel.StatementSensories" Role="StatementSensory" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BinusModel.Sensories" Role="Sensory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatementSensory">
+              <PropertyRef Name="StatementSensoryID" />
+            </Principal>
+            <Dependent Role="Sensory">
+              <PropertyRef Name="StatementSensoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Statement__State__22751F6C">
+          <End Type="BinusModel.StatementIntelligences" Role="StatementIntelligence" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Type="BinusModel.StatementDetailIntelligences" Role="StatementDetailIntelligence" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="StatementIntelligences">
+            <Principal Role="StatementIntelligence">
               <PropertyRef Name="StatementIntelligenceID" />
             </Principal>
             <Dependent Role="StatementDetailIntelligence">
@@ -907,29 +779,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="AssessmentTypes">
-          <Key>
-            <PropertyRef Name="AssessmentTypeID" />
-          </Key>
-          <Property Name="AssessmentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssessmentType" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Assessments" Relationship="BinusModel.FK__Assessmen__Asses__0519C6AF" FromRole="AssessmentType" ToRole="Assessments" />
-        </EntityType>
-        <Association Name="FK__Assessmen__Asses__0519C6AF">
-          <End Type="BinusModel.AssessmentTypes" Role="AssessmentType" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="BinusModel.Assessments" Role="Assessments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssessmentType">
-              <PropertyRef Name="AssessmentTypeID" />
-            </Principal>
-            <Dependent Role="Assessments">
-              <PropertyRef Name="AssessmentTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -938,156 +788,100 @@
           <EntitySetMapping Name="Agreements1">
             <EntityTypeMapping TypeName="BinusModel.Agreements">
               <MappingFragment StoreEntitySet="Agreements">
-                <ScalarProperty Name="AgreementID" ColumnName="AgreementID" />
-                <ScalarProperty Name="AssessmentProcrasinatorID" ColumnName="AssessmentProcrasinatorID" />
                 <ScalarProperty Name="Agreement" ColumnName="Agreement" />
+                <ScalarProperty Name="AssessmentProcrasinatorID" ColumnName="AssessmentProcrasinatorID" />
+                <ScalarProperty Name="AgreementID" ColumnName="AgreementID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AssessmentIntelligences1">
             <EntityTypeMapping TypeName="BinusModel.AssessmentIntelligences">
               <MappingFragment StoreEntitySet="AssessmentIntelligences">
-                <ScalarProperty Name="AssessmentIntelligenceID" ColumnName="AssessmentIntelligenceID" />
                 <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
+                <ScalarProperty Name="AssessmentIntelligenceID" ColumnName="AssessmentIntelligenceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AssessmentProcrasinators1">
             <EntityTypeMapping TypeName="BinusModel.AssessmentProcrasinators">
               <MappingFragment StoreEntitySet="AssessmentProcrasinators">
-                <ScalarProperty Name="AssessmentProcrasinatorID" ColumnName="AssessmentProcrasinatorID" />
                 <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
+                <ScalarProperty Name="AssessmentProcrasinatorID" ColumnName="AssessmentProcrasinatorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Assessments1">
             <EntityTypeMapping TypeName="BinusModel.Assessments">
               <MappingFragment StoreEntitySet="Assessments">
-                <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
-                <ScalarProperty Name="AssessmentTypeID" ColumnName="AssessmentTypeID" />
-                <ScalarProperty Name="AssessmentTitle" ColumnName="AssessmentTitle" />
-                <ScalarProperty Name="AssessmentDescription" ColumnName="AssessmentDescription" />
                 <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+                <ScalarProperty Name="AssessmentDescription" ColumnName="AssessmentDescription" />
+                <ScalarProperty Name="AssessmentTitle" ColumnName="AssessmentTitle" />
+                <ScalarProperty Name="AssessmentTypeID" ColumnName="AssessmentTypeID" />
+                <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AssessmentSensories1">
             <EntityTypeMapping TypeName="BinusModel.AssessmentSensories">
               <MappingFragment StoreEntitySet="AssessmentSensories">
-                <ScalarProperty Name="AssessmentSensoryID" ColumnName="AssessmentSensoryID" />
                 <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
+                <ScalarProperty Name="AssessmentSensoryID" ColumnName="AssessmentSensoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssessmentTypes1">
+            <EntityTypeMapping TypeName="BinusModel.AssessmentTypes">
+              <MappingFragment StoreEntitySet="AssessmentTypes">
+                <ScalarProperty Name="AssessmentType" ColumnName="AssessmentType" />
+                <ScalarProperty Name="AssessmentTypeID" ColumnName="AssessmentTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Languages1">
             <EntityTypeMapping TypeName="BinusModel.Languages">
               <MappingFragment StoreEntitySet="Languages">
-                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
                 <ScalarProperty Name="Language" ColumnName="Language" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ResultAssessments1">
-            <EntityTypeMapping TypeName="BinusModel.ResultAssessments">
-              <MappingFragment StoreEntitySet="ResultAssessments">
-                <ScalarProperty Name="ResultAssessmentID" ColumnName="ResultAssessmentID" />
-                <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
-                <ScalarProperty Name="Institution" ColumnName="Institution" />
-                <ScalarProperty Name="AcademikCareer" ColumnName="AcademikCareer" />
-                <ScalarProperty Name="Campus" ColumnName="Campus" />
-                <ScalarProperty Name="AcademicGroup" ColumnName="AcademicGroup" />
-                <ScalarProperty Name="AcademicOrganization" ColumnName="AcademicOrganization" />
-                <ScalarProperty Name="AcademicProgram" ColumnName="AcademicProgram" />
-                <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="BinusianID" ColumnName="BinusianID" />
-                <ScalarProperty Name="Result" ColumnName="Result" />
-                <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScoreIntelligences1">
             <EntityTypeMapping TypeName="BinusModel.ScoreIntelligences">
               <MappingFragment StoreEntitySet="ScoreIntelligences">
-                <ScalarProperty Name="ScoreIntelligenceID" ColumnName="ScoreIntelligenceID" />
-                <ScalarProperty Name="AssessmentIntelligenceID" ColumnName="AssessmentIntelligenceID" />
-                <ScalarProperty Name="ScoreValue" ColumnName="ScoreValue" />
                 <ScalarProperty Name="ScoreWord" ColumnName="ScoreWord" />
+                <ScalarProperty Name="ScoreValue" ColumnName="ScoreValue" />
+                <ScalarProperty Name="AssessmentIntelligenceID" ColumnName="AssessmentIntelligenceID" />
+                <ScalarProperty Name="ScoreIntelligenceID" ColumnName="ScoreIntelligenceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ScoreProcrasinators1">
-            <EntityTypeMapping TypeName="BinusModel.ScoreProcrasinators">
+          <EntitySetMapping Name="ScoreProcrasinators">
+            <EntityTypeMapping TypeName="BinusModel.ScoreProcrasinator">
               <MappingFragment StoreEntitySet="ScoreProcrasinators">
-                <ScalarProperty Name="ScoreProcrasinatorID" ColumnName="ScoreProcrasinatorID" />
-                <ScalarProperty Name="AssessmentProcrasinatorID" ColumnName="AssessmentProcrasinatorID" />
-                <ScalarProperty Name="StartValue" ColumnName="StartValue" />
                 <ScalarProperty Name="EndValue" ColumnName="EndValue" />
+                <ScalarProperty Name="StartValue" ColumnName="StartValue" />
                 <ScalarProperty Name="ScoreWord" ColumnName="ScoreWord" />
+                <ScalarProperty Name="AssessmentProcrasinatorID" ColumnName="AssessmentProcrasinatorID" />
+                <ScalarProperty Name="ScoreProcrasinatorID" ColumnName="ScoreProcrasinatorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScoreSensories1">
             <EntityTypeMapping TypeName="BinusModel.ScoreSensories">
               <MappingFragment StoreEntitySet="ScoreSensories">
-                <ScalarProperty Name="ScoreSensoryID" ColumnName="ScoreSensoryID" />
-                <ScalarProperty Name="AssessmentSensoryID" ColumnName="AssessmentSensoryID" />
-                <ScalarProperty Name="ScoreValue" ColumnName="ScoreValue" />
                 <ScalarProperty Name="ScoreWord" ColumnName="ScoreWord" />
+                <ScalarProperty Name="ScoreValue" ColumnName="ScoreValue" />
+                <ScalarProperty Name="AssessmentSensoryID" ColumnName="AssessmentSensoryID" />
+                <ScalarProperty Name="ScoreSensoryID" ColumnName="ScoreSensoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sensories1">
             <EntityTypeMapping TypeName="BinusModel.Sensories">
               <MappingFragment StoreEntitySet="Sensories">
-                <ScalarProperty Name="SensoryID" ColumnName="SensoryID" />
                 <ScalarProperty Name="Sensory" ColumnName="Sensory" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StatementIntelligences1">
-            <EntityTypeMapping TypeName="BinusModel.StatementIntelligences">
-              <MappingFragment StoreEntitySet="StatementIntelligences">
-                <ScalarProperty Name="StatementIntelligenceID" ColumnName="StatementIntelligenceID" />
-                <ScalarProperty Name="AssessmentIntelligenceID" ColumnName="AssessmentIntelligenceID" />
-                <ScalarProperty Name="StatementIntelligence" ColumnName="StatementIntelligence" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StatementProcrasinators1">
-            <EntityTypeMapping TypeName="BinusModel.StatementProcrasinators">
-              <MappingFragment StoreEntitySet="StatementProcrasinators">
-                <ScalarProperty Name="StatementProcrasiantorID" ColumnName="StatementProcrasiantorID" />
-                <ScalarProperty Name="AssessmentProcrasinatorID" ColumnName="AssessmentProcrasinatorID" />
-                <ScalarProperty Name="StatementProcrasinator1" ColumnName="StatementProcrasinator" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StatementSensories1">
-            <EntityTypeMapping TypeName="BinusModel.StatementSensories">
-              <MappingFragment StoreEntitySet="StatementSensories">
                 <ScalarProperty Name="StatementSensoryID" ColumnName="StatementSensoryID" />
-                <ScalarProperty Name="AssessmentSensoryID" ColumnName="AssessmentSensoryID" />
                 <ScalarProperty Name="SensoryID" ColumnName="SensoryID" />
-                <ScalarProperty Name="StatementSensory" ColumnName="StatementSensory" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Transactions">
-            <EntityTypeMapping TypeName="BinusModel.Transaction">
-              <MappingFragment StoreEntitySet="Transactions">
-                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
-                <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
-                <ScalarProperty Name="Institution" ColumnName="Institution" />
-                <ScalarProperty Name="AcademikCareer" ColumnName="AcademikCareer" />
-                <ScalarProperty Name="Campus" ColumnName="Campus" />
-                <ScalarProperty Name="AcademicGroup" ColumnName="AcademicGroup" />
-                <ScalarProperty Name="AcademicOrganization" ColumnName="AcademicOrganization" />
-                <ScalarProperty Name="AcademicProgram" ColumnName="AcademicProgram" />
-                <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="BinusianID" ColumnName="BinusianID" />
-                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1100,11 +894,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AssessmentTypes1">
-            <EntityTypeMapping TypeName="BinusModel.AssessmentTypes">
-              <MappingFragment StoreEntitySet="AssessmentTypes">
-                <ScalarProperty Name="AssessmentType" ColumnName="AssessmentType" />
-                <ScalarProperty Name="AssessmentTypeID" ColumnName="AssessmentTypeID" />
+          <EntitySetMapping Name="StatementIntelligences1">
+            <EntityTypeMapping TypeName="BinusModel.StatementIntelligences">
+              <MappingFragment StoreEntitySet="StatementIntelligences">
+                <ScalarProperty Name="StatementIntelligence" ColumnName="StatementIntelligence" />
+                <ScalarProperty Name="AssessmentIntelligenceID" ColumnName="AssessmentIntelligenceID" />
+                <ScalarProperty Name="StatementIntelligenceID" ColumnName="StatementIntelligenceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatementProcrasinators1">
+            <EntityTypeMapping TypeName="BinusModel.StatementProcrasinators">
+              <MappingFragment StoreEntitySet="StatementProcrasinators">
+                <ScalarProperty Name="StatementProcrasinator" ColumnName="StatementProcrasinator" />
+                <ScalarProperty Name="AssessmentProcrasinatorID" ColumnName="AssessmentProcrasinatorID" />
+                <ScalarProperty Name="StatementProcrasiantorID" ColumnName="StatementProcrasiantorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatementSensories1">
+            <EntityTypeMapping TypeName="BinusModel.StatementSensories">
+              <MappingFragment StoreEntitySet="StatementSensories">
+                <ScalarProperty Name="StatementSensory" ColumnName="StatementSensory" />
+                <ScalarProperty Name="AssessmentSensoryID" ColumnName="AssessmentSensoryID" />
+                <ScalarProperty Name="StatementSensoryID" ColumnName="StatementSensoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

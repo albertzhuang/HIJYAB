@@ -14,12 +14,18 @@ namespace Binus.Data
     
     public partial class StatementSensories
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public StatementSensories()
+        {
+            this.Sensories = new HashSet<Sensories>();
+        }
+    
         public int StatementSensoryID { get; set; }
         public int AssessmentSensoryID { get; set; }
-        public int SensoryID { get; set; }
         public string StatementSensory { get; set; }
     
         public virtual AssessmentSensories AssessmentSensory { get; set; }
-        public virtual Sensories Sensory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sensories> Sensories { get; set; }
     }
 }
