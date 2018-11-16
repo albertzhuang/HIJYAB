@@ -235,10 +235,13 @@
     <Compile Include="Data\Languages.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\ResultAssessments.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\ScoreIntelligences.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\ScoreProcrasinator.cs">
+    <Compile Include="Data\ScoreProcrasinators.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\ScoreSensories.cs">
@@ -259,6 +262,9 @@
     <Compile Include="Data\StatementSensories.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Transaction.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -270,6 +276,11 @@
     <Compile Include="Models\AssessmentIntelligence\ScoreIntelligence.cs" />
     <Compile Include="Models\AssessmentIntelligence\StatementIntelligence.cs" />
     <Compile Include="Models\AssessmentIntelligence\StatementDetailIntelligence.cs" />
+    <Compile Include="Models\ResultAssessment.cs" />
+    <Compile Include="Models\ScoreIntelligence.cs" />
+    <Compile Include="Models\SearchBinusian.cs" />
+    <Compile Include="Models\StatementDetailIntelligence.cs" />
+    <Compile Include="Models\StatementIntelligence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +292,7 @@
     <Content Include="Content\css\AddAssessment.css" />
     <Content Include="Content\css\grid.min.css" />
     <Content Include="Content\css\master.css" />
+    <Content Include="Content\css\ShowAssessment.css" />
     <Content Include="Content\css\themes\affiliation\css\login.css" />
     <Content Include="Content\css\themes\affiliation\css\style.css" />
     <Content Include="Content\css\themes\affiliation\images\bg-login-overlay.png" />
@@ -1909,9 +1921,13 @@
     <Content Include="Content\Site.css" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Assessment\AddAssessment.cshtml" />
+    <Content Include="Views\Assessment\Manage.cshtml" />
+    <Content Include="Views\Assessment\AssessmentIntelligence.cshtml" />
+    <Content Include="Views\Assessment\AssessmentSensory.cshtml" />
+    <Content Include="Views\Assessment\AssessmentProcrasinator.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -1924,27 +1940,25 @@
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Assessment\Index.cshtml" />
+    <Content Include="Views\Assessment\ResultPage.cshtml" />
+    <Content Include="Views\Assessment\ShowAssessment.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\AddCase.cshtml" />
+    <Content Include="Views\Home\CaseDetail.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\FinalResult.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\ViewCase.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\AddCase.cshtml" />
-    <Content Include="Views\Home\CaseDetail.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\FinalResult.cshtml" />
-    <Content Include="Views\Home\ViewCase.cshtml" />
-    <Content Include="Views\Assessment\AddAssessment.cshtml" />
-    <Content Include="Views\Assessment\Manage.cshtml" />
-    <Content Include="Views\Assessment\AssessmentIntelligence.cshtml" />
-    <Content Include="Views\Assessment\AssessmentSensory.cshtml" />
-    <Content Include="Views\Assessment\AssessmentProcrasinator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\TEst\" />
     <Folder Include="Views\Route\" />
   </ItemGroup>
   <ItemGroup>

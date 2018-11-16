@@ -1,215 +1,496 @@
-﻿@*@model ProjectFEP.ViewModel.AddCaseViewModel*@
-
+﻿
 @{
-    ViewBag.Title = "AddCase";
+    ViewBag.Title = "ViewSensoryAssessment";
 }
+<style>
+    .lebartd {
+        width: 75px;
+    }
+
+
+    .zebra {
+        text-align: left;
+    }
+
+        .zebra td {
+            font-size: 17px;
+            padding: 15px;
+        }
+
+    input[type=radio] {
+        width: 1.3em;
+        height: 1.2em;
+    }
+
+    #btnSubmit {
+        margin-top: 20px;
+    }
+</style>
 
 <div class="main-content has-widget" id="main-content">
-    <form action="@Url.Action("Create","Question")" method="post">
-        <div class="container">
-            <div class="box-container">
-                <div class="single-content popup-content hapusQuestion" id="target-id">
-
-                    <div class="widget-parent">
-                        <div class="row">
-                            <div class="column">
-                                <div class="widget auto-height">
-                                    <div class="widget-head">
-                                        <span class="head-wrap">
-                                            <span class="label">
-                                                <span class="title">Case Detail</span>
-                                            </span>
-                                            <span class="opposite-link">
-                                                <input type="submit" name="save" value="Save" />
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="box-container">
+            <div class="single-content popup-content" id="target-id">
+                <div class="page-sub-heading">
+                    <h1><strong>Sensory Preference Inventory</strong></h1>
                     <p>
-                        <label>Type</label>
-                        <span class="custom-combobox">
-                            <select name="casetype" onchange="test()">
-                                @foreach (var item in Model.caseType)
-                                {
-                                    <option value="@Html.DisplayFor(modelItem => item.CaseTypeId)">@Html.DisplayFor(modelItem => item.CaseTypeNmae)</option>
-                                }
-                            </select>
-                        </span>
+                        <strong>Instructions</strong><br />
+                        Using the scale below enter the appropriate rating to each self-description in the open box.<br />
+                        Often = 5 points.<br />
+                        Sometimes = 3 points.<br />
+                        Seldom = 1 points.<br />
+                        Then add up the numbers in each column to find out your dominant sensory preference.
                     </p>
-                    <p>
-                        <label>Language</label>
-                        <span class="custom-combobox">
-                            <select name="rows[0][bahasa]">
-                                @foreach (var item in Model.languageType)
-                                {
-                                    <option value="@Html.DisplayFor(modelItem => item.LanguageId)">@Html.DisplayFor(modelItem => item.LanguageTypeName)</option>
-                                }
-                            </select>
-                        </span>
-                    </p>
-                    <p>
-                        <label>Name<span class="required">*</span></label>
-                        <input type="text" name="name">
-                    </p>
-                    <p>
-                        <label>Description<span class="required">*</span></label>
-                        <textarea></textarea>
-                    </p>
-
-
-                    <div id="createCase">
-                        <p>
-                            <a class="button button-primary with-icon icon-btn-add" onclick="appendCase();">Subquestion </a>
-                        </p>
-
-                        <p>
-                            <label>1<span class="required">*</span></label>
-                            <input type="text" name="rows[case][0]" />
-                        </p>
-
-                        <ol type="a" id="parentchoice0">
-                            <li>
-                                <p>
-                                    <input type="text" name="rows[0][choice]" value=" " style="display:inline-block; width:97%;" />
-                                </p>
-                            </li>
-                        </ol>
-
-                        <p>
-                            <a onclick="appendChoice(0);" class="button button-primary with-icon icon-btn-add">Choice </a>
-                        </p>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div id="createCaseProcrastonator">
-                        <p>
-                            <a onclick="addScoreProcrastinator();" class="button button-primary with-icon icon-btn-add">Score </a>
-                        </p>
-                        Kolom Jawaban 
-                        <div class="row content addScoreProcrastinator">
-
-                            <div class="column one-half">
-                                <p>
-                                    <label>Score</label>
-                                    <input type="text" name="rowsp[0][score]"/>
-                                </p>
-                            </div>
-                            <div class="column one-half">
-                                <p>
-                                    <label>Word</label>
-                                    <input type="text" name="rowsp[0][word]" />
-                                </p>
-                            </div>
-                        </div>
-
-                        <p>
-                            <a class="button button-primary with-icon icon-btn-add" onclick="appendCaseProcrastinator();">Subquestion </a>
-                        </p>
-                        Soal
-                        <p>
-                            <label>1<span class="required">*</span></label>
-                            <input type="text" name="rowsp[case][0]" />
-                        </p>
-
-                      
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div id="createCaseSensory">
-                        <div class="column" style="margin-top:10px;">
-                            <p>
-                                <a onclick="appendChoice(0);" class="button button-primary with-icon icon-btn-add">Kolom Penilaian </a>
-                            </p>
-                        </div>
-
-                        Kolom Penilaian
-                        <div class="row content">
-                            <div class="column">
-                                <span class="custom-combobox">
-                                    <select name="rows[0][bahasa]">
-                                        <option value="Visual">Visual</option>
-                                        <option value="Auditiory">Auditiory</option>
-                                        <option value="Tactile">Tactile</option>
-                                    </select>
-                                </span>
-                            </div>
-                            
-                           
-                            <p>
-                                <a onclick="appendChoice(0);" class="button button-primary with-icon icon-btn-add">Score</a>
-                            </p>
-
-                            <div class="column one-half">
-                                <p>
-                                    <label>Score</label>
-                                    <span class="custom-combobox">
-                                        <select name="rows[0][bahasa]">
-                                            <option value="1">1</option>
-                                            <option value="3">3</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="column one-half">
-                                <p>
-                                    <label>Word</label>
-                                    <input type="text" name="word" />
-                                </p>
-                            </div>
-                        </div>
-                       
-                        
-                        <p>
-                            <a class="button button-primary with-icon icon-btn-add" onclick="appendCase();">Subquestion </a>
-                        </p>
-
-                        Soal
-                        <p>
-                            <label>1<span class="required">*</span></label>
-                            <input type="text" name="rows[case][0]" />
-                        </p>
-
-                       
-
-                    </div>
-
-
-
                 </div>
 
-               
+
+                <table class="zebra">
+                    <thead>
+                        <tr>
+                            <th>Assessment</th>
+                            <th class="lebartd">Type</th>
+                            <th class="lebartd">Often</th>
+                            <th class="lebartd">Sometimes</th>
+                            <th class="lebartd">Seldom</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="headerquestion" id="case-1">
+                            <td>I can remember best about a subject by listening to a lecture that includes information, explanations, and discussion.</td>
+                            <td>Visual</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word1" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word1" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word1" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-2">
+                            <td>I prefer to see information written on a chalkboard and supplemented by visual aids and assigned readings.</td>
+                            <td>Audio</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word2" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word2" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word2" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-3">
+                            <td>I like to write things down or take notes for visual review</td>
+                            <td>Tactile</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word3" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word3" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word3" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-4">
+                            <td>I prefer to use posters, models, or actual practice and do other activities in class.</td>
+                            <td>Visual</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word4" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word4" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word4" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-5">
+                            <td>I require explanations of diagrams, graphs, or visual directions.</td>
+                            <td>Audio</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word5" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word5" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word5" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-6">
+                            <td>I enjoy working with my hands or making things.</td>
+                            <td>Tactile</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word6" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word6" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word6" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-7">
+                            <td>I am skillful with and enjoy developing and making graphs and charts.</td>
+                            <td>Visual</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word7" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word7" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word7" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-8">
+                            <td>I can tell if sounds match when presented with pairs of sounds.</td>
+                            <td>Audio</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word8" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word8" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word8" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-9">
+                            <td>I remember best by writing things down several times.</td>
+                            <td>Tactile</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word9" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word9" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word9" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-10">
+                            <td>I can easily understand and follow directions on maps.</td>
+                            <td>Visual</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word10" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word10" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word10" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Assessment</th>
+                            <th class="lebartd">Type</th>
+                            <th class="lebartd">Often</th>
+                            <th class="lebartd">Sometimes</th>
+                            <th class="lebartd">Seldom</th>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-11">
+                            <td>I do best in academic subjects by listening to lectures and tapes.</td>
+                            <td>Visual</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word11" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word11" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word11" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-12">
+                            <td>I play with coins or keys in my pocket.</td>
+                            <td>Audio</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word12" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word12" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word12" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-13">
+                            <td>I learn to spell better by repeating words out loud than by writing the words on paper.</td>
+                            <td>Tactile</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word13" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word13" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word13" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-14">
+                            <td>I can understand a news article better by reading about it in the newspaper than by listening to a report about it on the radio.</td>
+                            <td>Visual</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word14" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word14" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word14" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-15">
+                            <td>I chew gum, smoke, or snack while studying.</td>
+                            <td>Audio</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word15" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word15" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word15" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-16">
+                            <td>I think the best way to remember something is to picture it in your head.</td>
+                            <td>Tactile</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word16" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word16" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word16" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-17">
+                            <td>I learn the spelling of words by "finger spelling" them.</td>
+                            <td>Visual</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word17" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word17" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word17" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-18">
+                            <td>I would rather listen to a good lecture or speech than read about the same material in a textbook.</td>
+                            <td>Audio</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word18" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word18" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word18" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-19">
+                            <td>I am good at working and solving jigsaw puzzles and mazes.</td>
+                            <td>Tactile</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word19" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word19" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word19" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-20">
+                            <td>I grip objects in my hands during learning periods.</td>
+                            <td>Visual</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word20" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word20" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word20" value="1" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Assessment</th>
+                            <th class="lebartd">Type</th>
+                            <th class="lebartd">Often</th>
+                            <th class="lebartd">Sometimes</th>
+                            <th class="lebartd">Seldom</th>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-21">
+                            <td>I prefer listening to the news on the radio rather than reading about it in the newspaper.</td>
+                            <td>Visual</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word21" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word21" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word21" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-22">
+                            <td>I prefer obtaining information about an interesting subject by reading about it.</td>
+                            <td>Audio</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word22" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word22" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word22" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-23">
+                            <td>I feel very comfortable touching others, hugging, handshaking, etc.</td>
+                            <td>Tactile</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word23" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word23" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word23" value="1" />
+                            </td>
+                        </tr>
+
+                        <tr class="headerquestion" id="case-24">
+                            <td>I follow oral directions better than written ones.</td>
+                            <td>Visual</td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word24" value="5" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word24" value="3" />
+                            </td>
+                            <td>
+                                <input type="radio" class="subquestion" name="word24" value="1" />
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+
+
+                <p style="text-align:center">
+                    <a id="btnSubmit" class="button button-primary">Submit</a>
+                </p>
+
+
 
             </div>
         </div>
-    </form>
+    </div>
 </div>
-@Scripts.Render("~/template/js/vendor/jquery/jquery.js")
-@Scripts.Render("~/scripts/script.js")
+
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#btnSubmit').click(function (e) {
+
+
+
+                e.preventDefault();
+                //validasi answer harus 10
+                var headerQuestions = $('.headerquestion');
+                var ResAuditory = 0;
+                var ResVisual = 0;
+                var ResTactile = 0;
+                var columnscore = ['Auditory', 'Visual','Visual','Tactile','Auditory','Tactile','Visual','Auditory','Tactile','Visual','Auditory','Tactile','Auditory','Visual','Tactile','Visual','Tactile','Auditory','Visual','Tactile','Auditory','Visual','Tactile','Auditory'];
+                for (var i = 0 ; i < headerQuestions.length ; i++) {
+                    var detailQuestions = $(headerQuestions[i]).find('.subquestion:checked');
+                    var result = 0;
+
+                    var totalDetailQuestion = detailQuestions.length;
+
+                    for (var j = 0 ; j < totalDetailQuestion ; j++) {
+                        result += parseInt(detailQuestions[j].value) || 0;
+
+
+                    }
+
+
+
+                    console.log('Question ' + (i + 1) + ' : ' + result + ' Tipe :  ' + columnscore[i]);
+
+                    if ("Auditory" == columnscore[i])
+                        ResAuditory += result;
+                    else if ("Visual" == columnscore[i])
+                        ResVisual += result;
+                    else if ("Tactile" == columnscore[i])
+                        ResTactile += result;
+
+
+
+
+
+                    if (result == 0) {
+                        alert('Soal nomor ' + (i + 1) + ' harus pilih salah satu');
+                        return;
+                    }
+
+                }
+                console.log('Auditory ' + ResAuditory + ' Visual ' + ResVisual + ' Tactile :  ' + ResTactile);
+                var role = "Auditory";
+                if (ResVisual > ResTactile || ResVisual > ResAuditory)
+                    role = "Visual";
+                else if (ResVisual < ResTactile || ResTactile > ResAuditory)
+                    role = "Tactile";
+
+                console.log(role);
+
+                var test = "Sensory";
+
+               // location.href = "ResultAssessment/" + role + "/" + test;
+
+            });
+        });
+    </script>
+}
 

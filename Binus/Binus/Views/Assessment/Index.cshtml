@@ -1,0 +1,404 @@
+﻿@*@model ProjectFEP.ViewModel.AddCaseViewModel*@
+
+@{
+    ViewBag.Title = "Assessment - Binus Maya";
+}
+
+@section css
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/css/AddAssessment.css">
+}
+
+<div class="site-content" id="site-content">
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="wrap">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Assessment</a></li>
+                    <li>Add Assessment</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-heading">
+        <div class="container">
+            <h1>Add Assessment</h1>
+        </div>
+    </section>
+
+    <div class="main-content has-widget" id="main-content">
+        <div class="container">
+            <div class="box-container">
+                <div class="single-content popup-content" id="target-id">
+                    <div class="page-sub-heading">
+                        <div class="row" style="height:30px;">
+                            <div class="column two-thirds ">
+                                <h2 style="line-height:40px;">Assessment Detail</h2>
+                            </div>
+                            <div class="column one-third">
+                                <p style="float:right;">
+                                    <a href="#popup_confirmation" class="fancybox-trigger fancbox.ajax button button-primary" id="button_save">Save</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <form id="myForm">
+                            <span class="alert is-success" style="display: none;">
+                                Data has been saved.
+                            </span>
+                            <p>
+                                <label>Assessment Type</label>
+                                <span class="custom-combobox">
+                                    <select id="select_id" name="select_assessment_type">
+                                        <option disabled selected value="0"> -- SELECT AN OPTION -- </option>
+                                    </select>
+                                </span>
+                            </p>
+
+                            <p>
+                                <label>Assessment Title<span class="required">*</span></label>
+                                <input type="text" name="input_assessment_title">
+                            </p>
+
+                            <p>
+                                <label>Description<span class="required">*</span></label>
+                                <textarea name="textarea_description"></textarea>
+                            </p>
+
+                            <div class="assessments" id="assessment-container">
+
+                            </div>
+
+
+                            <!--START ASSESSMENT Intelligence-->
+                            <div class="assessment-intelligence template" id="assessment-intelligence" style="display: none;">
+                                <p>
+                                    <button id="button_add_statement" class="button button-primary">Add Statement</button>
+                                </p>
+
+                                <div class="statements" id="statements-intelligence-container">
+                                    @*START TEMPLATE STATEMENTS*@
+                                    <div class="statement template" style="display: none;">
+                                        <div class="row statement-wrapper">
+                                            <div class="col-md-1 statement-no-wrapper center-vertical">
+                                                <span class="statement-no">XX</span>
+                                                <span class="required">*</span>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <input type="text" name="input_statement" />
+                                            </div>
+                                            <div class="col-md-1 statement-icon-wrapper">
+                                                <span class='icon-add add-statement-detail'></span>
+                                                <span class='icon-trash remove-statement'></span>
+                                            </div>
+                                        </div>
+                                        <div class="detail-statements-container">
+                                            <div class="row detail-statement">
+                                                <div class="col-md-1 col-md-offset-1 center-input">
+                                                    <span class="statement-detail-no center-vertical"></span>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <span class="custom-statement">
+                                                        <input type="text" name="input_statement_detail">
+                                                        <span class="icon-area"><span class="icon-reject remove-statement-detail"></span></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*END TEMPLATE STATEMENTS*@
+                                    <div class="statement">
+                                        <div class="row statement-wrapper">
+                                            <div class="col-md-1 statement-no-wrapper center-vertical">
+                                                <span class="statement-no">1</span>
+                                                <span class="required">*</span>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <input type="text" name="input_statement" />
+                                            </div>
+                                            <div class="col-md-1 statement-icon-wrapper">
+                                                <span class='icon-add add-statement-detail'></span>
+                                                <span class='icon-trash remove-statement'></span>
+                                            </div>
+                                        </div>
+                                        <div class="detail-statements-container">
+                                            <div class="row detail-statement">
+                                                <div class="col-md-1 col-md-offset-1">
+                                                    <span class="statement-detail-no center-vertical">A</span>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <span class="custom-statement">
+                                                        <input type="text" name="input_statement_detail">
+                                                        <span class="icon-area"><span class="icon-reject remove-statement-detail"></span></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="scores" id="score-container">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            No
+                                        </div>
+                                        <div class="col-md-5 text-center">
+                                            Score Value
+                                        </div>
+                                        <div class="col-md-5 text-center">
+                                            Score Text
+                                        </div>
+                                        <div class="col-md-1 text-center">
+                                            <span class="icon-add" id="add-score"></span>
+                                        </div>
+                                    </div>
+                                    <div id="score-container">
+                                        @*START TEMPLATE SCORE*@
+                                        <div class="row score template" style="display:none;">
+                                            <div class="col-md-1 center-vertical">
+                                                <span class="score-no">XX</span>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" name="input_score_value">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" name="input_score_word">
+                                            </div>
+                                            <div class="col-md-1 text-center score-icon-wrapper">
+                                                <span class="icon-reject remove-score"></span>
+                                            </div>
+                                        </div>
+                                        @*END TEMPLATE SCORE*@
+                                        <div class="row score">
+                                            <div class="col-md-1 center-vertical">
+                                                <span class="score-no">1</span>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" name="input_score_value">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" name="input_score_word">
+                                            </div>
+                                            <div class="col-md-1 text-center score-icon-wrapper">
+                                                <span class="icon-reject remove-score"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--END ASSESSMENT Intelligence-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popup-content-dialog container" id="popup_confirmation" style="display:none;">
+    <div class="popup-wrapper">
+        <form>
+            <p>Save confirmation</p>
+            <div class="row action">
+                <div class="col-md-6">
+                    <button class="button button-primary" id="button_yes">Yes</button>
+                </div>
+
+                <div class="col-md-6">
+                    <button class="button button-primary" id="button_no">No</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="myLoader" style="display:none;">
+    <span class="loader">
+        <span class="indicator"></span>
+    </span>
+</div>
+
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        const assessmentContainer = $("#assessment-container");
+        const assessmentIntelligence = $("#assessment-intelligence");
+        //const scoreContainer = $("#score-container");
+        //const statements1Container=$("#statements1-container");
+
+
+
+        $(document).ready(function() {
+            $.ajax
+            ({
+                method: "GET",
+                url: "/api/assessment/getAll",
+                success: function(data) {
+                    data.forEach(function(value) {
+                        $("select[name='select_assessment_type']").append("<option value="+value.AssessmentTypeID+">"+value.AssessmentType+"</option>")
+                    });
+                }
+            });
+        });
+
+        $("select[name='select_assessment_type']").change(function () {
+       
+            var selected=parseInt($(this).val());
+
+            switch(selected) {
+                case 1:
+                   
+                    assessmentContainer.empty();
+                    let template=assessmentIntelligence;
+                    template=template.clone();
+                    template.removeClass("template");
+                    template.show();
+                    assessmentContainer.append(template);
+                    break;
+                case 2:
+                    assessmentContainer.empty();
+                    break;
+                case 3:
+                    assessmentContainer.empty();
+                    break;
+            }
+        });
+
+        $("button").click(function (event) {event.preventDefault();});
+
+        $(document).on("click", "button", function (event) { event.preventDefault(); } );
+
+        $(document).on("click", ".add-statement-detail", function () {
+            let container = assessmentContainer.find("#statements-intelligence-container").first();
+            let template = container.find(".detail-statement").first();
+            template = template.clone();
+            let statementIndex = $(this).parents(".statement").index();
+            let currentStatementContainer = container.find(".statement").eq(statementIndex).find(".detail-statements-container").first();
+            currentStatementContainer.append(template);
+
+            let number=container.find(".statement").eq(statementIndex).
+                find(".detail-statement").length
+
+            //to return ascii from number / 65 = 'A'
+            template.find(".statement-detail-no").text(String.fromCharCode(number + 65 - 1));
+        } );
+
+        $(document).on("click", "#button_add_statement",  function () {
+            let template = assessmentContainer.find(".template").first();
+            let container = assessmentContainer.find("#statements-intelligence-container").first();
+            template = template.clone();
+            template.removeClass("template");
+            template.show();
+
+            template.find(".statement-no").text(container.find(".statement").length);
+            template.find(".statement-detail-no" ).text("A");
+            container.append(template);
+        });
+
+        $(document).on("click", ".remove-statement", function () {
+            $(this).parents(".statement").remove();
+            let container = assessmentContainer.find("#statements-intelligence-container").first();
+            let statements = container.find(".statement:not(.template)");
+            statements.each( function (i, statement) {
+                $(statement).find(".statement-no").text(i+1);
+            });
+        });
+
+        $(document).on("click",  ".remove-statement-detail", function () {
+            let container = assessmentContainer.find("#statements-intelligence-container").first();
+            let statementIndex = $(this).parents(".statement").index();
+            $(this).parents(".detail-statement").remove();
+            let statementDetails = container.find(".statement").eq(statementIndex).find(".detail-statement");
+
+            statementDetails.each(function(i, statementDetail) {
+
+                $(statementDetail).find(".statement-detail-no").text(String.fromCharCode(65 + i));
+            });
+        });
+
+        $(document).on("click", "#add-score", function () {
+            let container=assessmentContainer.find("#score-container").first();
+            let template = container.find(".score").first();
+            template = template.clone();
+            template.removeClass("template");
+            template.show();
+
+            template.find(".score-no").text(container.find(".score").length);
+            container.append(template);
+        } );
+
+        $(document).on("click", ".remove-score", function () {
+            $(this).parents(".score").remove();
+            let container = assessmentContainer.find("#score-container").first();
+
+            let scores = container.find(".score:not(.template)");
+            scores.each(function (i, score) {
+                $(score).find(".score-no").text(i+1);
+            });
+        });
+
+        $("#button_yes").click(function() {
+            let statements=[];
+            let scores = [];
+            $('.template').remove();
+
+            $(".statement:not(.template)").each(function() {
+                let statementDetails = [];
+                let temp = $(this).find(".detail-statement");
+                temp.each(function() {
+                    statementDetails.push({
+                        statementDetail : $(this).find("input[name='input_statement_detail']").val()
+                    });
+                });
+                statements.push({
+                    statement : $(this).find("input[name='input_statement']").val(),
+                    statementDetails : statementDetails
+                });
+            });
+
+            $(".score:not(.template)").each(function(){
+                scores.push({
+                    scoreValue: $(this).find("input[name='input_score_value']").val(),
+                    scoreWord: $(this).find("input[name='input_score_word']").val()
+                });
+            });
+
+           
+
+
+
+            $.ajax({
+                method: "POST",
+                url: "/api/assessment/post",
+                data:
+                {
+                    title: $("input[name='input_assessment_title']").val(),
+                    description: $("textarea[name='textarea_description']").val(),
+                    type: $("select[name='select_assessment_type']").val(),
+                    statements: statements,
+                    scores: scores
+                },
+                beforeSend: function(data) {
+                    parent.$.fancybox.close();
+                    $(".myLoader").show()
+                },
+                success: function(data) {
+                    console.log(data);
+                    $("#assessment-container").empty();
+                    $(".myLoader").hide();
+                    $(".assessment_1").remove();
+                    $(".is-success").show();
+                    $("input[name='input_assessment_title']").val('');
+                    $("textarea[name='textarea_description']").val('');
+                    $("select[name='select_assessment_type']").val(0).change();
+                }
+            });
+        });
+    </script>
+}
