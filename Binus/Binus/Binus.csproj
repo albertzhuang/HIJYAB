@@ -238,13 +238,10 @@
     <Compile Include="Data\ScoreIntelligences.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\ScoreProcrasinator.cs">
+    <Compile Include="Data\ScoreProcrasinators.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\ScoreSensories.cs">
-      <DependentUpon>BinusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Sensories.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\StatementDetailIntelligences.cs">
@@ -270,6 +267,9 @@
     <Compile Include="Models\AssessmentIntelligence\ScoreIntelligence.cs" />
     <Compile Include="Models\AssessmentIntelligence\StatementIntelligence.cs" />
     <Compile Include="Models\AssessmentIntelligence\StatementDetailIntelligence.cs" />
+    <Compile Include="Models\AssessmentSensory\AssessmentSensory.cs" />
+    <Compile Include="Models\AssessmentSensory\ScoreSensory.cs" />
+    <Compile Include="Models\AssessmentSensory\StatementSensory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1944,7 +1944,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\TEst\" />
     <Folder Include="Views\Route\" />
   </ItemGroup>
   <ItemGroup>

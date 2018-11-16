@@ -81,14 +81,6 @@
     <Property Name="ScoreValue" Type="int" Nullable="false" />
     <Property Name="ScoreWord" Type="varchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="Sensories">
-    <Key>
-      <PropertyRef Name="SensoryID" />
-    </Key>
-    <Property Name="SensoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="StatementSensoryID" Type="int" Nullable="false" />
-    <Property Name="Sensory" Type="varchar(max)" Nullable="false" />
-  </EntityType>
   <EntityType Name="StatementDetailIntelligences">
     <Key>
       <PropertyRef Name="StatementDetailIntelligenceID" />
@@ -120,6 +112,7 @@
     <Property Name="StatementSensoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AssessmentSensoryID" Type="int" Nullable="false" />
     <Property Name="StatementSensory" Type="varchar(max)" Nullable="false" />
+    <Property Name="Sensory" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="FK__Agreement__Asses__40058253">
     <End Role="AssessmentProcrasinators" Type="Self.AssessmentProcrasinators" Multiplicity="1">
@@ -233,20 +226,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Sensories__State__3493CFA7">
-    <End Role="StatementSensories" Type="Self.StatementSensories" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Sensories" Type="Self.Sensories" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="StatementSensories">
-        <PropertyRef Name="StatementSensoryID" />
-      </Principal>
-      <Dependent Role="Sensories">
-        <PropertyRef Name="StatementSensoryID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__Statement__Asses__1F98B2C1">
     <End Role="AssessmentIntelligences" Type="Self.AssessmentIntelligences" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -261,20 +240,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Statement__Asses__31B762FC">
-    <End Role="AssessmentSensories" Type="Self.AssessmentSensories" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="StatementSensories" Type="Self.StatementSensories" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AssessmentSensories">
-        <PropertyRef Name="AssessmentSensoryID" />
-      </Principal>
-      <Dependent Role="StatementSensories">
-        <PropertyRef Name="AssessmentSensoryID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__Statement__Asses__3D2915A8">
     <End Role="AssessmentProcrasinators" Type="Self.AssessmentProcrasinators" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -286,6 +251,20 @@
       </Principal>
       <Dependent Role="StatementProcrasinators">
         <PropertyRef Name="AssessmentProcrasinatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Statement__Asses__47A6A41B">
+    <End Role="AssessmentSensories" Type="Self.AssessmentSensories" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="StatementSensories" Type="Self.StatementSensories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssessmentSensories">
+        <PropertyRef Name="AssessmentSensoryID" />
+      </Principal>
+      <Dependent Role="StatementSensories">
+        <PropertyRef Name="AssessmentSensoryID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -314,7 +293,6 @@
     <EntitySet Name="ScoreIntelligences" EntityType="Self.ScoreIntelligences" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ScoreProcrasinators" EntityType="Self.ScoreProcrasinators" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ScoreSensories" EntityType="Self.ScoreSensories" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Sensories" EntityType="Self.Sensories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StatementDetailIntelligences" EntityType="Self.StatementDetailIntelligences" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StatementIntelligences" EntityType="Self.StatementIntelligences" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StatementProcrasinators" EntityType="Self.StatementProcrasinators" Schema="dbo" store:Type="Tables" />
@@ -351,21 +329,17 @@
       <End Role="AssessmentSensories" EntitySet="AssessmentSensories" />
       <End Role="ScoreSensories" EntitySet="ScoreSensories" />
     </AssociationSet>
-    <AssociationSet Name="FK__Sensories__State__3493CFA7" Association="Self.FK__Sensories__State__3493CFA7">
-      <End Role="StatementSensories" EntitySet="StatementSensories" />
-      <End Role="Sensories" EntitySet="Sensories" />
-    </AssociationSet>
     <AssociationSet Name="FK__Statement__Asses__1F98B2C1" Association="Self.FK__Statement__Asses__1F98B2C1">
       <End Role="AssessmentIntelligences" EntitySet="AssessmentIntelligences" />
       <End Role="StatementIntelligences" EntitySet="StatementIntelligences" />
     </AssociationSet>
-    <AssociationSet Name="FK__Statement__Asses__31B762FC" Association="Self.FK__Statement__Asses__31B762FC">
-      <End Role="AssessmentSensories" EntitySet="AssessmentSensories" />
-      <End Role="StatementSensories" EntitySet="StatementSensories" />
-    </AssociationSet>
     <AssociationSet Name="FK__Statement__Asses__3D2915A8" Association="Self.FK__Statement__Asses__3D2915A8">
       <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators" />
       <End Role="StatementProcrasinators" EntitySet="StatementProcrasinators" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Statement__Asses__47A6A41B" Association="Self.FK__Statement__Asses__47A6A41B">
+      <End Role="AssessmentSensories" EntitySet="AssessmentSensories" />
+      <End Role="StatementSensories" EntitySet="StatementSensories" />
     </AssociationSet>
     <AssociationSet Name="FK__Statement__State__22751F6C" Association="Self.FK__Statement__State__22751F6C">
       <End Role="StatementIntelligences" EntitySet="StatementIntelligences" />

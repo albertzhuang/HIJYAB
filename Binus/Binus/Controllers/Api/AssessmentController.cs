@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Binus.Models.AssessmentProcrasiantor;
 using Binus.Models.AssessmentIntelligence;
+using Binus.Models.AssessmentSensory;
 
 namespace Binus.Controllers.Api
 {
@@ -33,18 +34,30 @@ namespace Binus.Controllers.Api
             }
         }
 
-        /*[HttpPost]
+        [HttpPost]
         public HttpResponseMessage createAssessmentIntelligence(AssessmentIntelligence model)
         {
+            Assessments assessment = new Assessments();
+            assessment.AssessmentTitle = model.assessmentTitle;
+            assessment.AssessmentDescription = model.assessmentDescription;
+
+            db.Assessments1.Add(assessment);
+            db.SaveChanges();
+
+
+            int fk_assessmentID = int.Parse(db.Assessments1
+                    .OrderByDescending(x => x.AssessmentID)
+                    .Select(x => x.AssessmentID).First().ToString());
+
             AssessmentIntelligences assessmentIntelligence = new AssessmentIntelligences();
-            assessmentIntelligence.AssessmentTitle = model.assessmentTitle;
-            assessmentIntelligence.AssessmentDescription = model.assessmentDescription;
+            assessmentIntelligence.AssessmentID = fk_assessmentID;
+
             db.AssessmentIntelligences1.Add(assessmentIntelligence);
             db.SaveChanges();
+
             int fk_assessmentIntelligenceID = int.Parse(db.AssessmentIntelligences1
                 .OrderByDescending(x => x.AssessmentIntelligenceID)
                 .Select(x => x.AssessmentIntelligenceID).First().ToString());
-
 
             foreach(var value in model.statementIntelligences)
             {
@@ -93,14 +106,86 @@ namespace Binus.Controllers.Api
         }
 
         [HttpPost]
+        public HttpResponseMessage createAssessmentSensory(AssessmentSensory model)
+        {
+            Assessments assessment = new Assessments();
+            assessment.AssessmentTitle = model.assessmentTitle;
+            assessment.AssessmentDescription = model.assessmentDescription;
+
+            db.Assessments1.Add(assessment);
+            db.SaveChanges();
+
+            int fk_assessmentID = int.Parse(db.Assessments1
+                    .OrderByDescending(x => x.AssessmentID)
+                    .Select(x => x.AssessmentID).First().ToString());
+
+            AssessmentSensories assessmentSensory = new AssessmentSensories();
+            assessmentSensory.AssessmentID = fk_assessmentID;
+
+            db.AssessmentSensories1.Add(assessmentSensory);
+            db.SaveChanges();
+
+            int fk_assessmentSensoryID = int.Parse(db.AssessmentSensories1
+                    .OrderByDescending(x => x.AssessmentSensoryID)
+                    .Select(x => x.AssessmentSensoryID).First().ToString());
+
+
+            foreach (var value in model.scoreSensories)
+            {
+                ScoreSensories scoreSensory = new ScoreSensories();
+                scoreSensory.AssessmentSensoryID = fk_assessmentSensoryID;
+                scoreSensory.ScoreValue = value.scoreValue;
+                scoreSensory.ScoreWord = value.scoreWord;
+
+                db.ScoreSensories1.Add(scoreSensory);
+                db.SaveChanges();
+            }
+
+            foreach(var value in model.statementSensories)
+            {
+                StatementSensories statementSensory = new StatementSensories();
+                statementSensory.AssessmentSensoryID = fk_assessmentSensoryID;
+                statementSensory.StatementSensory = value.statementSensory;
+                statementSensory.Sensory = value.sensory;
+
+                db.StatementSensories1.Add(statementSensory);
+                db.SaveChanges();
+            }
+
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.Accepted);
+                result.Content = new StringContent(JsonConvert.SerializeObject(model));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        [HttpPost]
         public HttpResponseMessage createAssessmentProcrasinator(AssessmentProcrasinator model)
         {
+
+            Assessments assessment = new Assessments();
+            assessment.AssessmentTitle = model.assessmentTitle;
+            assessment.AssessmentDescription = model.assessmentDescription;
+
+            db.Assessments1.Add(assessment);
+            db.SaveChanges();
+
+            int fk_assessmentID = int.Parse(db.Assessments1
+                    .OrderByDescending(x => x.AssessmentID)
+                    .Select(x => x.AssessmentID).First().ToString());
+
             AssessmentProcrasinators assessmentProcrasinator = new AssessmentProcrasinators();
-            assessmentProcrasinator.AssessmentTitle = model.assessmentTitle;
-            assessmentProcrasinator.AssessmentDescription = model.assessmentDescription;
+            assessmentProcrasinator.AssessmentID = fk_assessmentID;
 
             db.AssessmentProcrasinators1.Add(assessmentProcrasinator);
             db.SaveChanges();
+
             int fk_assessmentProcrasinatorID = int.Parse(db.AssessmentProcrasinators1
                 .OrderByDescending(x => x.AssessmentProcrasinatorID)
                 .Select(x => x.AssessmentProcrasinatorID).First().ToString());
@@ -148,6 +233,6 @@ namespace Binus.Controllers.Api
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
-        }*/
+        }
     }
 }
