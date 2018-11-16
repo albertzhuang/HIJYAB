@@ -166,6 +166,7 @@
                     assessmentContainer.append(template);
                     $("#button_add_sensory").trigger("click");
                     $("#button_add_score_sensory").trigger("click");
+                    $("#button_add_statement_sensory").trigger("click");
                     break;  
                 case 3:
                     assessmentContainer.empty();
@@ -299,6 +300,9 @@
             
             buttonCancel.show();
             $(this).hide();
+
+            let currentStatementsContainer = assessmentContainer.find(".assessment-sensory:not(.template)>.statements-sensory").first();
+            currentStatementsContainer.removeClass("disabled-area");
         });
 
         $(document).on("click", "#button-cancel", function(){
@@ -309,6 +313,9 @@
 
             buttonFinish.show();
             $(this).hide();
+
+            let currentStatementsContainer=assessmentContainer.find(".assessment-sensory:not(.template)>.statements-sensory").first();
+            currentStatementsContainer.addClass("disabled-area");
         });
 
         $(document).on("click","#button_add_statement_sensory", function(){
