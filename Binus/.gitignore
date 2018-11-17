@@ -1,18 +1,14 @@
-﻿
-
-
-###############
+﻿###############
 # DIRECTORIES #
 ###############
 /Binus/Data
-/Binus/obj/Debug
 
 #############
 # EXTENSION #
 #############
 *.lock
 *.sou
-*.csproj
+
 
 
 ########
