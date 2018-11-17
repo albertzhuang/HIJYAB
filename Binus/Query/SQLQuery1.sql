@@ -34,10 +34,18 @@ CREATE TABLE Languages
 CREATE TABLE Assessments
 (
 	AssessmentID INT PRIMARY KEY IDENTITY(1,1),
-	AssessmentTypeID int FOREIGN KEY(AssessmentTypeID) REFERENCES AssessmentTypes(AssessmentTypeID) ON DELETE CASCADE ON UPDATE CASCADE,
+	AssessmentTypeID int FOREIGN KEY(AssessmentTypeID) REFERENCES AssessmentTypes(AssessmentTypeID) ON DELETE CASCADE ON UPDATE CASCADE NOY NULL,
 	AssessmentTitle VARCHAR(MAX) NOT NULL,
 	AssessmentDescription VARCHAR(MAX) NOT NULL,
 	LastUpdate DATETIME
+)
+
+CREATE TABLE Transactions
+(
+	TransactionID INT PRIMARY KEY IDENTITY(1,1),
+	AssessmentID int FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOY NULL,
+	TransactionDate DATETIME NOT NULL,
+	LastUpdate DATETIME NOT NULL,
 )
 
 
@@ -137,6 +145,7 @@ CREATE TABLE ScoreProcrasinators
 	StartValue INT NOT NULL,
 	EndValue INT NOT NULL
 )
+
 --END PROCRASINATOR
 
 
