@@ -235,6 +235,9 @@
     <Compile Include="Data\Languages.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\ResultAssessments.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\ScoreIntelligences.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
@@ -273,6 +276,8 @@
     <Compile Include="Models\AssessmentSensory\AssessmentSensory.cs" />
     <Compile Include="Models\AssessmentSensory\ScoreSensory.cs" />
     <Compile Include="Models\AssessmentSensory\StatementSensory.cs" />
+    <Compile Include="Models\ResultAssessment.cs" />
+    <Compile Include="Models\SearchBinusian.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -284,6 +289,7 @@
     <Content Include="Content\css\AddAssessment.css" />
     <Content Include="Content\css\grid.min.css" />
     <Content Include="Content\css\master.css" />
+    <Content Include="Content\css\ShowAssessment.css" />
     <Content Include="Content\css\themes\affiliation\css\login.css" />
     <Content Include="Content\css\themes\affiliation\css\style.css" />
     <Content Include="Content\css\themes\affiliation\images\bg-login-overlay.png" />
@@ -1941,9 +1947,11 @@
     <Content Include="Views\Home\ViewCase.cshtml" />
     <Content Include="Views\Assessment\AddAssessment.cshtml" />
     <Content Include="Views\Assessment\Manage.cshtml" />
-    <Content Include="Views\Assessment\AssessmentIntelligence.cshtml" />
-    <Content Include="Views\Assessment\AssessmentSensory.cshtml" />
-    <Content Include="Views\Assessment\AssessmentProcrasinator.cshtml" />
+    <Content Include="Views\Assessment\ResultPage.cshtml" />
+    <Content Include="Views\Assessment\ShowAssessment.cshtml" />
+    <Content Include="Views\Shared\Assessment\AssessmentIntelligence.cshtml" />
+    <Content Include="Views\Shared\Assessment\AssessmentProcrasinator.cshtml" />
+    <Content Include="Views\Shared\Assessment\AssessmentSensory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

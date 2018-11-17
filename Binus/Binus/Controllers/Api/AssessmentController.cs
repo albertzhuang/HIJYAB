@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Binus.Models.AssessmentProcrasiantor;
 using Binus.Models.AssessmentIntelligence;
 using Binus.Models.AssessmentSensory;
+using Binus.Models;
 
 namespace Binus.Controllers.Api
 {
@@ -17,6 +18,112 @@ namespace Binus.Controllers.Api
     {
         BinusEntities db = new BinusEntities();
         
+
+        [HttpGet]
+        public HttpResponseMessage getAll()
+        {
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new StringContent(JsonConvert.SerializeObject(db.AssessmentTypes1.ToList(), new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                }));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
+
+        [HttpGet]
+        public HttpResponseMessage getAllAssessmentList()
+        {
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new StringContent(JsonConvert.SerializeObject(db.Assessments1.ToList(), new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                }));
+
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
+
+        [HttpGet]
+        public HttpResponseMessage getDetailAssessment(int id = 0)
+        {
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new StringContent(JsonConvert.SerializeObject(db.Assessments1.Find(id), new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                }));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
+
+
+        [HttpGet]
+        public HttpResponseMessage getAssessmentSensory(int id = 0)
+        {
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new StringContent(JsonConvert.SerializeObject(db.AssessmentSensories1.Find(id), new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                }));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
+
+
+
+        [HttpGet]
+        public HttpResponseMessage getAssessmentProcrastinator(int id = 0)
+        {
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new StringContent(JsonConvert.SerializeObject(db.AssessmentProcrasinators1.Find(id), new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                }));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
+
+
         [HttpGet]
         public HttpResponseMessage getAllAssessment()
         {
@@ -38,9 +145,11 @@ namespace Binus.Controllers.Api
         public HttpResponseMessage createAssessmentIntelligence(AssessmentIntelligence model)
         {
             Assessments assessment = new Assessments();
+            assessment.AssessmentTypeID = 1;
             assessment.AssessmentTitle = model.assessmentTitle;
             assessment.AssessmentDescription = model.assessmentDescription;
-
+            assessment.LastUpdate = DateTime.Now;
+            
             db.Assessments1.Add(assessment);
             db.SaveChanges();
 
@@ -109,8 +218,10 @@ namespace Binus.Controllers.Api
         public HttpResponseMessage createAssessmentSensory(AssessmentSensory model)
         {
             Assessments assessment = new Assessments();
+            assessment.AssessmentTypeID = 2;
             assessment.AssessmentTitle = model.assessmentTitle;
             assessment.AssessmentDescription = model.assessmentDescription;
+            assessment.LastUpdate = DateTime.Now;
 
             db.Assessments1.Add(assessment);
             db.SaveChanges();
@@ -168,10 +279,11 @@ namespace Binus.Controllers.Api
         [HttpPost]
         public HttpResponseMessage createAssessmentProcrasinator(AssessmentProcrasinator model)
         {
-
             Assessments assessment = new Assessments();
+            assessment.AssessmentTypeID = 3;
             assessment.AssessmentTitle = model.assessmentTitle;
             assessment.AssessmentDescription = model.assessmentDescription;
+            assessment.LastUpdate = DateTime.Now;
 
             db.Assessments1.Add(assessment);
             db.SaveChanges();
@@ -232,6 +344,83 @@ namespace Binus.Controllers.Api
             catch
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage saveResult(ResultAssessment rt)
+        {
+            foreach (var value in rt.result)
+            {
+                string[] words = value.TrimStart('(').Split('(');
+                int indexOutOfRange = 2;
+                ResultAssessments rts = new ResultAssessments();
+                rts.AssessmentID = rt.assessmentid;
+                rts.Institution = "dummy";
+                rts.AcademikCareer = "dummy";
+                rts.Campus = "dummy";
+                rts.AcademicGroup = "dummy";
+                rts.AcademicOrganization = "dummy";
+                rts.AcademicProgram = "dummy";
+                rts.AcademicYear = "dummy";
+                rts.Status = "dummy";
+                rts.BinusianID = rt.binusian_id;
+
+                // masalah juga di view result page
+                if (words.Length < indexOutOfRange)
+                {
+                    rts.Result = words[0];
+                    rts.Describe = "-";
+                }
+                else
+                {
+                    rts.Result = words[0];
+                    rts.Describe = "(" + words[1];
+                }
+
+
+
+
+                db.ResultAssessments1.Add(rts);
+                db.SaveChanges();
+            }
+
+            //     int pk_ResultAssessments = int.Parse(db.ResultAssessments1.OrderByDescending(x => x.ResultAssessmentID).Select(x => x.ResultAssessmentID).First().ToString());
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.Accepted);
+                result.Content = new StringContent(JsonConvert.SerializeObject(rt));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        [HttpGet]
+        public HttpResponseMessage getResultAssessment(int id = 0)
+        {
+            var binusianid = "bn190151515";
+            var query = from a in db.ResultAssessments1
+                        where a.BinusianID == binusianid && a.AssessmentID == id
+                        select a;
+
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new StringContent(JsonConvert.SerializeObject(query, new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                }));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
     }

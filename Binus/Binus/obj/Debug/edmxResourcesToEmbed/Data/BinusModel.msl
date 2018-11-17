@@ -61,6 +61,25 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ResultAssessments1">
+      <EntityTypeMapping TypeName="BinusModel.ResultAssessments">
+        <MappingFragment StoreEntitySet="ResultAssessments">
+          <ScalarProperty Name="ResultAssessmentID" ColumnName="ResultAssessmentID" />
+          <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
+          <ScalarProperty Name="Institution" ColumnName="Institution" />
+          <ScalarProperty Name="AcademikCareer" ColumnName="AcademikCareer" />
+          <ScalarProperty Name="Campus" ColumnName="Campus" />
+          <ScalarProperty Name="AcademicGroup" ColumnName="AcademicGroup" />
+          <ScalarProperty Name="AcademicOrganization" ColumnName="AcademicOrganization" />
+          <ScalarProperty Name="AcademicProgram" ColumnName="AcademicProgram" />
+          <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="BinusianID" ColumnName="BinusianID" />
+          <ScalarProperty Name="Result" ColumnName="Result" />
+          <ScalarProperty Name="Describe" ColumnName="Describe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ScoreIntelligences1">
       <EntityTypeMapping TypeName="BinusModel.ScoreIntelligences">
         <MappingFragment StoreEntitySet="ScoreIntelligences">
@@ -76,9 +95,9 @@
         <MappingFragment StoreEntitySet="ScoreProcrasinators">
           <ScalarProperty Name="ScoreProcrasinatorID" ColumnName="ScoreProcrasinatorID" />
           <ScalarProperty Name="AssessmentProcrasinatorID" ColumnName="AssessmentProcrasinatorID" />
-          <ScalarProperty Name="ScoreWord" ColumnName="ScoreWord" />
           <ScalarProperty Name="StartValue" ColumnName="StartValue" />
           <ScalarProperty Name="EndValue" ColumnName="EndValue" />
+          <ScalarProperty Name="ScoreWord" ColumnName="ScoreWord" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -119,23 +138,31 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="StatementSensories1">
-      <EntityTypeMapping TypeName="BinusModel.StatementSensories">
-        <MappingFragment StoreEntitySet="StatementSensories">
-          <ScalarProperty Name="StatementSensoryID" ColumnName="StatementSensoryID" />
-          <ScalarProperty Name="AssessmentSensoryID" ColumnName="AssessmentSensoryID" />
-          <ScalarProperty Name="StatementSensory" ColumnName="StatementSensory" />
-          <ScalarProperty Name="Sensory" ColumnName="Sensory" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Transactions1">
       <EntityTypeMapping TypeName="BinusModel.Transactions">
         <MappingFragment StoreEntitySet="Transactions">
-          <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
-          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
-          <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
           <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
+          <ScalarProperty Name="Institution" ColumnName="Institution" />
+          <ScalarProperty Name="AcademikCareer" ColumnName="AcademikCareer" />
+          <ScalarProperty Name="Campus" ColumnName="Campus" />
+          <ScalarProperty Name="AcademicGroup" ColumnName="AcademicGroup" />
+          <ScalarProperty Name="AcademicOrganization" ColumnName="AcademicOrganization" />
+          <ScalarProperty Name="AcademicProgram" ColumnName="AcademicProgram" />
+          <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="BinusianID" ColumnName="BinusianID" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatementSensories1">
+      <EntityTypeMapping TypeName="BinusModel.StatementSensories">
+        <MappingFragment StoreEntitySet="StatementSensories">
+          <ScalarProperty Name="Sensory" ColumnName="Sensory" />
+          <ScalarProperty Name="StatementSensory" ColumnName="StatementSensory" />
+          <ScalarProperty Name="AssessmentSensoryID" ColumnName="AssessmentSensoryID" />
+          <ScalarProperty Name="StatementSensoryID" ColumnName="StatementSensoryID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

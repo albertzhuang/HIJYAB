@@ -74,11 +74,11 @@
                             </div>
 
 
-                            @RenderPage("~/Views/Assessment/AssessmentIntelligence.cshtml")
+                            @RenderPage("~/Views/Shared/Assessment/AssessmentIntelligence.cshtml")
 
-                            @RenderPage("~/Views/Assessment/AssessmentProcrasinator.cshtml")
+                            @RenderPage("~/Views/Shared/Assessment/AssessmentSensory.cshtml")
 
-                            @RenderPage("~/Views/Assessment/AssessmentSensory.cshtml")
+                            @RenderPage("~/Views/Shared/Assessment/AssessmentProcrasinator.cshtml")
                         </form>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
             $.ajax
             ({
                 method: "GET",
-                url: "/api/assessmentType/getAll",
+                url: "/api/AssessmentType/getAll",
                 success: function(data) {
                     data.forEach(function(value) {
                         $("select[name='select_assessment_type']").append("<option value="+value.AssessmentTypeID+">"+value.AssessmentType+"</option>")
