@@ -123,6 +123,7 @@
         const assessmentSensory = $("#assessment-sensory");
         const ascii_A = 65;
         
+        var sensories = [];
 
 
         //START DOCUMENT
@@ -303,6 +304,21 @@
 
             let currentStatementsContainer = assessmentContainer.find(".assessment-sensory:not(.template)>.statements-sensory").first();
             currentStatementsContainer.removeClass("disabled-area");
+
+            //let currentSensoriesContainer = assessmentContainer.find("");
+            $(".sensory:not(.template)").each(function()
+            {
+                sensories.push($("input[name='input-sensory']").val());
+                
+                $("select[name='select-sensory']").append(
+                    "<option value='1'>" + $(this).find("input[name='input-sensory']").val() + "</option>"
+                );
+            });
+
+
+            console.log(sensories);
+            //
+            
         });
 
         $(document).on("click", "#button-cancel", function(){
@@ -316,6 +332,8 @@
 
             let currentStatementsContainer=assessmentContainer.find(".assessment-sensory:not(.template)>.statements-sensory").first();
             currentStatementsContainer.addClass("disabled-area");
+
+            sensories = [];
         });
 
         $(document).on("click","#button_add_statement_sensory", function(){
@@ -459,6 +477,13 @@
                     });
                     break;
                 case 2:
+                    let statementSensories = [];
+                    let scoreSensories = [];
+
+                    $(".statement-sensory:not(.template)").each(function()
+                    {
+
+                    });
                     break;
                 case 3:
                     //add assessment procrasinator

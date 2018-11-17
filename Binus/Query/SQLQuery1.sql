@@ -37,13 +37,13 @@ CREATE TABLE Assessments
 	AssessmentTypeID int FOREIGN KEY(AssessmentTypeID) REFERENCES AssessmentTypes(AssessmentTypeID) ON DELETE CASCADE ON UPDATE CASCADE NOY NULL,
 	AssessmentTitle VARCHAR(MAX) NOT NULL,
 	AssessmentDescription VARCHAR(MAX) NOT NULL,
-	LastUpdate DATETIME
+	LastUpdate DATETIME NOT NULL
 )
 
 CREATE TABLE Transactions
 (
 	TransactionID INT PRIMARY KEY IDENTITY(1,1),
-	AssessmentID int FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOY NULL,
+	AssessmentID int FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	TransactionDate DATETIME NOT NULL,
 	LastUpdate DATETIME NOT NULL,
 )
