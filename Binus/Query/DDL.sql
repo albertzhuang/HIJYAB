@@ -125,17 +125,18 @@ CREATE TABLE AssessmentSensories
 CREATE TABLE StatementSensories
 (
 	StatementSensoryID INT PRIMARY KEY IDENTITY(1,1),
+	SensoryID INT FOREIGN KEY(SensoryID) REFERENCES AssessmentSensories(AssessmentSensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	AssessmentSensoryID INT FOREIGN KEY(AssessmentSensoryID) REFERENCES AssessmentSensories(AssessmentSensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	StatementSensory VARCHAR(MAX) NOT NULL,
-	Sensory VARCHAR(MAX) NOT NULL
+	
 )
 
---CREATE TABLE Sensories
---(
---	SensoryID INT PRIMARY KEY IDENTITY(1,1),
---	StatementSensoryID INT FOREIGN KEY(StatementSensoryID) REFERENCES StatementSensories(StatementSensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
---	Sensory VARCHAR(MAX) NOT NULL
---)
+CREATE TABLE Sensories
+(
+	SensoryID INT PRIMARY KEY IDENTITY(1,1),
+	StatementSensoryID INT FOREIGN KEY(StatementSensoryID) REFERENCES StatementSensories(StatementSensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+	Sensory VARCHAR(MAX) NOT NULL
+)
 
 
 
@@ -180,16 +181,6 @@ CREATE TABLE ScoreProcrasinators
 
 --END PROCRASINATOR
 
-
-
-INSERT INTO Languages VALUES('Bahasa Indonesia'),('English')
-
-INSERT INTO AssessmentTypes VALUES('Assessment Intelligence'),('Assessment Sensory'),('Assessment Procrasinator')
-	
-SELECT * FROM StatementIntelligences
-
-
-SELECT * FROM StatementDetailIntelligences
 
 
 

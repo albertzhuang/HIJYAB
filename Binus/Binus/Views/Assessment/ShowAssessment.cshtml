@@ -75,7 +75,7 @@
                 method: "get",
                 url: "/api/assessment/getDetailAssessment/"+idAssessment,
                 success: function (data) {
-                    
+                    console.log("Pantek : ",data);
                     
                     //Untuk title
                      $('#titleAssessment').html(
@@ -143,7 +143,7 @@
                         results.StatementDetailIntelligences.forEach(function (result) {
                             $('#case-' + idx).find($('ol')).append(
                                 "<li>" +
-                                result.StatementDetail +
+                                result.StatementDetailIntelligence +
                                 " <select name='detailquestion' class='scoreassessment'>" +
                                 "</select>" +
                                 "</li>"
@@ -510,6 +510,8 @@
                                 alert('Soal nomor ' + (i + 1) + ' harus pilih salah satu');
                                 return;
                             }
+
+
 
                             if ("Audio" == columnscore[i])
                                 ResAuditory += result;

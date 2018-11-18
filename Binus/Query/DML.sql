@@ -128,34 +128,34 @@ VALUES
 (1,5,'Often'),
 (1,3,'Sometimes'),
 (1,1,'Seldom')
-
-INSERT INTO StatementSensories(AssessmentSensoryID,SensoryID,StatementSensory)
+SELECT * FROM StatementSensories
+INSERT INTO StatementSensories(AssessmentSensoryID,StatementSensory,Sensory)
 VALUES
-(1,2,'I can remember best about a subject by listening to a lecture that includes information, explanations, and discussion.'),
-(1,1,'I prefer to see information written on a chalkboard and supplemented by visual aids and assigned readings.'),
-(1,1,'I like to write things down or take notes for visual review.'),
-(1,3,'I prefer to use posters, models, or actual practice and do other activities in class.'),
-(1,2,'I require explanations of diagrams, graphs, or visual directions.'),
-(1,3,'I enjoy working with my hands or making things.'),
-(1,1,'I am skillful with and enjoy developing and making graphs and charts.'),
-(1,2,'I can tell if sounds match when presented with pairs of sounds.'),
-(1,3,'I remember best by writing things down several times.'),
-(1,1,'I can easily understand and follow directions on maps.'),
+(1,'I can remember best about a subject by listening to a lecture that includes information, explanations, and discussion.','Audio'),
+(1,'I prefer to see information written on a chalkboard and supplemented by visual aids and assigned readings.','Visual'),
+(1,'I like to write things down or take notes for visual review.','Visual'),
+(1,'I prefer to use posters, models, or actual practice and do other activities in class.','Tactile'),
+(1,'I require explanations of diagrams, graphs, or visual directions.','Audio'),
+(1,'I enjoy working with my hands or making things.','Tactile'),
+(1,'I am skillful with and enjoy developing and making graphs and charts.','Visual'),
+(1,'I can tell if sounds match when presented with pairs of sounds.','Audio'),
+(1,'I remember best by writing things down several times.','Tactile'),
+(1,'I can easily understand and follow directions on maps.','Visual'),
 
 
-(1,2,'I do best in academic subjects by listening to lectures and tapes.'),
-(1,3,'I play with coins or keys in my pocket.'),
-(1,2,'I learn to spell better by repeating words out loud than by writing the words on paper.'),
-(1,1,'I can understand a news article better by reading about it in the newspaper than by listening to a report about it on the radio.'),
-(1,3,'I chew gum, smoke, or snack while studying.'),
-(1,1,'I think the best way to remember something is to picture it in your head.'),
-(1,3,'I learn the spelling of words by "finger spelling" them.'),
-(1,2,'I would rather listen to a good lecture or speech than read about the same material in a textbook.'),
-(1,1,'I am good at working and solving jigsaw puzzles and mazes.'),
-(1,3,'I grip objects in my hands during learning periods.'),
+(1,'I do best in academic subjects by listening to lectures and tapes.','Audio'),
+(1,'I play with coins or keys in my pocket.','Tactile'),
+(1,'I learn to spell better by repeating words out loud than by writing the words on paper.','Audio'),
+(1,'I can understand a news article better by reading about it in the newspaper than by listening to a report about it on the radio.','Visual'),
+(1,'I chew gum, smoke, or snack while studying.','Tactile'),
+(1,'I think the best way to remember something is to picture it in your head.','Visual'),
+(1,'I learn the spelling of words by "finger spelling" them.','Tactile'),
+(1,'I would rather listen to a good lecture or speech than read about the same material in a textbook.','Audio'),
+(1,'I am good at working and solving jigsaw puzzles and mazes.','Visual'),
+(1,'I grip objects in my hands during learning periods.','Tactile'),
 
 
-(1,2,'I prefer listening to the news on the radio rather than reading about it in the newspaper.'),
-(1,1,'I prefer obtaining information about an interesting subject by reading about it.'),
-(1,3,'I feel very comfortable touching others, hugging, handshaking, etc.'),
-(1,2,'I follow oral directions better than written ones.')
+(1,'I prefer listening to the news on the radio rather than reading about it in the newspaper.','Audio'),
+(1,'I prefer obtaining information about an interesting subject by reading about it.','Visual'),
+(1,'I feel very comfortable touching others, hugging, handshaking, etc.','Tactile'),
+(1,'I follow oral directions better than written ones.','Audio')

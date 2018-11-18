@@ -17,5 +17,16 @@ namespace Binus.Controllers
         {
             return View();
         }
+
+        public ActionResult ShowAssessment()
+        {
+            return View();
+        }
+
+        public ActionResult ResultPage()
+        {
+            return View();
+        }
+
     }
 }
