@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "AssessmentIntelligence";
+}
+
+<!--START ASSESSMENT Intelligence-->
+<div class="assessment-intelligence template" id="assessment-intelligence" style="display: none;">
+    <p>
+        <button id="button_add_statement_intelligence" class="button button-primary">Add Statement</button>
+    </p>
+
+    <div class="statements-intelligence" id="statements-intelligence-container">
+        @*START TEMPLATE STATEMENTS*@
+        <div class="statement-intelligence template" style="display: none;">
+            <div class="row statement-wrapper">
+                <div class="col-md-1 center-vertical">
+                    <span class="statement-no">XX</span>
+                    <span class="required">*</span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" name="input_statement" />
+                </div>
+                <div class="col-md-1 center-vertical">
+                    <span class='icon-add add-statement-detail-intelligence'></span>
+                    <span class='icon-trash remove-statement-intelligence'></span>
+                </div>
+            </div>
+            <div class="statement-details-container">
+                <div class="row statement-detail">
+                    <div class="col-md-1 col-md-offset-1 center-input">
+                        <span class="statement-detail-no center-vertical">XX</span>
+                    </div>
+                    <div class="col-md-10">
+                        <span class="custom-statement">
+                            <input type="text" name="input_statement_detail">
+                            <span class="icon-area"><span class="icon-reject remove-statement-detail-intelligence"></span></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*END TEMPLATE STATEMENTS*@
+    </div>
+
+    <div class="scores-intelligence">
+        @*START HEADER SCORE*@
+        <div class="row">
+            <div class="col-md-1 text-center">
+                No
+            </div>
+            <div class="col-md-5 text-center">
+                Score Value
+            </div>
+            <div class="col-md-5 text-center">
+                Score Text
+            </div>
+            <div class="col-md-1 text-center">
+                <span class="icon-add" id="button_add_score_intelligence"></span>
+            </div>
+        </div>
+        @*END HEADER SCORE*@
+        <div id="score-intelligence-container">
+            @*START TEMPLATE SCORE*@
+            <div class="row score score-intelligence template" style="display:none;">
+                <div class="col-md-1 center-vertical">
+                    <span class="score-no">XX</span>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" name="input_score_value">
+                </div>
+                <div class="col-md-5">
+                    <input type="text" name="input_score_word">
+                </div>
+                <div class="col-md-1 text-center score-icon-wrapper">
+                    <span class="icon-reject remove-score-intelligence"></span>
+                </div>
+            </div>
+            @*END TEMPLATE SCORE*@
+        </div>
+    </div>
+</div>
+<!--END ASSESSMENT Intelligence-->

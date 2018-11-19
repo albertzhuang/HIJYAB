@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "ViewCase";
+}
+
+<div class="main-content has-widget" id="main-content">
+    <div class="container">
+        <div class="box-container">
+            <div class="single-content popup-content" id="target-id">
+                <div class="widget-parent">
+                    <div class="row">
+                        <div class="column">
+                            <div class="widget auto-height">
+                                <div class="widget-head">
+                                    <span class="head-wrap">
+                                        <span class="label">
+                                            <span class="title">Case List</span>
+                                        </span>
+                                        <!-- validasi kalau client buka , ini tidak ada -->
+                                        <span class="opposite-link">
+                                            @Html.ActionLink("Add Case", "AddCase", "Home")
+                                        </span>
+                                        <!-- validasi kalau client buka , ini tidak ada -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="freeze-pane">
+                    <table class="bordered zebra" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>#</td>
+                                <th>Name</th>
+                                <th>Total Question</th>
+                                <th>Last Update</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    Belbins Role
+                                </td>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    2018-05-07 15:24:44
+                                </td>
+                                <td>
+                                    <span>
+                                        <a href="AddCase">
+                                            <i class="icon-edit"></i>
+                                        </a>
+                                    </span>
+
+                                    <span>
+                                        @Html.ActionLink(" ", "CaseDetail", "Home")
+                                        <a href="CaseDetail">
+                                            <i class="icon-view"></i>
+                                        </a>
+                                    </span>
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

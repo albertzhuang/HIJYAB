@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "FinalResult";
+ 
+  
+    var role = HttpContext.Current.Server.UrlDecode(Request.Url.Segments[3]);
+   
+
+}
+
+<div class="main-content has-widget" id="main-content">
+    <div class="container">
+        <div class="box-container">
+            <div class="single-content popup-content" id="target-id">
+                <h1 class="tk-title">THANKYOU, HENDRA EFFENDI</h1>
+
+                <blockquote>
+                    <h3 class="role-title">Your Belbins Role Result</h3>
+@using (Html.BeginForm())
+{
+                        if (role == "")
+                        {
+                            role = "none";
+                        }
+                    <h1 class="tk-title">@role</h1>
+
+                        if (role == "Implementor")
+                        {
+                            <h3 class="role-description">
+                                You are Disciplined, reliable, conservative, efficient. Turns ideas into practical actions. <br />
+                                Your Allowance Shortcomings : Somewhat inflexible. Slow to respond to new possibilities
+                            </h3>
+                        }
+                        else if (role == "none")
+                        {
+                            <h3 class="role-description">
+                                Please Fill the Test First!
+                            </h3>
+                        }
+                        else if (role == "Coordinator")
+                        {
+                            <h3 class="role-description">
+                                You are Mature, calm, confident, unbiased. A good chairperson. Clarifies goals, promotes decision making, delegates well. <br />
+                                Your Allowance Shortcomings : Can be seen as manipulative. Delegates personal work
+                            </h3>
+                        }
+                        else if (role == "Shaper")
+                        {
+                            <h3 class="role-description">
+                                You are Outgoing, dynamic, thrives on pressure. Has drive and courage to overcome obstacles. Pushes team towards action, challenges inertia <br />
+                                Your Allowance Shortcomings : Can provoke others. Hurts people’s feelings
+                            </h3>
+                        }
+                        else if (role == "Plant")
+                        {
+                            <h3 class="role-description">
+                                You are Creative, imaginative, unorthodox. Generates new ideas and approaches; solves difficult problems <br />
+                                Your Allowance Shortcomings : Ignores details. Too preoccupied to communicate effectively
+                            </h3>
+                        }
+                        else if (role == "Resource Investigator")
+                        {
+                            <h3 class="role-description">
+                                You are Extrovert, enthusiastic, curious, Communicative. Explores opportunities and contacts with environment<br />
+                                Your Allowance Shortcomings : Over optimistic. Loses interest once initial enthusiasm has passed 
+                           </h3>
+                        }
+                        else if (role == "Monitor Evaluator")
+                        {
+                            <h3 class="role-description">
+                                You are Sober, strategic, discerning, introvert. Analyses problems and evaluates contributions; sees all options, judges accurately<br />
+                                Your Allowance Shortcomings : Lacks drive and ability to inspire others. Overly critical. Hardheaded 
+                           </h3>
+                        }
+                        else if (role == "Team Worker")
+                        {
+                            <h3 class="role-description">
+                                You are Cooperative, mild, perceptive, diplomatic. Listens, builds, averts friction, calms the waters. <br />
+                                Your Allowance Shortcomings : Indecisive in crunch situations. Can be easily influenced 
+                           </h3>
+                        }
+                        else if (role == "Completer Finisher")
+                        {
+                            <h3 class="role-description">
+                                You are Painstaking, conscientious, thorough, anxious. Searches out errors and omissions. Delivers on time  <br />
+                                Your Allowance Shortcomings : Inclined to worry unduly. Reluctant to delegate. Can be a nit-picker 
+                           </h3>
+                        }
+                        else if (role == "Specialist")
+                        {
+                            <h3 class="role-description">
+                                You are Single-minded, self-starting, dedicated. Provides knowledge and skills in rare supply <br />
+                                Your Allowance Shortcomings : Contributes on only a narrow front. Dwells on technicalities. Overlooks the ‘big picture’ 
+                           </h3>
+                        }
+                    
+}
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
