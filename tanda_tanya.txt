@@ -1,2 +1,0 @@
-1. ketika telah di assign, apakah perlu membuat validasi waktu access untuk receiver ?
-2. apakah mungkin 1 mahasiswa, mendapat soal yang berbeda namun di waktu yang sama ?
