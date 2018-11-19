@@ -1952,6 +1952,7 @@
     <Content Include="Views\Shared\Assessment\AssessmentIntelligence.cshtml" />
     <Content Include="Views\Shared\Assessment\AssessmentProcrasinator.cshtml" />
     <Content Include="Views\Shared\Assessment\AssessmentSensory.cshtml" />
+    <Content Include="Views\Assessment\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
