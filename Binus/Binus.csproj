@@ -200,6 +200,72 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Data\Agreements.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AssessmentIntelligences.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AssessmentProcrasinators.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Assessments.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AssessmentSensories.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AssessmentTypes.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\BinusModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BinusModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\BinusModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\BinusModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BinusModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Languages.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ResultAssessments.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ScoreIntelligences.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ScoreProcrasinators.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ScoreSensories.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Sensories.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\StatementDetailIntelligences.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\StatementIntelligences.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\StatementProcrasinators.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\StatementSensories.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Transactions.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1729,6 +1795,16 @@
     <Content Include="Content\js\development\vendor\sly.js" />
     <Content Include="Content\js\script.js" />
     <Content Include="Content\js\vendor\html5shiv.js" />
+    <Content Include="Data\BinusModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BinusModel.edmx</DependentUpon>
+      <LastGenOutput>BinusModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\BinusModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BinusModel.edmx</DependentUpon>
+      <LastGenOutput>BinusModel.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1820,6 +1896,13 @@
     <Content Include="Content\js\development\vendor\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Content\js\development\vendor\ckeditor\skins\icy_orange\readme.md" />
     <Content Include="Content\js\development\vendor\ckeditor\skins\moono-lisa\readme.md" />
+    <EntityDeploy Include="Data\BinusModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BinusModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Data\BinusModel.edmx.diagram">
+      <DependentUpon>BinusModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1879,7 +1962,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Data\" />
     <Folder Include="Views\Route\" />
   </ItemGroup>
   <ItemGroup>

@@ -252,16 +252,16 @@ namespace Binus.Controllers.Api
                 db.SaveChanges();
             }
 
-            foreach(var value in model.statementSensories)
-            {
-                StatementSensories statementSensory = new StatementSensories();
-                statementSensory.AssessmentSensoryID = fk_assessmentSensoryID;
-                statementSensory.StatementSensory = value.statementSensory;
-                statementSensory.Sensory = value.sensory;
+            //foreach(var value in model.statementSensories)
+            //{
+            //    StatementSensories statementSensory = new StatementSensories();
+            //    statementSensory.AssessmentSensoryID = fk_assessmentSensoryID;
+            //    statementSensory.StatementSensory = value.statementSensory;
+            //    statementSensory.Sensory = value.sensory;
 
-                db.StatementSensories1.Add(statementSensory);
-                db.SaveChanges();
-            }
+            //    db.StatementSensories1.Add(statementSensory);
+            //    db.SaveChanges();
+            //}
 
             try
             {
@@ -347,7 +347,7 @@ namespace Binus.Controllers.Api
             }
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public HttpResponseMessage saveResult(ResultAssessment rt)
         {
             foreach (var value in rt.result)
@@ -397,9 +397,9 @@ namespace Binus.Controllers.Api
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
-        }
+        }*/
 
-        [HttpGet]
+        /*[HttpGet]
         public HttpResponseMessage getResultAssessment(int id = 0)
         {
             var binusianid = "bn190151515";
@@ -422,6 +422,6 @@ namespace Binus.Controllers.Api
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
-        }
+        }*/
     }
 }

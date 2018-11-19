@@ -36,7 +36,7 @@ CREATE TABLE Languages
 CREATE TABLE Assessments
 (
 	AssessmentID INT PRIMARY KEY IDENTITY(1,1),
-	AssessmentTypeID int FOREIGN KEY(AssessmentTypeID) REFERENCES AssessmentTypes(AssessmentTypeID) ON DELETE CASCADE ON UPDATE CASCADE NOY NULL,
+	AssessmentTypeID int FOREIGN KEY(AssessmentTypeID) REFERENCES AssessmentTypes(AssessmentTypeID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	AssessmentTitle VARCHAR(MAX) NOT NULL,
 	AssessmentDescription VARCHAR(MAX) NOT NULL,
 	LastUpdate DATETIME NOT NULL
@@ -103,7 +103,7 @@ CREATE TABLE AssessmentIntelligences
 (
 	AssessmentIntelligenceID INT PRIMARY KEY IDENTITY(1,1),
 	AssessmentID int FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL
- )
+)
 
 
 CREATE TABLE StatementIntelligences
@@ -137,24 +137,19 @@ CREATE TABLE AssessmentSensories
 	AssessmentID int FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL
 )
 
+CREATE TABLE Sensories
+(
+	SensoryID INT PRIMARY KEY IDENTITY(1,1),
+	Sensory VARCHAR(MAX) NOT NULL
+)
 
 CREATE TABLE StatementSensories
 (
 	StatementSensoryID INT PRIMARY KEY IDENTITY(1,1),
-	SensoryID INT FOREIGN KEY(SensoryID) REFERENCES AssessmentSensories(AssessmentSensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+	SensoryID INT FOREIGN KEY(SensoryID) REFERENCES Sensories(SensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	AssessmentSensoryID INT FOREIGN KEY(AssessmentSensoryID) REFERENCES AssessmentSensories(AssessmentSensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-	StatementSensory VARCHAR(MAX) NOT NULL,
-	
+	StatementSensory VARCHAR(MAX) NOT NULL,	
 )
-
-CREATE TABLE Sensories
-(
-	SensoryID INT PRIMARY KEY IDENTITY(1,1),
-	StatementSensoryID INT FOREIGN KEY(StatementSensoryID) REFERENCES StatementSensories(StatementSensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-	Sensory VARCHAR(MAX) NOT NULL
-)
-
-
 
 CREATE TABLE ScoreSensories
 (
@@ -194,7 +189,6 @@ CREATE TABLE ScoreProcrasinators
 	StartValue INT NOT NULL,
 	EndValue INT NOT NULL
 )
-
 --END PROCRASINATOR
 
 

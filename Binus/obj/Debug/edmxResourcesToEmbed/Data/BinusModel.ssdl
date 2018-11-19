@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="BinusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="BinusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Agreements">
     <Key>
       <PropertyRef Name="AgreementID" />
@@ -20,7 +20,7 @@
       <PropertyRef Name="AssessmentProcrasinatorID" />
     </Key>
     <Property Name="AssessmentProcrasinatorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="AssessmentID" Type="int" />
+    <Property Name="AssessmentID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Assessments">
     <Key>
@@ -59,17 +59,8 @@
     </Key>
     <Property Name="ResultAssessmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AssessmentID" Type="int" Nullable="false" />
-    <Property Name="Institution" Type="varchar(max)" Nullable="false" />
-    <Property Name="AcademikCareer" Type="varchar(max)" Nullable="false" />
-    <Property Name="Campus" Type="varchar(max)" Nullable="false" />
-    <Property Name="AcademicGroup" Type="varchar(max)" Nullable="false" />
-    <Property Name="AcademicOrganization" Type="varchar(max)" Nullable="false" />
-    <Property Name="AcademicProgram" Type="varchar(max)" Nullable="false" />
-    <Property Name="AcademicYear" Type="varchar(max)" Nullable="false" />
-    <Property Name="Status" Type="varchar(max)" Nullable="false" />
-    <Property Name="BinusianID" Type="varchar(max)" Nullable="false" />
-    <Property Name="Result" Type="varchar(max)" Nullable="false" />
-    <Property Name="Describe" Type="varchar(max)" Nullable="false" />
+    <Property Name="ResultWord" Type="varchar(max)" Nullable="false" />
+    <Property Name="ResultValue" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ScoreIntelligences">
     <Key>
@@ -86,9 +77,9 @@
     </Key>
     <Property Name="ScoreProcrasinatorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AssessmentProcrasinatorID" Type="int" Nullable="false" />
+    <Property Name="ScoreWord" Type="varchar(max)" Nullable="false" />
     <Property Name="StartValue" Type="int" Nullable="false" />
     <Property Name="EndValue" Type="int" Nullable="false" />
-    <Property Name="ScoreWord" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ScoreSensories">
     <Key>
@@ -98,6 +89,13 @@
     <Property Name="AssessmentSensoryID" Type="int" Nullable="false" />
     <Property Name="ScoreValue" Type="int" Nullable="false" />
     <Property Name="ScoreWord" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sensories">
+    <Key>
+      <PropertyRef Name="SensoryID" />
+    </Key>
+    <Property Name="SensoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sensory" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="StatementDetailIntelligences">
     <Key>
@@ -128,9 +126,9 @@
       <PropertyRef Name="StatementSensoryID" />
     </Key>
     <Property Name="StatementSensoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SensoryID" Type="int" Nullable="false" />
     <Property Name="AssessmentSensoryID" Type="int" Nullable="false" />
     <Property Name="StatementSensory" Type="varchar(max)" Nullable="false" />
-    <Property Name="Sensory" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Transactions">
     <Key>
@@ -138,18 +136,12 @@
     </Key>
     <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AssessmentID" Type="int" Nullable="false" />
-    <Property Name="Institution" Type="varchar(max)" Nullable="false" />
-    <Property Name="AcademikCareer" Type="varchar(max)" Nullable="false" />
-    <Property Name="Campus" Type="varchar(max)" Nullable="false" />
-    <Property Name="AcademicGroup" Type="varchar(max)" Nullable="false" />
-    <Property Name="AcademicOrganization" Type="varchar(max)" Nullable="false" />
-    <Property Name="AcademicProgram" Type="varchar(max)" Nullable="false" />
-    <Property Name="AcademicYear" Type="varchar(max)" Nullable="false" />
+    <Property Name="NIM" Type="varchar(max)" Nullable="false" />
     <Property Name="Status" Type="varchar(max)" Nullable="false" />
-    <Property Name="BinusianID" Type="varchar(max)" Nullable="false" />
     <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
   </EntityType>
-  <Association Name="FK__Agreement__Asses__4222D4EF">
+  <Association Name="FK__Agreement__Asses__7C1A6C5A">
     <End Role="AssessmentProcrasinators" Type="Self.AssessmentProcrasinators" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -163,7 +155,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Assessmen__Asses__0519C6AF">
+  <Association Name="FK__Assessmen__Asses__4E53A1AA">
     <End Role="AssessmentTypes" Type="Self.AssessmentTypes" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -177,7 +169,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Assessmen__Asses__1273C1CD">
+  <Association Name="FK__Assessmen__Asses__56E8E7AB">
     <End Role="Assessments" Type="Self.Assessments" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -191,7 +183,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Assessmen__Asses__25869641">
+  <Association Name="FK__Assessmen__Asses__625A9A57">
     <End Role="Assessments" Type="Self.Assessments" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -205,8 +197,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Assessmen__Asses__38996AB5">
-    <End Role="Assessments" Type="Self.Assessments" Multiplicity="0..1">
+  <Association Name="FK__Assessmen__Asses__76619304">
+    <End Role="Assessments" Type="Self.Assessments" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
     <End Role="AssessmentProcrasinators" Type="Self.AssessmentProcrasinators" Multiplicity="*" />
@@ -219,7 +211,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ResultAss__Asses__4BAC3F29">
+  <Association Name="FK__ResultAss__Asses__540C7B00">
     <End Role="Assessments" Type="Self.Assessments" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -233,7 +225,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ScoreInte__Asses__20C1E124">
+  <Association Name="FK__ScoreInte__Asses__5F7E2DAC">
     <End Role="AssessmentIntelligences" Type="Self.AssessmentIntelligences" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -247,7 +239,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ScoreProc__Asses__46E78A0C">
+  <Association Name="FK__ScoreProc__Asses__7EF6D905">
     <End Role="AssessmentProcrasinators" Type="Self.AssessmentProcrasinators" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -261,7 +253,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ScoreSens__Asses__33D4B598">
+  <Association Name="FK__ScoreSens__Asses__73852659">
     <End Role="AssessmentSensories" Type="Self.AssessmentSensories" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -275,7 +267,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Statement__Asses__173876EA">
+  <Association Name="FK__Statement__Asses__59C55456">
     <End Role="AssessmentIntelligences" Type="Self.AssessmentIntelligences" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -289,21 +281,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Statement__Asses__3D5E1FD2">
-    <End Role="AssessmentProcrasinators" Type="Self.AssessmentProcrasinators" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="StatementProcrasinators" Type="Self.StatementProcrasinators" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AssessmentProcrasinators">
-        <PropertyRef Name="AssessmentProcrasinatorID" />
-      </Principal>
-      <Dependent Role="StatementProcrasinators">
-        <PropertyRef Name="AssessmentProcrasinatorID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Statement__Asses__59FA5E80">
+  <Association Name="FK__Statement__Asses__70A8B9AE">
     <End Role="AssessmentSensories" Type="Self.AssessmentSensories" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -317,7 +295,35 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Statement__State__5535A963">
+  <Association Name="FK__Statement__Asses__793DFFAF">
+    <End Role="AssessmentProcrasinators" Type="Self.AssessmentProcrasinators" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="StatementProcrasinators" Type="Self.StatementProcrasinators" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssessmentProcrasinators">
+        <PropertyRef Name="AssessmentProcrasinatorID" />
+      </Principal>
+      <Dependent Role="StatementProcrasinators">
+        <PropertyRef Name="AssessmentProcrasinatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Statement__Senso__6FB49575">
+    <End Role="Sensories" Type="Self.Sensories" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="StatementSensories" Type="Self.StatementSensories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sensories">
+        <PropertyRef Name="SensoryID" />
+      </Principal>
+      <Dependent Role="StatementSensories">
+        <PropertyRef Name="SensoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Statement__State__5CA1C101">
     <End Role="StatementIntelligences" Type="Self.StatementIntelligences" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -331,7 +337,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Transacti__Asses__0DAF0CB0">
+  <Association Name="FK__Transacti__Asses__51300E55">
     <End Role="Assessments" Type="Self.Assessments" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -357,64 +363,69 @@
     <EntitySet Name="ScoreIntelligences" EntityType="Self.ScoreIntelligences" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ScoreProcrasinators" EntityType="Self.ScoreProcrasinators" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ScoreSensories" EntityType="Self.ScoreSensories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sensories" EntityType="Self.Sensories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StatementDetailIntelligences" EntityType="Self.StatementDetailIntelligences" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StatementIntelligences" EntityType="Self.StatementIntelligences" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StatementProcrasinators" EntityType="Self.StatementProcrasinators" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StatementSensories" EntityType="Self.StatementSensories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Agreement__Asses__4222D4EF" Association="Self.FK__Agreement__Asses__4222D4EF">
+    <AssociationSet Name="FK__Agreement__Asses__7C1A6C5A" Association="Self.FK__Agreement__Asses__7C1A6C5A">
       <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators" />
       <End Role="Agreements" EntitySet="Agreements" />
     </AssociationSet>
-    <AssociationSet Name="FK__Assessmen__Asses__0519C6AF" Association="Self.FK__Assessmen__Asses__0519C6AF">
+    <AssociationSet Name="FK__Assessmen__Asses__4E53A1AA" Association="Self.FK__Assessmen__Asses__4E53A1AA">
       <End Role="AssessmentTypes" EntitySet="AssessmentTypes" />
       <End Role="Assessments" EntitySet="Assessments" />
     </AssociationSet>
-    <AssociationSet Name="FK__Assessmen__Asses__1273C1CD" Association="Self.FK__Assessmen__Asses__1273C1CD">
+    <AssociationSet Name="FK__Assessmen__Asses__56E8E7AB" Association="Self.FK__Assessmen__Asses__56E8E7AB">
       <End Role="Assessments" EntitySet="Assessments" />
       <End Role="AssessmentIntelligences" EntitySet="AssessmentIntelligences" />
     </AssociationSet>
-    <AssociationSet Name="FK__Assessmen__Asses__25869641" Association="Self.FK__Assessmen__Asses__25869641">
+    <AssociationSet Name="FK__Assessmen__Asses__625A9A57" Association="Self.FK__Assessmen__Asses__625A9A57">
       <End Role="Assessments" EntitySet="Assessments" />
       <End Role="AssessmentSensories" EntitySet="AssessmentSensories" />
     </AssociationSet>
-    <AssociationSet Name="FK__Assessmen__Asses__38996AB5" Association="Self.FK__Assessmen__Asses__38996AB5">
+    <AssociationSet Name="FK__Assessmen__Asses__76619304" Association="Self.FK__Assessmen__Asses__76619304">
       <End Role="Assessments" EntitySet="Assessments" />
       <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators" />
     </AssociationSet>
-    <AssociationSet Name="FK__ResultAss__Asses__4BAC3F29" Association="Self.FK__ResultAss__Asses__4BAC3F29">
+    <AssociationSet Name="FK__ResultAss__Asses__540C7B00" Association="Self.FK__ResultAss__Asses__540C7B00">
       <End Role="Assessments" EntitySet="Assessments" />
       <End Role="ResultAssessments" EntitySet="ResultAssessments" />
     </AssociationSet>
-    <AssociationSet Name="FK__ScoreInte__Asses__20C1E124" Association="Self.FK__ScoreInte__Asses__20C1E124">
+    <AssociationSet Name="FK__ScoreInte__Asses__5F7E2DAC" Association="Self.FK__ScoreInte__Asses__5F7E2DAC">
       <End Role="AssessmentIntelligences" EntitySet="AssessmentIntelligences" />
       <End Role="ScoreIntelligences" EntitySet="ScoreIntelligences" />
     </AssociationSet>
-    <AssociationSet Name="FK__ScoreProc__Asses__46E78A0C" Association="Self.FK__ScoreProc__Asses__46E78A0C">
+    <AssociationSet Name="FK__ScoreProc__Asses__7EF6D905" Association="Self.FK__ScoreProc__Asses__7EF6D905">
       <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators" />
       <End Role="ScoreProcrasinators" EntitySet="ScoreProcrasinators" />
     </AssociationSet>
-    <AssociationSet Name="FK__ScoreSens__Asses__33D4B598" Association="Self.FK__ScoreSens__Asses__33D4B598">
+    <AssociationSet Name="FK__ScoreSens__Asses__73852659" Association="Self.FK__ScoreSens__Asses__73852659">
       <End Role="AssessmentSensories" EntitySet="AssessmentSensories" />
       <End Role="ScoreSensories" EntitySet="ScoreSensories" />
     </AssociationSet>
-    <AssociationSet Name="FK__Statement__Asses__173876EA" Association="Self.FK__Statement__Asses__173876EA">
+    <AssociationSet Name="FK__Statement__Asses__59C55456" Association="Self.FK__Statement__Asses__59C55456">
       <End Role="AssessmentIntelligences" EntitySet="AssessmentIntelligences" />
       <End Role="StatementIntelligences" EntitySet="StatementIntelligences" />
     </AssociationSet>
-    <AssociationSet Name="FK__Statement__Asses__3D5E1FD2" Association="Self.FK__Statement__Asses__3D5E1FD2">
-      <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators" />
-      <End Role="StatementProcrasinators" EntitySet="StatementProcrasinators" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Statement__Asses__59FA5E80" Association="Self.FK__Statement__Asses__59FA5E80">
+    <AssociationSet Name="FK__Statement__Asses__70A8B9AE" Association="Self.FK__Statement__Asses__70A8B9AE">
       <End Role="AssessmentSensories" EntitySet="AssessmentSensories" />
       <End Role="StatementSensories" EntitySet="StatementSensories" />
     </AssociationSet>
-    <AssociationSet Name="FK__Statement__State__5535A963" Association="Self.FK__Statement__State__5535A963">
+    <AssociationSet Name="FK__Statement__Asses__793DFFAF" Association="Self.FK__Statement__Asses__793DFFAF">
+      <End Role="AssessmentProcrasinators" EntitySet="AssessmentProcrasinators" />
+      <End Role="StatementProcrasinators" EntitySet="StatementProcrasinators" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Statement__Senso__6FB49575" Association="Self.FK__Statement__Senso__6FB49575">
+      <End Role="Sensories" EntitySet="Sensories" />
+      <End Role="StatementSensories" EntitySet="StatementSensories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Statement__State__5CA1C101" Association="Self.FK__Statement__State__5CA1C101">
       <End Role="StatementIntelligences" EntitySet="StatementIntelligences" />
       <End Role="StatementDetailIntelligences" EntitySet="StatementDetailIntelligences" />
     </AssociationSet>
-    <AssociationSet Name="FK__Transacti__Asses__0DAF0CB0" Association="Self.FK__Transacti__Asses__0DAF0CB0">
+    <AssociationSet Name="FK__Transacti__Asses__51300E55" Association="Self.FK__Transacti__Asses__51300E55">
       <End Role="Assessments" EntitySet="Assessments" />
       <End Role="Transactions" EntitySet="Transactions" />
     </AssociationSet>
