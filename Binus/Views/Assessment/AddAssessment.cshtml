@@ -304,22 +304,23 @@
 
             let currentStatementsContainer = assessmentContainer.find(".assessment-sensory:not(.template)>.statements-sensory").first();
             currentStatementsContainer.removeClass("disabled-area");
+            
 
-            //let currentSensoriesContainer = assessmentContainer.find("");
+            
+
+            sensories = [];
             $(".sensory:not(.template)").each(function(i)
             {
-                sensories.push($("input[name='input-sensory']").val());
-                
-                $("select[name='select-sensory']").append(
-                    "<option value='" + i + "'>" + $(this).find("input[name='input-sensory']").val()  + "</option>"
-                    );
-            
+                sensories.push
+                    ({ 
+                        sensory : $(this).find("input[name='input-sensory']").val()
+                    });
             });
 
+            $.each(sensories, function(i, value){
+                $("select[name='select-sensory']").append("<option value='"+(i+1)+"'>"+value.sensory+"</option>");
+            });
         });
-
-      
-      
 
         $(document).on("click", "#button-cancel", function(){
             let disabledArea = assessmentContainer.find(".assessment-sensory:not(template)>.sensories").first();
@@ -332,8 +333,6 @@
 
             let currentStatementsContainer=assessmentContainer.find(".assessment-sensory:not(.template)>.statements-sensory").first();
             currentStatementsContainer.addClass("disabled-area");
-
-            sensories = [];
         });
 
         $(document).on("click","#button_add_statement_sensory", function(){
