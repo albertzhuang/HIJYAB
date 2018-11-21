@@ -46,14 +46,14 @@
                     </div>
 
                     <div class="row">
-                        <form id="myForm">
+                        <form>
                             <span class="alert is-success" style="display: none;">
                                 Data has been saved.
                             </span>
                             <p>
                                 <label>Assessment Type</label>
                                 <span class="custom-combobox">
-                                    <select id="select_id" name="select_assessment_type">
+                                    <select name="select_assessment_type">
                                         <option disabled selected value="0"> -- SELECT AN OPTION -- </option>
                                     </select>
                                 </span>
@@ -306,20 +306,20 @@
             currentStatementsContainer.removeClass("disabled-area");
 
             //let currentSensoriesContainer = assessmentContainer.find("");
-            $(".sensory:not(.template)").each(function()
+            $(".sensory:not(.template)").each(function(i)
             {
                 sensories.push($("input[name='input-sensory']").val());
                 
                 $("select[name='select-sensory']").append(
-                    "<option value='1'>" + $(this).find("input[name='input-sensory']").val() + "</option>"
-                );
+                    "<option value='" + i + "'>" + $(this).find("input[name='input-sensory']").val()  + "</option>"
+                    );
+            
             });
 
-
-            console.log(sensories);
-            //
-            
         });
+
+      
+      
 
         $(document).on("click", "#button-cancel", function(){
             let disabledArea = assessmentContainer.find(".assessment-sensory:not(template)>.sensories").first();
