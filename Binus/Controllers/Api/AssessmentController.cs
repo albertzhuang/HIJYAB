@@ -18,7 +18,6 @@ namespace Binus.Controllers.Api
     {
         BinusEntities db = new BinusEntities();
         
-
         [HttpGet]
         public HttpResponseMessage getAll()
         {
@@ -38,6 +37,8 @@ namespace Binus.Controllers.Api
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
+
+        
 
         [HttpGet]
         public HttpResponseMessage getAllAssessmentList()
@@ -102,6 +103,29 @@ namespace Binus.Controllers.Api
         }
 
 
+
+        [HttpGet]
+        public HttpResponseMessage getLastSensory()
+        {
+
+            int fk_sensoryID = int.Parse(db.Sensories1
+                    .OrderByDescending(x => x.SensoryID)
+                    .Select(x => x.SensoryID).First().ToString());
+
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new StringContent(JsonConvert.SerializeObject(fk_sensoryID));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                return result;
+            }
+            catch 
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+
+        }
 
         [HttpGet]
         public HttpResponseMessage getAssessmentProcrastinator(int id = 0)
@@ -252,16 +276,25 @@ namespace Binus.Controllers.Api
                 db.SaveChanges();
             }
 
-            //foreach(var value in model.statementSensories)
-            //{
-            //    StatementSensories statementSensory = new StatementSensories();
-            //    statementSensory.AssessmentSensoryID = fk_assessmentSensoryID;
-            //    statementSensory.StatementSensory = value.statementSensory;
-            //    statementSensory.Sensory = value.sensory;
+            foreach(var value in model.sensories)
+            {
+                Sensories sensory = new Sensories();
+                sensory.Sensory = value.sensory;
 
-            //    db.StatementSensories1.Add(statementSensory);
-            //    db.SaveChanges();
-            //}
+                db.Sensories1.Add(sensory);
+                db.SaveChanges();
+            }
+
+            foreach(var value in model.statementSensories)
+            {
+                StatementSensories statementSensory = new StatementSensories();
+                statementSensory.AssessmentSensoryID = fk_assessmentSensoryID;
+                statementSensory.StatementSensory = value.statementSensory;
+                statementSensory.SensoryID = value.sensoryID;
+
+                db.StatementSensories1.Add(statementSensory);
+                db.SaveChanges();
+            }
 
             try
             {

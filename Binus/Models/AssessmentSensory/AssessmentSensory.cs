@@ -11,5 +11,6 @@ namespace Binus.Models.AssessmentSensory
         public string assessmentDescription { get; set; }
         public StatementSensory[] statementSensories { get; set; }
         public ScoreSensory[] scoreSensories { get; set; }
+        public Sensory[] sensories { get; set; }
     }
 }

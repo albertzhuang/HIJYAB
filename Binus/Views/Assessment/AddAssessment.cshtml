@@ -138,6 +138,8 @@
                     });
                 }
             });
+
+            
         });
 
         $("button").click(function(event) { event.preventDefault(); });
@@ -277,7 +279,8 @@
         $(document).on("click", "#button_add_score_sensory", function(){
             let container = assessmentContainer.find("#scores-sensory-container").first();
             let template=container.find(".template").first();
-            template = template.clone();
+            template=template.clone();
+            template.removeClass("template");
             template.show();
 
             template.find(".score-no").text(container.find(".score-sensory").length);
@@ -305,9 +308,6 @@
             let currentStatementsContainer = assessmentContainer.find(".assessment-sensory:not(.template)>.statements-sensory").first();
             currentStatementsContainer.removeClass("disabled-area");
             
-
-            
-
             sensories = [];
             $(".sensory:not(.template)").each(function(i)
             {
@@ -317,9 +317,19 @@
                     });
             });
 
-            $.each(sensories, function(i, value){
-                $("select[name='select-sensory']").append("<option value='"+(i+1)+"'>"+value.sensory+"</option>");
+
+            //get last row from sensories table
+            $.ajax({
+                method: "GET",
+                url: "/api/assessment/getLastSensory",
+                success: function(data) {
+                    let fk_sensoryID = data;
+                    $.each(sensories,function(i,value) {
+                        $("select[name='select-sensory']").append("<option value='"+(fk_sensoryID+i+1)+"'>"+value.sensory+"</option>");
+                    });
+                }
             });
+            
         });
 
         $(document).on("click", "#button-cancel", function(){
@@ -478,11 +488,59 @@
                 case 2:
                     let statementSensories = [];
                     let scoreSensories = [];
+                    let sensories = [];
+
+                    $(".sensory:not(.template)").each(function() {
+                        sensories.push
+                            ({
+                                sensory: $(this).find("input[name='input-sensory']").val()
+                            });
+                    });
+
 
                     $(".statement-sensory:not(.template)").each(function()
                     {
-
+                        statementSensories.push
+                            ({
+                                statementSensory : $(this).find("input[name='input-statement-sensory']").val(),
+                                sensoryID : $(this).find("select[name='select-sensory']").val()
+                            });
                     });
+
+                    $(".score-sensory:not(.template)").each(function(){
+                        console.log("test");
+                        scoreSensories.push({
+                            scoreWord : $(this).find("input[name='input-score-word']").val(),
+                            scoreValue : $(this).find("input[name='input-score-value']").val()
+                        });
+                    });
+
+
+                    
+
+                    $.ajax({
+                        method : "POST",
+                        url : "/api/assessment/createAssessmentSensory",
+                        data :
+                        {
+                            assessmentTitle: $("input[name='input_assessment_title']").val(),
+                            assessmentDescription: $("textarea[name='textarea_description']").val(),
+                            type: $("select[name='select_assessment_type']").val(),
+                            statementSensories : statementSensories,
+                            sensories : sensories,
+                            scoreSensories : scoreSensories
+                        },
+                        success: function(data)
+                        {
+                            console.log(data);
+                            parent.$.fancybox.close();
+                            assessmentContainer.empty();
+                            $(".is-success").show();
+                            $("input[name='input_assessment_title']").val('');
+                            $("textarea[name='textarea_description']").val('');
+                            $("select[name='select_assessment_type']").val(0).change();
+                        }
+                    });  
                     break;
                 case 3:
                     //add assessment procrasinator

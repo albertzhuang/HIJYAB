@@ -8,6 +8,6 @@ namespace Binus.Models.AssessmentSensory
     public class StatementSensory
     {
         public string statementSensory { get; set; }
-        public string sensory { get; set; }
+        public int sensoryID { get; set; }
     }
 }

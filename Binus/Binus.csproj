@@ -279,6 +279,7 @@
     <Compile Include="Models\AssessmentIntelligence\StatementDetailIntelligence.cs" />
     <Compile Include="Models\AssessmentSensory\AssessmentSensory.cs" />
     <Compile Include="Models\AssessmentSensory\ScoreSensory.cs" />
+    <Compile Include="Models\AssessmentSensory\Sensory.cs" />
     <Compile Include="Models\AssessmentSensory\StatementSensory.cs" />
     <Compile Include="Models\ResultAssessment.cs" />
     <Compile Include="Models\SearchBinusian.cs" />
