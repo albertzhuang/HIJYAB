@@ -8,6 +8,7 @@ using Binus.Data;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Binus.Models;
+using System.Data;
 
 namespace Binus.Controllers.Api
 {
@@ -16,23 +17,11 @@ namespace Binus.Controllers.Api
         BinusEntities db = new BinusEntities();
 
         [HttpGet]
-        public HttpResponseMessage getAll()
+        public IEnumerable<AssessmentType> getAll()
         {
-            try
-            {
-                var result = new HttpResponseMessage(HttpStatusCode.OK);
-                //result.Content = new StringContent(JsonConvert.SerializeObject(db.AssessmentTypes1.ToList()));
-                result.Content = new StringContent(JsonConvert.SerializeObject(db.AssessmentTypes1.ToList(), new JsonSerializerSettings()
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                }));
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                return result;
-            }
-            catch
-            {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            }
+            var result = (from a in db.AssessmentTypes1
+                          select new AssessmentType { assessmentTypeID = a.AssessmentTypeID, assessmentType = a.AssessmentType }).ToList();
+            return result;
         }
     }
 }

@@ -236,7 +236,7 @@
     <Compile Include="Data\Languages.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\ResultAssessments.cs">
+    <Compile Include="Data\ResultAssessment.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\ScoreIntelligences.cs">
@@ -281,6 +281,7 @@
     <Compile Include="Models\AssessmentSensory\ScoreSensory.cs" />
     <Compile Include="Models\AssessmentSensory\Sensory.cs" />
     <Compile Include="Models\AssessmentSensory\StatementSensory.cs" />
+    <Compile Include="Models\AssessmentType.cs" />
     <Compile Include="Models\ResultAssessment.cs" />
     <Compile Include="Models\SearchBinusian.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

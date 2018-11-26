@@ -23,7 +23,6 @@ namespace Binus.Controllers.Api
         {
             try
             {
-                //
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
                 result.Content = new StringContent(JsonConvert.SerializeObject(db.AssessmentTypes1.ToList(), new JsonSerializerSettings()
                 {
