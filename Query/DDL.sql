@@ -1,3 +1,7 @@
+
+DROP DATABASE Binus
+CREATE DATABASE Binus
+
 USE Binus
 
 DROP TABLE AssessmentTypes
@@ -17,6 +21,8 @@ DROP TABLE StatementProcrasinators
 DROP TABLE Agreements
 DROP TABLE AssessmentProcrasinators
 
+DROP TABLE Transactions
+DROP TABLE ResultAssessments
 
 GO
 
@@ -34,50 +40,41 @@ CREATE TABLE Languages
 CREATE TABLE Assessments
 (
 	AssessmentID INT PRIMARY KEY IDENTITY(1,1),
-	AssessmentTypeID int FOREIGN KEY(AssessmentTypeID) REFERENCES AssessmentTypes(AssessmentTypeID) ON DELETE CASCADE ON UPDATE CASCADE NOY NULL,
+	AssessmentTypeID int FOREIGN KEY(AssessmentTypeID) REFERENCES AssessmentTypes(AssessmentTypeID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	AssessmentTitle VARCHAR(MAX) NOT NULL,
 	AssessmentDescription VARCHAR(MAX) NOT NULL,
 	LastUpdate DATETIME NOT NULL
 )
 
-CREATE TABLE Transactions
-(
-	TransactionID INT PRIMARY KEY IDENTITY(1,1),
-	AssessmentID int FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-	TransactionDate DATETIME NOT NULL,
-	LastUpdate DATETIME NOT NULL,
-)
+--CREATE TABLE Transactions
+--(
+--	TransactionID INT PRIMARY KEY IDENTITY(1,1),
+--	AssessmentID int FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+--	TransactionDate DATETIME NOT NULL,
+--	LastUpdate DATETIME NOT NULL,
+--)
 
 CREATE TABLE ResultAssessments
 (
 	ResultAssessmentID int primary key identity(1,1),
 	AssessmentID int FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-	Institution VARCHAR(MAX) NOT NULL,
-	AcademikCareer VARCHAR(MAX) NOT NULL,
-	Campus VARCHAR(MAX) NOT NULL,
-	AcademicGroup VARCHAR(MAX) NOT NULL,
-	AcademicOrganization VARCHAR(MAX) NOT NULL,
-	AcademicProgram VARCHAR(MAX) NOT NULL,
-	AcademicYear VARCHAR(MAX) NOT NULL,
-	[Status] VARCHAR(MAX) NOT NULL,
-	BinusianID VARCHAR(MAX) NOT NULL,
-	Result varchar(MAX) NOT NULL,
-	Describe varchar(MAX) NOT NULL
+	NIM VARCHAR(MAX) NOT NULL,
+	ResultWord varchar(MAX) NOT NULL,
+	Note varchar(MAX) NOT NULL
 )
+drop table ResultAssessments
+
+
+SELECT * FROM ResultAssessments
+update Transactions SET status = 'NO' WHERE TransactionID = 2
 
 CREATE TABLE Transactions
 (
     TransactionID int primary key identity(1,1),
     AssessmentID int FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-    Institution VARCHAR(MAX) NOT NULL,
-    AcademikCareer VARCHAR(MAX) NOT NULL,
-    Campus VARCHAR(MAX) NOT NULL,
-    AcademicGroup VARCHAR(MAX) NOT NULL,
-    AcademicOrganization VARCHAR(MAX) NOT NULL,
-    AcademicProgram VARCHAR(MAX) NOT NULL,
-    AcademicYear VARCHAR(MAX) NOT NULL,
-    [Status] VARCHAR(MAX) NOT NULL,
-    BinusianID VARCHAR(MAX) NOT NULL,
+	NIM VARCHAR(MAX) NOT NULL,
+	[Jurusan] VARCHAR(MAX) NOT NULL,
+	[Status] VARCHAR(MAX) NOT NULL,
     TransactionDate DATETIME NOT NULL
 ) 
 
@@ -125,16 +122,16 @@ CREATE TABLE AssessmentSensories
 CREATE TABLE StatementSensories
 (
 	StatementSensoryID INT PRIMARY KEY IDENTITY(1,1),
-	SensoryID INT FOREIGN KEY(SensoryID) REFERENCES AssessmentSensories(AssessmentSensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	AssessmentSensoryID INT FOREIGN KEY(AssessmentSensoryID) REFERENCES AssessmentSensories(AssessmentSensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+	SensoryID INT FOREIGN KEY(SensoryID) REFERENCES Sensories(SensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	StatementSensory VARCHAR(MAX) NOT NULL,
-	
 )
+
+
 
 CREATE TABLE Sensories
 (
 	SensoryID INT PRIMARY KEY IDENTITY(1,1),
-	StatementSensoryID INT FOREIGN KEY(StatementSensoryID) REFERENCES StatementSensories(StatementSensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	Sensory VARCHAR(MAX) NOT NULL
 )
 

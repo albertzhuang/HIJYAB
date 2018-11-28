@@ -195,9 +195,11 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Api\AssessmentController.cs" />
     <Compile Include="Controllers\Api\AssessmentTypeController.cs" />
+    <Compile Include="Controllers\Api\DashboardController.cs" />
     <Compile Include="Controllers\Api\LanguageController.cs" />
     <Compile Include="Controllers\AssessmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Data\Agreements.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
@@ -245,6 +247,9 @@
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\ScoreSensories.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Sensories.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\StatementDetailIntelligences.cs">
@@ -1300,6 +1305,7 @@
     <Content Include="Content\css\themes\university\images\sprites\ribbon-small.png" />
     <Content Include="Content\css\themes\university\images\sprites\ribbon.png" />
     <Content Include="Content\css\themes\university\images\sprites\wheel-meter.png" />
+    <Content Include="Content\css\transaction.css" />
     <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\logo\logo-basemaya.png" />
@@ -1953,6 +1959,7 @@
     <Content Include="Views\Shared\Assessment\AssessmentProcrasinator.cshtml" />
     <Content Include="Views\Shared\Assessment\AssessmentSensory.cshtml" />
     <Content Include="Views\Assessment\Test.cshtml" />
+    <Content Include="Views\Transaction\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

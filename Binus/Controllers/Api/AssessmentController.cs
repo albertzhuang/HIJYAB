@@ -42,10 +42,27 @@ namespace Binus.Controllers.Api
         [HttpGet]
         public HttpResponseMessage getAllAssessmentList()
         {
+
+
+            var transaction = (from x in db.Transactions1
+                               join y in db.Assessments1 on x.AssessmentID equals y.AssessmentID
+                               select new { x.NIM,x.Status, y });
+
+            var assessment = db.Assessments1.ToList();
+
+
+            var json = new
+            {
+                transaction,
+                assessment
+            };
+
+
+
             try
             {
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
-                result.Content = new StringContent(JsonConvert.SerializeObject(db.Assessments1.ToList(), new JsonSerializerSettings()
+                result.Content = new StringContent(JsonConvert.SerializeObject(json, new JsonSerializerSettings()
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 }));
@@ -63,10 +80,19 @@ namespace Binus.Controllers.Api
         [HttpGet]
         public HttpResponseMessage getDetailAssessment(int id = 0)
         {
+            var sensory = (from x in db.Sensories1
+                         select x.Sensory);
+
+            var data = db.Assessments1.Find(id);
+
+            var json = new { sensory, data };
+           
+
+
             try
             {
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
-                result.Content = new StringContent(JsonConvert.SerializeObject(db.Assessments1.Find(id), new JsonSerializerSettings()
+                result.Content = new StringContent(JsonConvert.SerializeObject(json, new JsonSerializerSettings()
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 }));
@@ -127,6 +153,9 @@ namespace Binus.Controllers.Api
         [HttpGet]
         public HttpResponseMessage getAllAssessment()
         {
+
+     
+
             try
             {
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
@@ -257,7 +286,7 @@ namespace Binus.Controllers.Api
                 StatementSensories statementSensory = new StatementSensories();
                 statementSensory.AssessmentSensoryID = fk_assessmentSensoryID;
                 statementSensory.StatementSensory = value.statementSensory;
-                statementSensory.Sensory = value.sensory;
+               // statementSensory.Sensory = value.sensory;
 
                 db.StatementSensories1.Add(statementSensory);
                 db.SaveChanges();
@@ -356,34 +385,44 @@ namespace Binus.Controllers.Api
                 int indexOutOfRange = 2;
                 ResultAssessments rts = new ResultAssessments();
                 rts.AssessmentID = rt.assessmentid;
-                rts.Institution = "dummy";
-                rts.AcademikCareer = "dummy";
-                rts.Campus = "dummy";
-                rts.AcademicGroup = "dummy";
-                rts.AcademicOrganization = "dummy";
-                rts.AcademicProgram = "dummy";
-                rts.AcademicYear = "dummy";
-                rts.Status = "dummy";
-                rts.BinusianID = rt.binusian_id;
-
+               
+                rts.NIM = rt.binusian_id;
                 // masalah juga di view result page
                 if (words.Length < indexOutOfRange)
                 {
-                    rts.Result = words[0];
-                    rts.Describe = "-";
+                    rts.ResultWord = words[0];
+                    rts.Note = "-";
                 }
                 else
                 {
-                    rts.Result = words[0];
-                    rts.Describe = "(" + words[1];
+                    rts.ResultWord = words[0];
+                    rts.Note = "(" + words[1];
                 }
 
 
 
 
                 db.ResultAssessments1.Add(rts);
+                
                 db.SaveChanges();
             }
+
+            var updateTransaction = db.Transactions1.Where(x => x.NIM == rt.binusian_id && x.AssessmentID == rt.assessmentid);
+
+            foreach (var ut in updateTransaction)
+            {
+                // change the properties
+                ut.Status = "Yes";
+               
+            }
+
+            // EF will pick up those changes and save back to the database.
+            db.SaveChanges();
+
+
+
+
+
 
             //     int pk_ResultAssessments = int.Parse(db.ResultAssessments1.OrderByDescending(x => x.ResultAssessmentID).Select(x => x.ResultAssessmentID).First().ToString());
             try
@@ -402,9 +441,9 @@ namespace Binus.Controllers.Api
         [HttpGet]
         public HttpResponseMessage getResultAssessment(int id = 0)
         {
-            var binusianid = "bn190151515";
+            var binusianid = "1901500598";
             var query = from a in db.ResultAssessments1
-                        where a.BinusianID == binusianid && a.AssessmentID == id
+                        where a.NIM == binusianid && a.AssessmentID == id
                         select a;
 
             try

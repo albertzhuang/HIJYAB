@@ -90,7 +90,8 @@
 @section scripts
 {
     <script type="text/javascript">
-        $.ajax
+        var userLogin = "1901500598";
+                    $.ajax
                     ({
                         method: "GET",
                         url: "/api/assessment/getAllAssessmentList",
@@ -98,33 +99,71 @@
                         success: function (data) {
                             console.log(data);
 
-                            var output = [], l = data.length, i;
-                            var cekBinusianID = "";
+                          
+                            if(userLogin == "admin"){
+                                var output = [], l = data.assessment.length, i;
+                                var cekBinusianID = "";
 
-
-                            for (i = 0 ; i < l ; i++) {
-                                console.log(data[i].ResultAssessments);
-                          //      output.push(appendDataTableRows((i + 1), data[i].AssessmentTitle, data[i].AssessmentType.AssessmentType, data[i].LastUpdate, data[i].AssessmentID, data[i].AssessmentType.AssessmentTypeID));
-
-                                if (data[i].ResultAssessments.length != 0) {
-                                    if (data[i].ResultAssessments[0].BinusianID == "bn190151515") {
-                                        cekBinusianID = "ada";
-                                        output.push(appendDataTableRows((i + 1), data[i].AssessmentTitle, data[i].AssessmentType.AssessmentType, data[i].LastUpdate, data[i].AssessmentID, data[i].AssessmentType.AssessmentTypeID, cekBinusianID));
-                                    }
-                                    else {
+                                for (i = 0 ; i < l ; i++) {
+                                    console.log(data.assessment[i].ResultAssessments);
+                                     if (data.assessment[i].ResultAssessments.length != 0) {
+                                        if (data.assessment[i].ResultAssessments[0].BinusianID == "admin") {
+                                            cekBinusianID = "ada";
+                                            output.push(appendDataTableRows((i + 1), data.assessment[i].AssessmentTitle, data.assessment[i].AssessmentType.AssessmentType, data.assessment[i].LastUpdate, data.assessment[i].AssessmentID, data.assessment[i].AssessmentType.AssessmentTypeID, cekBinusianID));
+                                        }
+                                        else {
+                                            cekBinusianID = "tidakada";
+                                            output.push(appendDataTableRows((i + 1), data.assessment[i].AssessmentTitle, data.assessment[i].AssessmentType.AssessmentType, data.assessment[i].LastUpdate, data.assessment[i].AssessmentID, data.assessment[i].AssessmentType.AssessmentTypeID, cekBinusianID));
+                                        }
+                                    } else {
                                         cekBinusianID = "tidakada";
-                                        output.push(appendDataTableRows((i + 1), data[i].AssessmentTitle, data[i].AssessmentType.AssessmentType, data[i].LastUpdate, data[i].AssessmentID, data[i].AssessmentType.AssessmentTypeID, cekBinusianID));
+                                        output.push(appendDataTableRows((i + 1), data.assessment[i].AssessmentTitle, data.assessment[i].AssessmentType.AssessmentType, data.assessment[i].LastUpdate, data.assessment[i].AssessmentID, data.assessment[i].AssessmentType.AssessmentTypeID, cekBinusianID));
                                     }
-                                } else {
-                                    cekBinusianID = "tidakada";
-                                    output.push(appendDataTableRows((i + 1), data[i].AssessmentTitle, data[i].AssessmentType.AssessmentType, data[i].LastUpdate, data[i].AssessmentID, data[i].AssessmentType.AssessmentTypeID, cekBinusianID));
+
+                                    $table = $('#myTable').DataTable();
+                                    $table.clear();
+                                    $table.rows.add(output);
+                                    $table.draw();
+                                }
+                            }
+                            else
+                            {
+                                
+                                var output = [], l = data.transaction.length, i;
+                                var cekBinusianID = "";
+
+                                for (i = 0; i < l; i++) {
+                                    
+                                    if (userLogin == data.transaction[i].NIM)
+                                    {
+                                        if (data.transaction[i].Status == "No")
+                                        {
+                                            cekBinusianID = "tidakada";
+                                            output.push(appendDataTableRows((i), data.transaction[i].y.AssessmentTitle, data.transaction[i].y.AssessmentType.AssessmentType, data.transaction[i].y.LastUpdate, data.transaction[i].y.AssessmentID, data.transaction[i].y.AssessmentType.AssessmentTypeID, cekBinusianID));
+
+                                        }
+                                        else
+                                        {
+                                            cekBinusianID = "ada";
+                                            output.push(appendDataTableRows((i), data.transaction[i].y.AssessmentTitle, data.transaction[i].y.AssessmentType.AssessmentType, data.transaction[i].y.LastUpdate, data.transaction[i].y.AssessmentID, data.transaction[i].y.AssessmentType.AssessmentTypeID, cekBinusianID));
+
+                                        }
+                                     //   console.log(cekBinusianID)
+                                        $table = $('#myTable').DataTable();
+                                        $table.clear();
+                                        $table.rows.add(output);
+                                        $table.draw();
+                                    }
+                                    
+
                                 }
 
-                                $table = $('#myTable').DataTable();
-                                $table.clear();
-                                $table.rows.add(output);
-                                $table.draw();
+                            
                             }
+
+
+
+
                         }
                     });
 

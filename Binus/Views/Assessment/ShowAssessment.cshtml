@@ -69,48 +69,58 @@
             var idAssessment = res[5];
             var tipeIdAssessment = res[6];
             var scores = [];
+            var sensory = [];
+            var binusianid = "1901500598";
             
          //   console.log(idAssessment);
             $.ajax({
                 method: "get",
                 url: "/api/assessment/getDetailAssessment/"+idAssessment,
                 success: function (data) {
-                    console.log("Pantek : ",data);
-                    
+                   
                     //Untuk title
                      $('#titleAssessment').html(
-                         '<strong>' + data.AssessmentTitle + '</strong>'
+                         '<strong>' + data.data.AssessmentTitle + '</strong>'
                          );
                     //untuk description
                      $('#descriptionAssessment').html(
                          '<strong>READ THE INSTRUCTION BEFORE DO THE TEST! </strong> <br>' +
-                             data.AssessmentDescription
+                         data.data.AssessmentDescription
                          );
 
                      if (tipeIdAssessment == 1)
                      {
-                         console.log(data.AssessmentIntelligences);
+                     //    console.log(data.AssessmentIntelligences);
                          console.log("Intelligence");
 
-                         showAssessmentIntelligence(data);
+                         showAssessmentIntelligence(data.data);
                          actionhideshowassessmentIntelligence();
 
 
                      }
                      else if (tipeIdAssessment == 2)
                      {
-                         console.log(data.AssessmentSensories);
+                       //console.log("Pantek : ", data);
                          console.log("Sensory");
-                         showAssessmentSensory(data);
+                        
+                         showAssessmentSensory(data.data);
+                         data.sensory.forEach(function(value)
+                         {
+                             var single={
+                                 name:value,
+                                 result:0
+                             }
+                             sensory.push(single);
+                         });
                          
 
 
                      }
                      else if (tipeIdAssessment == 3)
                      {
-                         console.log(data.AssessmentProcrasinators);
+                        // console.log(data.AssessmentProcrasinators);
                          console.log("Procrastinator");
-                         showAssessmentProcrastinator(data);
+                         showAssessmentProcrastinator(data.data);
 
 
                      }
@@ -376,7 +386,7 @@
                     data:
                     {
                         assessmentid: idAssessment,
-                        binusian_id: "bn190151515",
+                        binusian_id: binusianid,
                         result: finalResult,
                         description: "-"
                     },
@@ -428,8 +438,7 @@
 
                     );
                     data.AssessmentSensories.forEach(function (value) {
-                      //  console.log(value);
-
+                      
                         value.ScoreSensories.forEach(function (value) {
 
                             $('.trsensory').append(
@@ -492,11 +501,7 @@
                     sbm.click(function (e) {
                         e.preventDefault();
                         var headerQuestions = $('.headerquestion');
-                        var ResAuditory = 0;
-                        var ResVisual = 0;
-                        var ResTactile = 0;
-                        var sk = [];
-
+                
                         for (var i = 0 ; i < headerQuestions.length ; i++) {
                             var detailQuestions = $(headerQuestions[i]).find('.subquestion:checked');
                             var result = 0;
@@ -511,43 +516,59 @@
                                 return;
                             }
 
+                            for (var sensoryIdx = 0; sensoryIdx < sensory.length; sensoryIdx++)
+                            {                                
+                                if (sensory[sensoryIdx].name == columnscore[i])
+                                {
+                                    sensory[sensoryIdx].result += result;
+                                }
+
+                                for (var j = 0; j < sensory.length - i - 1; j++) {
+                                    if (sensory[j].result < sensory[j + 1].result) {
+                                        var temp = sensory[j];
+                                        sensory[j] = sensory[j + 1];
+                                        sensory[j + 1] = temp;
+                                    }
+                                }
 
 
-                            if ("Audio" == columnscore[i])
-                                ResAuditory += result;
-                            else if ("Visual" == columnscore[i])
-                                ResVisual += result;
-                            else if ("Tactile" == columnscore[i])
-                                ResTactile += result;
 
-
-
+                            }
 
                         }
-                       
-                        console.log('Audio ' + ResAuditory + ' Visual ' + ResVisual + ' Tactile :  ' + ResTactile);
-                        var role = "";
 
+                        var finalScores = [];
+                        var finalResult = [];
+                        for (var i = 0; i < sensory.length; i++) {
+                            finalScores.push({
+                                name: sensory[i].name,
+                                result: sensory[i].result
+                            });
+                            if (sensory.length != i) {
 
+                                if (sensory[i].result > sensory[i + 1].result) {
+                                    break;
+                                }
 
-                        var role = "Auditory";
-                        if (ResVisual > ResTactile || ResVisual > ResAuditory)
-                            role = "Visual";
-                        else if (ResTactile > ResVisual || ResTactile > ResAuditory)
-                            role = "Tactile";
+                            }
 
-                           console.log(role);
-                           var finalResult = [];
-                           finalResult.push(role);
-                           console.log(finalResult);
+                          
+                        }
+                        // skor 
+                        for (var i = 0; i < finalScores.length; i++) {
+                          
+                            finalResult.push(finalScores[i].name);
+                        }
+                    
 
+                    
                         $.ajax({
                             method: "post",
                             url: "/api/assessment/saveResult",
                             data:
                             {
                                 assessmentid: idAssessment,
-                                binusian_id: "bn190151515",
+                                binusian_id: binusianid,
                                 result: finalResult,
                                 description: "-"
                             },
@@ -708,7 +729,7 @@
                             data:
                             {
                                 assessmentid: idAssessment,
-                                binusian_id: "bn190151515",
+                                binusian_id: binusianid,
                                 result: finalResult,
                                 description: "-"
                             },

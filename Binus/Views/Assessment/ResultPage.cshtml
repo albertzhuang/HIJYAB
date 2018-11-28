@@ -91,19 +91,19 @@
                 url: "/api/assessment/getResultAssessment/" + idAssessment,
                 success: function (data) {
                   
-                    console.log(data.length);
+                    console.log(data);
                     var role = "";
                     var desc = "";
                     var tampungcaseresult = "";
                     var tampungdescresult = "";
-                    $('#thanks-header').text("THANKYOU," + data[0].BinusianID); //aman
+                    $('#thanks-header').text("THANKYOU," + data[0].NIM); //aman
                     $('.role-title').text(data[0].Assessment.AssessmentTitle + " result :"); //aman
 
                     if (data.length == 1) {
-                        $('#resultTitle').text(data[0].Result);
+                        $('#resultTitle').text(data[0].ResultWord);
                        if (tipeTest == 3) {
                             console.log("procrastinator");
-                            if (data[0].Result == "Occasional Procrastinator")
+                           if (data[0].ResultWord == "Occasional Procrastinator")
                                 $('.tambahan').text("If you are Occasional Procrastinator, seriously consider going to the college counseling center for some guidance in conquering procrastination.");
                         }
                     }
@@ -112,8 +112,8 @@
                         for (var i = 0 ; i < data.length ; i++)
                         {
                            
-                            role += data[i].Result;
-                            desc += data[i].Describe;
+                            role += data[i].ResultWord;
+                            desc += data[i].Note;
 
                             if (data.length-1 != i) {
                                 role += ",";
