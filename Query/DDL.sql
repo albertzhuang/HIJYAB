@@ -194,7 +194,18 @@ CREATE TABLE ScoreProcrasinators
 
 
 
+USE BINUS
 
+DROP TABLE Users
+
+CREATE TABLE Users
+(
+	UserID INT PRIMARY KEY IDENTITY(1,1),
+	Username VARCHAR(MAX) NOT NULL,
+	Password VARCHAR(MAX) NOT NULL
+)
+
+INSERT INTO Users VALUES('test', 'test')
 
 
 

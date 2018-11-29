@@ -14,10 +14,34 @@ using Binus.Models;
 
 namespace Binus.Controllers.Api
 {
+    [Authorize]
     public class AssessmentController : ApiController
     {
+
         BinusEntities db = new BinusEntities();
         
+        [HttpGet]
+        public string getCurrentAssessment(int assessmentId)
+        {
+            return User.Identity.Name;
+
+        }
+
+        [HttpGet]
+        public IEnumerable<Assessment> getAllAssessment()
+        {
+            var result = (from assessment in db.Assessments1
+                          join assessmentType in db.AssessmentTypes1 on assessment.AssessmentTypeID equals assessmentType.AssessmentTypeID
+                          select new Assessment {
+                              assessmentID = assessment.AssessmentID,
+                              assessmentType = assessmentType.AssessmentType,
+                              assessmentTitle = assessment.AssessmentTitle,
+                              assessmentDescription = assessment.AssessmentDescription,
+                              lastUpdate = assessment.LastUpdate.ToString()
+                          }).ToList();
+            return result;
+        }
+
         [HttpGet]
         public HttpResponseMessage getAll()
         {
@@ -148,22 +172,6 @@ namespace Binus.Controllers.Api
         }
 
 
-        [HttpGet]
-        public HttpResponseMessage getAllAssessment()
-        {
-            try
-            {
-                var result = new HttpResponseMessage(HttpStatusCode.OK);
-                result.Content = new StringContent(JsonConvert.SerializeObject(db.AssessmentTypes1.ToList()));
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                return result;
-            }
-            catch
-            {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            }
-        }
 
         [HttpPost]
         public HttpResponseMessage createAssessmentIntelligence(AssessmentIntelligence model)

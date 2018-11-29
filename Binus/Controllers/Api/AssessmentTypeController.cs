@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Binus.Models;
 using System.Data;
+using System.Web.Security;
 
 namespace Binus.Controllers.Api
 {
@@ -23,5 +24,7 @@ namespace Binus.Controllers.Api
                           select new AssessmentType { assessmentTypeID = a.AssessmentTypeID, assessmentType = a.AssessmentType }).ToList();
             return result;
         }
+
+        
     }
 }

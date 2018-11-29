@@ -7,10 +7,10 @@ using System.Web.Http.Routing;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Serialization;
+using System.Web.Http.Filters;
 
 namespace Binus
 {
-
     public class CustomJsonFormatter : JsonMediaTypeFormatter 
     {
         public CustomJsonFormatter()
@@ -33,6 +33,7 @@ namespace Binus
         {
             // Web API configuration and services
 
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -42,16 +43,8 @@ namespace Binus
                 defaults: new { id = RouteParameter.Optional }
             );
 
+   
             config.Formatters.Add(new CustomJsonFormatter());
-
-            //convert to JSON data
-            //config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
-
-            //convert Camel case convention if source have Pascal case
-            //config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
-
-            //enable using post form-data as MediaTypeHeader
-            //config.Formatters.XmlFormatter.SupportedMediaTypes.Add(new System.Net.Http.Headers.MediaTypeHeaderValue("multipart/form-data"));
         }
     }
 }

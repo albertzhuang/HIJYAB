@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Binus.Controllers
 {
+    [Authorize]
     public class AssessmentController : Controller
     {
         public ActionResult AddAssessment()

@@ -6,13 +6,11 @@ using System.Web.Mvc;
 
 namespace Binus.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+    public class ReportController : Controller
     {
+        // GET: Report
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
             return View();
         }
     }

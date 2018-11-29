@@ -1,5 +1,4 @@
-﻿@*@model ProjectFEP.ViewModel.AddCaseViewModel*@
-
+﻿
 @{
     ViewBag.Title = "Assessment - Binus Maya";
 }
@@ -134,7 +133,7 @@
                 url: "/api/AssessmentType/getAll",
                 success: function(data) {
                     data.forEach(function(value) {
-                        $("select[name='select_assessment_type']").append("<option value="+value.AssessmentTypeID+">"+value.AssessmentType+"</option>")
+                        $("select[name='select_assessment_type']").append("<option value="+value.assessmentTypeID+">"+value.assessmentType+"</option>")
                     });
                 }
             });
@@ -200,7 +199,7 @@
             let container=assessmentContainer.find("#statements-intelligence-container").first();
             let template=container.find(".statement-detail").first();
             template=template.clone();
-            let statementIndex=$(this).parents(".statement-intelligence").index();
+            let statementIndex=$(this).parents(".statement-intellige;nce").index();
             let currentStatementContainer=container.find(".statement-intelligence").eq(statementIndex).find(".statement-details-container").first();
             currentStatementContainer.append(template);
 

@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using Binus.Models;
 
 namespace Binus.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+    public class LoginController : Controller
     {
+        // GET: Login
+        [AllowAnonymous]
         public ActionResult Index()
-        {
-            ViewBag.Title = "Home Page";
-
-            return View();
+        { 
+            return View(); 
         }
+
+        
     }
 }

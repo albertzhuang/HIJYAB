@@ -196,8 +196,11 @@
     <Compile Include="Controllers\Api\AssessmentController.cs" />
     <Compile Include="Controllers\Api\AssessmentTypeController.cs" />
     <Compile Include="Controllers\Api\LanguageController.cs" />
+    <Compile Include="Controllers\Api\LoginController.cs" />
     <Compile Include="Controllers\AssessmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Data\Agreements.cs">
@@ -236,7 +239,7 @@
     <Compile Include="Data\Languages.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\ResultAssessment.cs">
+    <Compile Include="Data\ResultAssessments.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\ScoreIntelligences.cs">
@@ -266,9 +269,13 @@
     <Compile Include="Data\Transactions.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Users.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Assessment.cs" />
     <Compile Include="Models\AssessmentIntelligence\AssessmentIntelligence.cs" />
     <Compile Include="Models\AssessmentProcrasiantor\Agreement.cs" />
     <Compile Include="Models\AssessmentProcrasiantor\AssessmentProcrasinator.cs" />
@@ -285,6 +292,7 @@
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\ResultAssessment.cs" />
     <Compile Include="Models\SearchBinusian.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +303,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\AddAssessment.css" />
     <Content Include="Content\css\grid.min.css" />
+    <Content Include="Content\css\login.css" />
     <Content Include="Content\css\master.css" />
     <Content Include="Content\css\ShowAssessment.css" />
     <Content Include="Content\css\themes\affiliation\css\login.css" />
@@ -1960,8 +1969,9 @@
     <Content Include="Views\Shared\Assessment\AssessmentIntelligence.cshtml" />
     <Content Include="Views\Shared\Assessment\AssessmentProcrasinator.cshtml" />
     <Content Include="Views\Shared\Assessment\AssessmentSensory.cshtml" />
-    <Content Include="Views\Assessment\Test.cshtml" />
     <Content Include="Views\Transaction\index.cshtml" />
+    <Content Include="Views\Report\index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1998,6 +2008,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
