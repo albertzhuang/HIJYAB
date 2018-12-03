@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Master Assessment - Binus Maya";
+    ViewBag.Title = "Manage Assessment";
 }
 
 @section css
@@ -33,13 +33,8 @@
                 <div class="single-content popup-content" id="target-id">
                     <div class="page-sub-heading">
                         <div class="row" style="height:30px;">
-                            <div class="column two-thirds ">
-                                <h2 id="page" class="page-heading" style="line-height:40px;">Master Assessment</h2>
-                            </div>
-                            <div class="column one-third">
-                                <p style="float:right;">
-                                    <a href="#popup_confirmation" class="fancybox-trigger fancbox.ajax button button-primary" id="button_save">Add Case</a>
-                                </p>
+                            <div class="column">
+                                <h2 id="page" class="page-heading" style="line-height:40px;">Assessment</h2>
                             </div>
                         </div>
                     </div>
@@ -51,7 +46,7 @@
                                     <th>NO</th>
                                     <th>TITLE</th>
                                     <th>TYPE</th>
-                                    <th>LAST UPDATE</th>
+                                    <th>TRANSACTION DATE</th>
                                     <th>ACTION</th>
                                 </tr>
                             </thead>
@@ -60,10 +55,10 @@
                                     <td class="assessment-no">XX</td>
                                     <td class="assessment-title">XX</td>
                                     <td class="assessment-type">XX</td>
-                                    <td class="assessment-last-update">XX</td>
+                                    <td class="assessment-transaction-date">XX</td>
                                     <td class="assessment-action">
                                         <span>
-                                            <i class="icon-button icon-view"></i>
+                                            <i class="icon-button icon-view button-do-assessment"></i>
                                             <span class="assessment-id" style="display: none">XX</span>
                                         </span>
                                     </td>
@@ -95,9 +90,11 @@
         const dataTable = $("#assessment-table");
 
         $(document).ready(function(){
+
+
             $.ajax({
                 method: "GET",
-                url: "/api/assessment/getAllAssessment",
+                url: "/api/transaction/getUserTransaction",
                 beforeSend: function() {
                     dataTable.DataTable().clear();
                 },
@@ -111,7 +108,7 @@
                         template.find(".assessment-no").text(assessmentContainer.find(".assessment").length);
                         template.find(".assessment-title").text(value.assessmentTitle);
                         template.find(".assessment-type").text(value.assessmentType);
-                        template.find(".assessment-last-update").text(value.lastUpdate);
+                        template.find(".assessment-transaction-date").text(value.transactionDate);
                         template.find(".assessment-id").text(value.assessmentID);
                         assessmentContainer.append(template);
                         dataTable.DataTable().rows.add(template);
@@ -123,6 +120,23 @@
         });
         
         
+        $(document).on("click",".button-do-assessment",function() {
+            let currentAssessment = $(this).parents(".assessment");
+            let assessmentID = currentAssessment.find(".assessment-id").text();
+            
+
+            console.log(assessmentID);  
+            $.ajax({
+                method : "POST",
+                url: "/api/assessment/createCurrentAssessment",
+                data: {
+                    assessmentID: assessmentID
+                },
+                success: function(data) {
+                    window.location.href="/assessment/ShowAssessment";
+                }
+            });
+        });
 
 
         $('.freeze-pane').binus_freeze_pane({

@@ -199,7 +199,7 @@
             let container=assessmentContainer.find("#statements-intelligence-container").first();
             let template=container.find(".statement-detail").first();
             template=template.clone();
-            let statementIndex=$(this).parents(".statement-intellige;nce").index();
+            let statementIndex=$(this).parents(".statement-intelligence").index();
             let currentStatementContainer=container.find(".statement-intelligence").eq(statementIndex).find(".statement-details-container").first();
             currentStatementContainer.append(template);
 

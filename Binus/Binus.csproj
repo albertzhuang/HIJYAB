@@ -197,7 +197,10 @@
     <Compile Include="Controllers\Api\AssessmentTypeController.cs" />
     <Compile Include="Controllers\Api\LanguageController.cs" />
     <Compile Include="Controllers\Api\LoginController.cs" />
+    <Compile Include="Controllers\Api\TransactionController.cs" />
     <Compile Include="Controllers\AssessmentController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\Filter\AuthorizeStudent.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
@@ -266,9 +269,15 @@
     <Compile Include="Data\StatementSensories.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Students.cs">
+      <DependentUpon>BinusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Transactions.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Filter\AuthorizeAdmin.cs" />
+    <Compile Include="Controllers\Filter\RouteHandler.cs" />
+    <Compile Include="Controllers\Filter\SessionController.cs" />
     <Compile Include="Data\Users.cs">
       <DependentUpon>BinusModel.tt</DependentUpon>
     </Compile>
@@ -292,6 +301,7 @@
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\ResultAssessment.cs" />
     <Compile Include="Models\SearchBinusian.cs" />
+    <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -302,6 +312,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\AddAssessment.css" />
+    <Content Include="Content\css\erorr.css" />
     <Content Include="Content\css\grid.min.css" />
     <Content Include="Content\css\login.css" />
     <Content Include="Content\css\master.css" />
@@ -1937,7 +1948,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -1972,6 +1983,8 @@
     <Content Include="Views\Transaction\index.cshtml" />
     <Content Include="Views\Report\index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Error\Unauthorized.cshtml" />
+    <Content Include="Views\Shared\_LayoutStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

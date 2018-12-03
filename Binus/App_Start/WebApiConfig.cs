@@ -8,6 +8,8 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Serialization;
 using System.Web.Http.Filters;
+using System.Web.Routing;
+using Binus.Controllers.Filter;
 
 namespace Binus
 {
@@ -28,7 +30,6 @@ namespace Binus
 
     public static class WebApiConfig
     {
-
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
@@ -37,13 +38,15 @@ namespace Binus
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
+            RouteTable.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
+            ).RouteHandler = new RouteHandler();
 
-   
+            
+
+
             config.Formatters.Add(new CustomJsonFormatter());
         }
     }

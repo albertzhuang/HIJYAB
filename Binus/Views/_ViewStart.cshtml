@@ -1,8 +1,21 @@
 ﻿@{
     var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
-    if (controller != "Login")
+    var currentAdmin = HttpContext.Current.Session["admin"];
+
+    if(controller == "Login" || controller == "Error")
     {
-        Layout = "~/Views/Shared/_Layout.cshtml";
+        Layout = null;
+    }
+    else
+    {
+        if (currentAdmin != null)
+        {
+            Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+        }
+        else
+        {
+            Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+        }
     }
 }
 

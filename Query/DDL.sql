@@ -42,14 +42,15 @@ CREATE TABLE Assessments
 	LastUpdate DATETIME NOT NULL
 )
 
+DROP TABLE Transactions
+
 CREATE TABLE Transactions
 (
 	TransactionID INT PRIMARY KEY IDENTITY(1,1),
 	AssessmentID INT FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	NIM VARCHAR(MAX) NOT NULL,
 	[Status] VARCHAR(MAX) NOT NULL,
-	TransactionDate DATETIME NOT NULL,
-	LastUpdate DATETIME NOT NULL,
+	TransactionDate DATETIME NOT NULL
 )
 
 CREATE TABLE ResultAssessments
@@ -202,11 +203,30 @@ CREATE TABLE Users
 (
 	UserID INT PRIMARY KEY IDENTITY(1,1),
 	Username VARCHAR(MAX) NOT NULL,
-	Password VARCHAR(MAX) NOT NULL
+	[Password] VARCHAR(MAX) NOT NULL
 )
 
-INSERT INTO Users VALUES('test', 'test')
+DROP TABLE Stundets
+
+CREATE TABLE Students
+(
+	StudentID INT PRIMARY KEY IDENTITY(1,1),
+	Nim VARCHAR(MAX) NOT NULL,
+	[Password] VARCHAR(MAX) NOT NULL
+) 
+
+
+SELECT * FROM Students
+
+INSERT INTO Users VALUES('admin', 'admin')
+INSERT INTO Students VALUES('user', 'user')
+
+INSERT INTO Transactions VALUES(2,'user','created',GETDATE())
+
+SELECT * FROM Assessments
+
+SELECT * FROM Transactions
 
 
 
-
+USE Binus
