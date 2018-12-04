@@ -10,6 +10,6 @@ namespace Binus.Models.AssessmentIntelligence
     {
         public int statementIntelligenceID { get; set; }
         public string statementIntelligence { get; set; }
-        public StatementDetailIntelligence[] statementDetailIntelligences { get; set; }
+        public IEnumerable<StatementDetailIntelligence> statementDetailIntelligences { get; set; }
     }
 }

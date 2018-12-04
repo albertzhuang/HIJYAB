@@ -12,7 +12,7 @@ namespace Binus.Models.AssessmentIntelligence
         public string assessmentTitle { get; set; }
         public string assessmentDescription { get; set; }
         public string assessmentType { get; set; }
-        public StatementIntelligence[] statementIntelligences { get; set; }
-        public ScoreIntelligence[] scoreIntelligences { get; set; }
+        public IEnumerable<StatementIntelligence> statementIntelligences { get; set; }
+        public IEnumerable<ScoreIntelligence> scoreIntelligences { get; set; }
     }
 }

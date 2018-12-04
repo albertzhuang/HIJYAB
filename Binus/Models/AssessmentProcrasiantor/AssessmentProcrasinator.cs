@@ -10,8 +10,8 @@ namespace Binus.Models.AssessmentProcrasiantor
         public string assessmentTitle { get; set; }
         public string assessmentDescription { get; set; }
         public string assessmentType { get; set; }
-        public StatementProcrasinator[] statementProcrasinators { get; set; }
-        public ScoreProcrasinator[] scoreProcrasinators { get; set; }
-        public Agreement[] agreements { get; set; }
+        public IEnumerable<StatementProcrasinator> statementProcrasinators { get; set; }
+        public IEnumerable<ScoreProcrasinator> scoreProcrasinators { get; set; }
+        public IEnumerable<Agreement> agreements { get; set; }
     }
 }

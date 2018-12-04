@@ -39,18 +39,36 @@ namespace Binus.Controllers.Api
         public AssessmentIntelligence getCurrentAssessmentIntelligence(int assessmentID){
             var result = (from assessment in db.Assessments1
                           join assessmentIntelligence in db.AssessmentIntelligences1 on assessment.AssessmentID equals assessmentIntelligence.AssessmentID
-                          where assessment.AssessmentID == assessmentID
+                          where assessment.AssessmentID == 1003
                           select new AssessmentIntelligence
                           {
+                              assessmentIntelligenceID = assessmentIntelligence.AssessmentIntelligenceID,
                               assessmentTitle = assessment.AssessmentTitle,
                               assessmentDescription = assessment.AssessmentDescription,
+                              scoreIntelligences = (from scoreIntelligence in db.ScoreIntelligences1
+                                                    where scoreIntelligence.AssessmentIntelligenceID == assessmentIntelligence.AssessmentIntelligenceID
+                                                    select new ScoreIntelligence
+                                                    {
+                                                        scoreID = scoreIntelligence.ScoreIntelligenceID,
+                                                        scoreValue = scoreIntelligence.ScoreValue,
+                                                        scoreWord = scoreIntelligence.ScoreWord
+                                                    }).ToList(),
                               statementIntelligences = (from statementIntelligence in db.StatementIntelligences1
                                                         where statementIntelligence.AssessmentIntelligenceID == assessmentIntelligence.AssessmentIntelligenceID
-                                                        select new StatementIntelligence {
+                                                        select new StatementIntelligence
+                                                        {
                                                             statementIntelligenceID = statementIntelligence.StatementIntelligenceID,
-                                                            statementIntelligence = statementIntelligence.StatementIntelligence
-                                                        }).ToArray()
-                          }).FirstOrDefault();
+                                                            statementIntelligence = statementIntelligence.StatementIntelligence,
+                                                            statementDetailIntelligences = (from statementDetailIntelligence in db.StatementDetailIntelligences1
+                                                                                            where statementDetailIntelligence.StatementIntelligenceID == statementIntelligence.StatementIntelligenceID
+                                                                                            select new StatementDetailIntelligence
+                                                                                            {
+                                                                                                statementDetailIntelligenceID = statementDetailIntelligence.StatementDetailIntelligenceID,
+                                                                                                statementDetailIntelligence =statementDetailIntelligence.StatementDetailIntelligence
+                                                                                            }).ToList()
+                                                         }).ToList()
+                           }).FirstOrDefault();
+
             return result;
         }
 
@@ -58,7 +76,7 @@ namespace Binus.Controllers.Api
         public Assessment getCurrentAssessment()
         {
             int assessmentID = (int)HttpContext.Current.Session["assessmentID"];
-            HttpContext.Current.Session.Remove("assessmentID");
+ 
 
             var result = (from assessment in db.Assessments1
                                      join assessmentType in db.AssessmentTypes1 on assessment.AssessmentTypeID equals assessmentType.AssessmentTypeID
@@ -69,9 +87,8 @@ namespace Binus.Controllers.Api
                                           assessmentTypeID = assessment.AssessmentTypeID,
                                           assessmentTitle = assessment.AssessmentTitle,
                                           assessmentDescription = assessment.AssessmentDescription,
-                                          assessmentType = assessmentType.AssessmentType,
-                                          test = "adsadsas"
-                                      }).First();
+                                          assessmentType = assessmentType.AssessmentType
+                                      }).FirstOrDefault();
 
             return result;
         }

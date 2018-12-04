@@ -225,11 +225,16 @@ SELECT * FROM Students
 SELECT * FROM Users
 
 INSERT INTO Transactions VALUES(2,'user','created',GETDATE())
-
+INSERT INTO Transactions VALUES(1003,'user','created',GETDATE())
 SELECT * FROM Assessments
 
 SELECT * FROM Transactions
 
+SELECT * FROM Assessments
 
+SELECT * FROM Assessments
+WHERE AssessmentID = 1003
 
 USE Binus
+
+SELECT * FROM AssessmentIntelligences

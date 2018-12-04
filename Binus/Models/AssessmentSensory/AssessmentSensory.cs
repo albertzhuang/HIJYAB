@@ -9,8 +9,8 @@ namespace Binus.Models.AssessmentSensory
     {
         public string assessmentTitle { get; set; }
         public string assessmentDescription { get; set; }
-        public StatementSensory[] statementSensories { get; set; }
-        public ScoreSensory[] scoreSensories { get; set; }
-        public Sensory[] sensories { get; set; }
+        public IEnumerable<StatementSensory> statementSensories { get; set; }
+        public IEnumerable<ScoreSensory> scoreSensories { get; set; }
+        public IEnumerable<Sensory> sensories { get; set; }
     }
 }

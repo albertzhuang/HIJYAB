@@ -6,80 +6,178 @@
 
 @section css
 {
-    <link rel="stylesheet" type="text/css" href="~/Content/css/ShowAssessment.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/showAssessment.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/AddAssessment.css">
+
 }
 
 <div class="main-content has-widget" id="main-content">
     <div class="container">
         <div class="box-container">
             <div class="single-content popup-content " id="target-id">
-
                 <div class="page-sub-heading">
-                    <h1 id="titleAssessment assessment-title"></h1>
-                    <p id="descriptionAssessment assessment-description"></p>
+                    <div class="row" style="height:30px;">
+                        <div class="column">
+                            <h2 id="assessment-title" class="page-heading" style="line-height:40px;">Assessment Title</h2>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="showassessment" id="assessment-container">
+                    <p id="assessment-description" style="text-align: justify;">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum semper convallis orci, ac eleifend augue fringilla et. Proin tincidunt feugiat mauris eu tincidunt. Morbi euismod nulla urna, id lobortis nisi sollicitudin vitae. Suspendisse eu urna porta, ultricies justo eu, gravida metus. Curabitur feugiat diam ligula, eget rhoncus augue porta sit amet. Cras gravida blandit hendrerit. Donec metus elit, mattis sit amet iaculis ac, commodo eget velit. Sed eu ornare ipsum. Nunc suscipit tempor finibus. Fusce gravida semper felis, sed pellentesque turpis luctus sit amet. Praesent ornare metus et sapien blandit accumsan vitae eu ligula. Aliquam posuere urna a facilisis fermentum. Donec id mi in urna laoreet sollicitudin faucibus ut lacus. Proin efficitur diam nisi, et posuere dui congue ut.
+                    </p>
+                </div>
 
+                <div class="template" id="assessment-intelligence-container" style="display:none;">
+                    <div class="statement-intelligence template" style="display:none;">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <span class="statement-intelligence-no">XX</span>
+                            </div>
+
+                            <div class="col-md-11">
+                                <span class="statement-intelligence">Statement Intelligence</span>
+                            </div>
+                        </div>
+                        <div id="statement-detail-intelligence-container">
+                            <div class="statement-detail-intelligence template" style="display : none;">
+                                <div class="row">
+                                    <div class="col-md-1 center-vertical" style="text-align:right;">
+                                        <div>
+                                            <span class="statement-detail-intelligence-no">XX</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 center-vertical" style="text-align: left;">
+                                        <span class="statement-detail-intelligence-value"></span>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <span class="custom-sensory">
+                                            <select name="select-score-statement-intelligence">
+                                                @*<option disabled selected value="0"> -- SELECT AN OPTION -- </option>*@
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <p>
-                    <a class="button button-orange" id="startBtn button-start">Start Assessment</a>
-                    <a class="button button-secondary" id="prevBtn button-prev">Previous</a>
-                    <a class="button button-primary" id="nextBtn button-next">Next</a>
-                    <a class="button button-orange" id="btnFinish button-finish">Finish</a>
+                    <button class="button button-orange" id="button-start" style="display:none;">Start Assessment</button>
+                    <button class="button button-secondary" id="button-prev" style="display:none;">Previous</button>
+                    <button class="button button-primary" id="button-next" style="display:none;">Next</button>
+                    <button class="button button-orange" id="button-finish" style="display:none;">Finish</button>
                 </p>
 
                 <p style="text-align:center;">
-                    <a id="btnSubmit" class="button button-primary">Submit</a>
+                    <button id="button-submit" class="button button-primary" style="display:none;">Submit</button>
                 </p>
-
             </div>
         </div>
     </div>
 </div>
 
-<div class="myLoader">
-    <span class="loader">
-        <span class="indicator"></span>
-    </span>
-</div>
-
 
 @section scripts {
     <script type="text/javascript">
-        $(document).ready(function(){
+        const assessmentContainer=$("#assessment-container");
+        const assessmentIntelligenceContainer=$("#assessment-intelligence-container");
+
+        $(document).ready(function() {
             $.ajax({
-                method : "GET",
-                url : "/api/assessment/getCurrentAssessment",
+                method: "GET",
+                url: "/api/assessment/getCurrentAssessment",
                 success: function(data) {
                     console.log(data);
-                    let assessmentTypeID = parseInt(data.assessmentTypeID);
-                    switch(assessmentTypeID)
-                    {
+                    let assessmentID=data.assessmentID;
+                    let assessmentTypeID=parseInt(data.assessmentTypeID);
+                    switch(assessmentTypeID) {
                         //return assessment intelligence
-                        case 1 :
-                            console.log("11");
-                            //$.ajax({
-                            //    method : "GET",
-                            //    url : "/api/assessment/getCurrentAssessment",
-                            //    success : function(data){
-                            //        console.log(data);
-                            //    }
-                            //});
+                        case 1:
+                            $.ajax({
+                                method: "GET",
+                                url: "/api/assessment/getCurrentAssessmentIntelligence",
+                                data: {
+                                    assessmentID: assessmentID
+                                },
+                                success: function(data) {
+                                    console.log(data);
+                                    //$("#assessment-title").text(data.assessmentTitle);
+                                    //$("#assessment-description").text(data.assessmentDescription);
+                                    $("#button-start").show();
+
+                                    let currentContainer=assessmentIntelligenceContainer;
+                                    currentContainer=currentContainer.clone();
+                                    currentContainer.removeClass("template");
+                                    currentContainer.show();
+
+                                    assessmentContainer.append(currentContainer);
+
+
+                                    data.statementIntelligences.forEach(function(statementIntelligence) {
+                                        let template=assessmentIntelligenceContainer.find(".template").first();
+                                        template=template.clone();
+                                        template.removeClass("template");
+                                        template.show();
+
+                                        template.find(".statement-intelligence-no").text(
+                                            assessmentIntelligenceContainer.find(".statement-intelligence:not(.template)").length);
+                                        template.find(".statement-intelligence").text(statementIntelligence.statementIntelligence);
+
+                                        statementIntelligence.statementDetailIntelligences.forEach(function(statementDetailIntelligence) {
+                                            console.log(statementDetailIntelligence);
+                                            let currentDetailContainer=template.find("#statement-detail-intelligence-container").first();
+                                            let templateDetail=currentDetailContainer.find(".template").first();
+                                            templateDetail=templateDetail.clone();
+                                            templateDetail.removeClass("template");
+                                            templateDetail.show();
+
+                                            templateDetail.find(".statement-detail-intelligence-no").text($(".statement-detail-intelligence:not(.template)").length+1);
+                                            templateDetail.find(".statement-detail-intelligence-value").text(statementDetailIntelligence.statementDetailIntelligence);
+
+                                            let selectScore=templateDetail.find("select[name='select-score-statement-intelligence']");
+                                            data.scoreIntelligences.forEach(function(scoreIntelligence) {
+                                                selectScore.append(
+                                                    "<option value='"+scoreIntelligence.scoreValue+"'>"+scoreIntelligence.scoreWord+"</option>"
+                                                );
+                                            });
+
+                                            currentDetailContainer.append(templateDetail);
+                                        });
+
+                                        currentContainer.append(template);
+                                    });
+                                }
+                            });
                             break;
                         //return assessment sensory
-                        case 2 :
-                            console.log("22");
+                        case 2:
+                            $.ajax({
+                                method: "GET",
+                                url: "/api/assessment/getCurrentAssessmentSensory",
+                                data: {
+                                    assessmentID: assessmentID
+                                },
+                                success: function(data) {
+                                    console.log(data);
+
+                                }
+                            });
                             break;
                         //return asssessment procrasinator
-                        case 3 : 
-                            console.log("33");
-                             break;
+                        case 3:
+                            break;
                     }
                 }
             });
-        });     
-       
+        });
+
+        $("#button-start").click(function() {
+            assessmentContainer.empty();
+            $(this).hide();
+        });
+
     </script>
 }

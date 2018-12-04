@@ -12,7 +12,6 @@ namespace Binus.Models
         public string assessmentTitle { get; set; }
         public string assessmentDescription { get; set; }
         public string assessmentType { get; set; }
-        public string test { get; set; }
         public string lastUpdate { get; set; }
     }
 }
