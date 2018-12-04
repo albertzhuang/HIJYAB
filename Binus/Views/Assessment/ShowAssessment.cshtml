@@ -23,7 +23,6 @@
 
                 </div>
 
-
                 <p>
                     <a class="button button-orange" id="startBtn button-start">Start Assessment</a>
                     <a class="button button-secondary" id="prevBtn button-prev">Previous</a>
@@ -55,6 +54,29 @@
                 url : "/api/assessment/getCurrentAssessment",
                 success: function(data) {
                     console.log(data);
+                    let assessmentTypeID = parseInt(data.assessmentTypeID);
+                    switch(assessmentTypeID)
+                    {
+                        //return assessment intelligence
+                        case 1 :
+                            console.log("11");
+                            //$.ajax({
+                            //    method : "GET",
+                            //    url : "/api/assessment/getCurrentAssessment",
+                            //    success : function(data){
+                            //        console.log(data);
+                            //    }
+                            //});
+                            break;
+                        //return assessment sensory
+                        case 2 :
+                            console.log("22");
+                            break;
+                        //return asssessment procrasinator
+                        case 3 : 
+                            console.log("33");
+                             break;
+                    }
                 }
             });
         });     

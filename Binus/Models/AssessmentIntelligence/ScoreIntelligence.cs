@@ -7,6 +7,7 @@ namespace Binus.Models.AssessmentIntelligence
 {
     public class ScoreIntelligence
     {
+        public int scoreID { get; set; }
         public int scoreValue { get; set; }
         public string scoreWord { get; set; }
     }

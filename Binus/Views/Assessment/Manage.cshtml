@@ -90,8 +90,6 @@
         const dataTable = $("#assessment-table");
 
         $(document).ready(function(){
-
-
             $.ajax({
                 method: "GET",
                 url: "/api/transaction/getUserTransaction",
@@ -124,7 +122,6 @@
             let currentAssessment = $(this).parents(".assessment");
             let assessmentID = currentAssessment.find(".assessment-id").text();
             
-
             console.log(assessmentID);  
             $.ajax({
                 method : "POST",

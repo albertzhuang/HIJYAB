@@ -221,6 +221,9 @@ SELECT * FROM Students
 INSERT INTO Users VALUES('admin', 'admin')
 INSERT INTO Students VALUES('user', 'user')
 
+SELECT * FROM Students
+SELECT * FROM Users
+
 INSERT INTO Transactions VALUES(2,'user','created',GETDATE())
 
 SELECT * FROM Assessments

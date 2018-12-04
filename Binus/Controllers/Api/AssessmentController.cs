@@ -14,9 +14,9 @@ using Binus.Models;
 using Binus.Controllers.Filter;
 using System.Web;
 
+
 namespace Binus.Controllers.Api
 {
-                         
     public class AssessmentController : ApiController
     {
         BinusEntities db = new BinusEntities();
@@ -36,6 +36,25 @@ namespace Binus.Controllers.Api
         }
 
         [HttpGet]
+        public AssessmentIntelligence getCurrentAssessmentIntelligence(int assessmentID){
+            var result = (from assessment in db.Assessments1
+                          join assessmentIntelligence in db.AssessmentIntelligences1 on assessment.AssessmentID equals assessmentIntelligence.AssessmentID
+                          where assessment.AssessmentID == assessmentID
+                          select new AssessmentIntelligence
+                          {
+                              assessmentTitle = assessment.AssessmentTitle,
+                              assessmentDescription = assessment.AssessmentDescription,
+                              statementIntelligences = (from statementIntelligence in db.StatementIntelligences1
+                                                        where statementIntelligence.AssessmentIntelligenceID == assessmentIntelligence.AssessmentIntelligenceID
+                                                        select new StatementIntelligence {
+                                                            statementIntelligenceID = statementIntelligence.StatementIntelligenceID,
+                                                            statementIntelligence = statementIntelligence.StatementIntelligence
+                                                        }).ToArray()
+                          }).FirstOrDefault();
+            return result;
+        }
+
+        [HttpGet]
         public Assessment getCurrentAssessment()
         {
             int assessmentID = (int)HttpContext.Current.Session["assessmentID"];
@@ -47,17 +66,15 @@ namespace Binus.Controllers.Api
                                       select new Assessment
                                       {
                                           assessmentID = assessment.AssessmentID,
+                                          assessmentTypeID = assessment.AssessmentTypeID,
                                           assessmentTitle = assessment.AssessmentTitle,
                                           assessmentDescription = assessment.AssessmentDescription,
-                                          assessmentType = assessmentType.AssessmentType
-                                      }).FirstOrDefault();
-
-            
+                                          assessmentType = assessmentType.AssessmentType,
+                                          test = "adsadsas"
+                                      }).First();
 
             return result;
         }
-
-
 
         [HttpGet]
         public IEnumerable<Assessment> getAllAssessment()
@@ -288,7 +305,5 @@ namespace Binus.Controllers.Api
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
         }
-
-   
     }
 }

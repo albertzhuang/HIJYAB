@@ -33,7 +33,6 @@ namespace Binus.Controllers.Api
                               transactionDate = transaction.TransactionDate.ToString()
                           }).ToList();
 
-
             return result;
         }
     }
