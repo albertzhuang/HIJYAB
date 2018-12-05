@@ -39,7 +39,7 @@ namespace Binus.Controllers.Api
         public AssessmentIntelligence getCurrentAssessmentIntelligence(int assessmentID){
             var result = (from assessment in db.Assessments1
                           join assessmentIntelligence in db.AssessmentIntelligences1 on assessment.AssessmentID equals assessmentIntelligence.AssessmentID
-                          where assessment.AssessmentID == 1003
+                          where assessment.AssessmentID == assessmentID
                           select new AssessmentIntelligence
                           {
                               assessmentIntelligenceID = assessmentIntelligence.AssessmentIntelligenceID,
@@ -49,7 +49,7 @@ namespace Binus.Controllers.Api
                                                     where scoreIntelligence.AssessmentIntelligenceID == assessmentIntelligence.AssessmentIntelligenceID
                                                     select new ScoreIntelligence
                                                     {
-                                                        scoreID = scoreIntelligence.ScoreIntelligenceID,
+                                                        scoreIntelligenceID = scoreIntelligence.ScoreIntelligenceID,
                                                         scoreValue = scoreIntelligence.ScoreValue,
                                                         scoreWord = scoreIntelligence.ScoreWord
                                                     }).ToList(),

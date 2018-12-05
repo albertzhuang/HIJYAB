@@ -1,0 +1,141 @@
+﻿
+
+.statement-intelligence
+{
+    margin-top : 40px;
+}
+
+#assessment-intelligence-container {
+    font-size: 16px !important;
+}
+
+
+#titleAssessment, #descriptionAssessment {
+    font-size: 18px;
+}
+
+.showassessment {
+    font-size: 20px;
+}
+
+.statement-detail-intelligence {
+    margin-bottom: 15px;
+}
+
+.showassessment > .headerquestion > ol > li {
+    margin-top: 20px;
+}
+
+.showassessment > .headerquestion > ol > li > select {
+    position: absolute;
+    right: 0;
+}
+
+
+.myLoader {
+    display: none;
+    position: fixed;
+    left: 900px;
+    top: 384px;
+    width: 100px;
+    height: 100px;
+    z-index: 9999;
+}
+
+.myLoader .loader {
+    width: 100%;
+    height: 100%;
+}
+
+.myLoader .loader .indicator {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.zebra td {
+    font-size: 17px;
+    padding: 15px;
+}
+
+input[type=radio] {
+    width: 1.3em;
+    height: 1.2em;
+}
+
+#btnSubmit {
+    margin-top: 20px;
+}
+
+
+
+.custom-sensory {
+    position: relative;
+    height: 40px;
+    background: #fff;
+    width: 100%;
+    float: left;
+}
+
+.custom-sensory:after {
+    content: '';
+    right: 0;
+    top: 0;
+    position: absolute;
+    pointer-events: none;
+    background-position: 0 -299px;
+    height: 40px;
+    width: 40px;
+    background-image: url(../images/sprites-saf2fbb2eef.png);
+    background-repeat: no-repeat;
+}
+
+/* IE11 hide native button*/
+select::-ms-expand {
+    display: none;
+}
+
+.custom-sensory select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: block;
+    max-width: 320px;
+    float: right;
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+    left: 0;
+    top: 0;
+}
+
+.custom-senseory .sensory-label {
+    display: block;
+    position: relative;
+    padding: 0 50px 0 10px;
+    height: 40px;
+    color: #5e5e5e;
+    line-height: 40px;
+    background: transparent;
+    border: 1px solid #c9c9c9;
+    -webkit-box-sizing: border-box;
+    -khtml-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.custom-sensory:before {
+    content: '';
+    right: 0;
+    top: 0;
+    position: absolute;
+    pointer-events: none;
+    background-position: 0 -256px;
+    height: 40px;
+    width: 40px;
+    background-image: url(../images/sprites-saf2fbb2eef.png);
+    background-repeat: no-repeat;
+}

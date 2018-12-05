@@ -6,9 +6,7 @@
 
 @section css
 {
-    <link rel="stylesheet" type="text/css" href="~/Content/css/showAssessment.css">
-    <link rel="stylesheet" type="text/css" href="~/Content/css/AddAssessment.css">
-
+    <link rel="stylesheet" type="text/css" href="~/Content/css/Assessment.css">
 }
 
 <div class="main-content has-widget" id="main-content">
@@ -18,15 +16,16 @@
                 <div class="page-sub-heading">
                     <div class="row" style="height:30px;">
                         <div class="column">
-                            <h2 id="assessment-title" class="page-heading" style="line-height:40px;">Assessment Title</h2>
+                            <h2 id="assessment-title" class="page-heading" style="line-height:40px;"></h2>
                         </div>
                     </div>
                 </div>
 
-                <div class="showassessment" id="assessment-container">
-                    <p id="assessment-description" style="text-align: justify;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum semper convallis orci, ac eleifend augue fringilla et. Proin tincidunt feugiat mauris eu tincidunt. Morbi euismod nulla urna, id lobortis nisi sollicitudin vitae. Suspendisse eu urna porta, ultricies justo eu, gravida metus. Curabitur feugiat diam ligula, eget rhoncus augue porta sit amet. Cras gravida blandit hendrerit. Donec metus elit, mattis sit amet iaculis ac, commodo eget velit. Sed eu ornare ipsum. Nunc suscipit tempor finibus. Fusce gravida semper felis, sed pellentesque turpis luctus sit amet. Praesent ornare metus et sapien blandit accumsan vitae eu ligula. Aliquam posuere urna a facilisis fermentum. Donec id mi in urna laoreet sollicitudin faucibus ut lacus. Proin efficitur diam nisi, et posuere dui congue ut.
-                    </p>
+                <p id="assessment-description" style="text-align: justify;">
+                </p>
+
+                <div class="showassessment" id="assessment-container" style="display:none;">
+
                 </div>
 
                 <div class="template" id="assessment-intelligence-container" style="display:none;">
@@ -37,7 +36,7 @@
                             </div>
 
                             <div class="col-md-11">
-                                <span class="statement-intelligence">Statement Intelligence</span>
+                                <p class="statement-intelligence-value">Statement Intelligence</p>
                             </div>
                         </div>
                         <div id="statement-detail-intelligence-container">
@@ -48,10 +47,10 @@
                                             <span class="statement-detail-intelligence-no">XX</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 center-vertical" style="text-align: left;">
+                                    <div class="col-md-8 center-vertical" style="text-align: left;">
                                         <span class="statement-detail-intelligence-value"></span>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <span class="custom-sensory">
                                             <select name="select-score-statement-intelligence">
                                                 @*<option disabled selected value="0"> -- SELECT AN OPTION -- </option>*@
@@ -64,7 +63,7 @@
                     </div>
                 </div>
 
-                <p>
+                <p style="text-align:center;">
                     <button class="button button-orange" id="button-start" style="display:none;">Start Assessment</button>
                     <button class="button button-secondary" id="button-prev" style="display:none;">Previous</button>
                     <button class="button button-primary" id="button-next" style="display:none;">Next</button>
@@ -84,7 +83,7 @@
     <script type="text/javascript">
         const assessmentContainer=$("#assessment-container");
         const assessmentIntelligenceContainer=$("#assessment-intelligence-container");
-
+        const ascii_A=65;
         $(document).ready(function() {
             $.ajax({
                 method: "GET",
@@ -103,9 +102,8 @@
                                     assessmentID: assessmentID
                                 },
                                 success: function(data) {
-                                    console.log(data);
-                                    //$("#assessment-title").text(data.assessmentTitle);
-                                    //$("#assessment-description").text(data.assessmentDescription);
+                                    $("#assessment-title").text(data.assessmentTitle);
+                                    $("#assessment-description").text(data.assessmentDescription);
                                     $("#button-start").show();
 
                                     let currentContainer=assessmentIntelligenceContainer;
@@ -115,26 +113,27 @@
 
                                     assessmentContainer.append(currentContainer);
 
-
+                                    let test = assessmentContainer.find("#assessment-intelligence-container").first();
                                     data.statementIntelligences.forEach(function(statementIntelligence) {
                                         let template=assessmentIntelligenceContainer.find(".template").first();
                                         template=template.clone();
                                         template.removeClass("template");
-                                        template.show();
+                                        
 
                                         template.find(".statement-intelligence-no").text(
-                                            assessmentIntelligenceContainer.find(".statement-intelligence:not(.template)").length);
-                                        template.find(".statement-intelligence").text(statementIntelligence.statementIntelligence);
+                                            test.find(".statement-intelligence").length + ".");
+                                        template.find(".statement-intelligence-value").text(
+                                            statementIntelligence.statementIntelligence);
 
                                         statementIntelligence.statementDetailIntelligences.forEach(function(statementDetailIntelligence) {
-                                            console.log(statementDetailIntelligence);
                                             let currentDetailContainer=template.find("#statement-detail-intelligence-container").first();
                                             let templateDetail=currentDetailContainer.find(".template").first();
                                             templateDetail=templateDetail.clone();
                                             templateDetail.removeClass("template");
                                             templateDetail.show();
 
-                                            templateDetail.find(".statement-detail-intelligence-no").text($(".statement-detail-intelligence:not(.template)").length+1);
+                                            templateDetail.find(".statement-detail-intelligence-no").text(
+                                                String.fromCharCode(currentDetailContainer.find(".statement-detail-intelligence:not(.template)").length + ascii_A) + ".");
                                             templateDetail.find(".statement-detail-intelligence-value").text(statementDetailIntelligence.statementDetailIntelligence);
 
                                             let selectScore=templateDetail.find("select[name='select-score-statement-intelligence']");
@@ -143,10 +142,8 @@
                                                     "<option value='"+scoreIntelligence.scoreValue+"'>"+scoreIntelligence.scoreWord+"</option>"
                                                 );
                                             });
-
                                             currentDetailContainer.append(templateDetail);
                                         });
-
                                         currentContainer.append(template);
                                     });
                                 }
@@ -162,7 +159,6 @@
                                 },
                                 success: function(data) {
                                     console.log(data);
-
                                 }
                             });
                             break;
@@ -174,10 +170,78 @@
             });
         });
 
+        //$("#button-next,#button-prev").click(function(){
+        //    let currentContainer = assessmentContainer.find("#assessment-intelligence-container").first();
+        //    let assessmentIntelligences = currentContainer.find(".statement-intelligence:not(.template)");
+        //    let currentStatement = currentContainer.find(".selected");
+            
+        //    if(currentStatement.length>1) {
+        //        $("#button-prev").show();
+        //    }
+        //    else if(currentStatement.length==assessmentIntelligences.length) {
+        //        $("#button-next").hide();
+        //    }
+        //});
+
         $("#button-start").click(function() {
-            assessmentContainer.empty();
+            assessmentContainer.show();
+            $("#button-next").show();
+            //$("#button-prev").show();
+            let currentContainer = assessmentContainer.find("#assessment-intelligence-container").first();
+            let assessmentIntelligences = currentContainer.find(".statement-intelligence:not(.template)");
+            
+            assessmentIntelligences.first().addClass("selected");
+            assessmentIntelligences.first().show();
+            
             $(this).hide();
         });
 
+
+        $("#button-next").click(function(){
+            let currentContainer = assessmentContainer.find("#assessment-intelligence-container").first();
+            let assessmentIntelligences=currentContainer.find(".statement-intelligence:not(.template,.selected)");
+            let currentStatement = currentContainer.find(".selected");
+            currentStatement.last().hide();
+            
+            assessmentIntelligences.first().addClass("selected");
+            assessmentIntelligences.first().show();
+
+            currentStatement=currentContainer.find(".selected");
+            assessmentIntelligences = currentContainer.find(".statement-intelligence:not(.template)");
+
+            if(assessmentIntelligences.length==currentStatement.length) {
+                $(this).hide();
+            }
+
+            if(currentStatement.length > 1) {
+                $("#button-prev").show();
+            }
+        });
+
+        $("#button-prev").click(function(){
+            let currentContainer = assessmentContainer.find("#assessment-intelligence-container").first();
+            let currentStatement = currentContainer.find(".selected");
+            currentStatement.last().hide();
+            currentStatement.last().removeClass("selected");
+            currentStatement = currentContainer.find(".selected");
+            currentStatement.last().hide();
+            currentStatement.last().removeClass("selected");
+
+            let assessmentIntelligences = currentContainer.find(".statement-intelligence:not(.template,.selected)");
+            assessmentIntelligences.first().show();
+            assessmentIntelligences.first().addClass("selected");
+
+            currentStatement = currentContainer.find(".selected");
+            assessmentIntelligences = currentContainer.find(".statement-intelligence:not(.template)");
+            console.log(currentStatement.length + " " + assessmentIntelligences.length);
+            
+            if(currentStatement.length<assessmentIntelligences.length) {
+                $("#button-next").show();
+            }
+
+            if(currentStatement.length==1) {
+                $(this).hide();
+            }
+        });
     </script>
 }

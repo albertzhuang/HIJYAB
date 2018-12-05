@@ -17,14 +17,13 @@ namespace Binus
     {
         public CustomJsonFormatter()
         {
-            this.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            this.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json"));
         }
 
         public override void SetDefaultContentHeaders(Type type, HttpContentHeaders headers, MediaTypeHeaderValue mediaType)
         {
             base.SetDefaultContentHeaders(type, headers, mediaType);
-            headers.ContentType = new MediaTypeHeaderValue("application/json");
-                
+            headers.ContentType = new MediaTypeHeaderValue("application/json");       
         }
     }
 
@@ -34,7 +33,6 @@ namespace Binus
         {
             // Web API configuration and services
 
-
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -43,9 +41,6 @@ namespace Binus
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             ).RouteHandler = new RouteHandler();
-
-            
-
 
             config.Formatters.Add(new CustomJsonFormatter());
         }
