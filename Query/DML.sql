@@ -8,7 +8,7 @@ SELECT * FROM Assessments
 SELECT * FROM ScoreProcrasinators
 
 
-SELECT * FROM Transactions
+SELECT * FROM Transactions WHERE Status = 'YES' AND Jurusan = 'SOCS' AND NIM LIKE '19%'
 SELECT * FROM Assessments
 INSERT INTO Transactions(AssessmentID,NIM,Jurusan,[Status],TransactionDate)
 VALUES

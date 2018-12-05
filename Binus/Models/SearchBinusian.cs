@@ -7,6 +7,7 @@ namespace Binus.Models
 {
     public class SearchBinusian
     {
-        public string binusianid { get; set; }
+        public string Jurusan { get; set; }
+        public string COntainsNim { get; set; }
     }
 }

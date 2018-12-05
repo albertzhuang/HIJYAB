@@ -6,7 +6,7 @@
     <section class="user-content">
         <div class="container">
             <div class="row">
-                <div class="column two-thirds">
+                <div class="column one-half">
                     <section class="user-profile">
                         <div class="thumbnail">
                             <span class="avatar">
@@ -16,11 +16,14 @@
                         <div class="details">
                             <div class="field">
                                 <h2 class="student-name">Jeff Chang</h2>
-                                <span class="position">PANTEK</span>
+                                <span class="position">Admin</span>
                             </div>
                         </div>
                     </section>
                 </div>
+
+                
+
             </div>
         </div>
     </section>
@@ -36,15 +39,15 @@
                                         <i class="icon icon-widget-formal-education"></i>
                                         <span class="label">
                                             <span class="title">List Assessment</span>
-                                            </span>
+                                        </span>
                                     </span>
                                 </div>
                                 <div class="widget-body">
                                     <ul id="widget-current-assessment" class="widget-list widget-scrolled">
                                         @*<li id="011597" class="scrolled-item" data-number="1"><a href="https://binusmaya.binus.ac.id/newStudent/#/class/info.COMP6161/011597/1810/LEC/29484" class="title">[Type Test] - [Title Test]</a></li>
-                                        <li id="011597" class="scrolled-item" data-number="1"><a href="https://binusmaya.binus.ac.id/newStudent/#/class/info.COMP6161/011597/1810/LEC/29484" class="title">Intelligence - Your Intelligence Test?</a></li>*@
+                        <li id="011597" class="scrolled-item" data-number="1"><a href="https://binusmaya.binus.ac.id/newStudent/#/class/info.COMP6161/011597/1810/LEC/29484" class="title">Intelligence - Your Intelligence Test?</a></li>*@
                                     </ul>
-                                </div>                              
+                                </div>
                                 <div class="widget-footer has-navigation" id="widget-course-footer" style="display:none;">
                                     <span class="text-right">
                                         <span class="nav-container">
@@ -57,15 +60,17 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="page-sub-heading">
                     <h2>Participant</h2>
                 </div>
                 <div class="widget-parent" id="widget-parent">
                     <div class="row" id="tbParticipant">
-                        
-                        
 
-                        
+
+
+
+
 
                     </div>
                 </div>
@@ -91,37 +96,20 @@
 
 @*POP UP SHOW PARTICIPANT*@
 <div style="display:none;">
-    <div id="testfak" style="width:800px;height:600px; background-color:white;padding:0 20px;">
-        <h1 style="text-align:center;">[Judul Test]</h1>
-        <div class="freeze-pane" data-fixed-left="2" data-fixed-right="1" data-height="300">
-            <table class="zebra">
+    <div id="testfak" style="width:450px;height:600px; background-color:white;padding:0 20px;">
+        <h1 id="testTitle" style="text-align:center;">[Judul Test]</h1>
+        <div class="freeze-pane">
+            <table class="zebra" id="myTable">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Title</th>
                         <th>NIM</th>
-                        <th>Result</th>
+                        <th>Jurusan</th>
+                        <th>Start Test Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Your Intelligence Status</td>
-                        <td>1901595855</td>
-                        <td>Verbal Intelligence</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Your Intelligence Status</td>
-                        <td>1902001220</td>
-                        <td>Intrapersonal</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Your Intelligence Status</td>
-                        <td>1901598955</td>
-                        <td>Interpersonal</td>
-                    </tr>
+                   
                 </tbody>
             </table>
         </div>
@@ -173,7 +161,7 @@
                     data[i].AssessmentType.AssessmentType + " - " + data[i].AssessmentTitle +
                     "</a>" +
                     "</li>");
-
+                
             }
 
 
@@ -185,12 +173,14 @@
         {
            // console.log(data);
             var output = [], l = data.length, i,z;
-          
+            var url = "@Url.Action("Index", "Home")";
             for (i = 0; i < l; i++) {
                 
                 if (output[data[i].Jurusan] == null) {
                     output[data[i].Jurusan] =
                     {
+                        TransactionID: data[i].TransactionID,
+                        Binusian: data[i].NIM.substring(0, 2),
                         AssessmentTitle: data[i].AssessmentTitle,
                         Jurusan: data[i].Jurusan,
                         participant : 0,
@@ -221,53 +211,179 @@
                 if (output.hasOwnProperty(k)) {
                     participant[k] = output[k];
                  //   console.log(participant[k]);
-                    $('#tbParticipant').append(
-                        '<div class="column one-half">'+
-                        '<div class="widget">' +
-                        '<div class="widget-head">' +
-                        '<span class="head-wrap">' +
-                        '<i class="icon icon-widget-performance"></i>' +
-                        '<span class="label">' +
-                        '<span class="title">' + participant[k].AssessmentTitle + '- ' + participant[k].Jurusan +'</span>' +
-                        '</span>' +
-                        '</span>' +
-                        '</div>' +
-                        '<div class="widget-body">' +
-                        '<div class="widget-performance-meter">' +
-                        '<div class="group-item">' +
-                        '<div class="item">' +
-                        '<div class="performance-meter" data-value="' + participant[k].countYes +'" data-scale="' + participant[k].participant+'">' +
-                        '<span class="performance-legend">' +
-                        '<span class="score">' +
-                        '<span class="score-value">' + participant[k].countYes +'</span>' +
-                        '</span>' +
-                        '<span class="state-value" style="margin-top: 15px;">' +
-                        '<span class="start">' +
-                        '0' +
-                        '</span>' +
-                        '<span class="end" style="margin-right: 0px;">' +
-                         participant[k].participant +
-                        '</span>' +
-                        '</span>' +
-                        '</span>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="widget-footer">' +
-                        '<span class="text-center">' +
-                        '<a href="# #testfak" class="fancybox-trigger fancybox.ajax">Show Detail</a>' +
-                        '</span>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>'
-                    );
+                    
+                    if (participant[k].countYes > 0){
+                        $('#tbParticipant').append(
+                            '<div class="column one-half">' +
+                            '<div class="widget">' +
+                            '<div class="widget-head">' +
+                            '<span class="head-wrap">' +
+                            '<span class="label">' +
+                            '<span class="title">' + participant[k].AssessmentTitle + '- ' + participant[k].Jurusan + '</span>' +
+                            '</span>' +
+                            '</span>' +
+                            '</div>' +
+
+                            '<div class="widget-body">' +
+                            '<div class="widget-big-state" >' +
+
+                            '<div class="state-item">' +
+                            '<span>' +
+                            '<i class= "icon icon-widget-action" ></i>' +
+                            '<span style="margin:20px;font-size:30px;color:green;"> Completely :' + participant[k].countYes + '</span>' +
+                            '</span>' +
+                            '</div>' +
+
+                            '<div class="state-item">' +
+                            '<span>' +
+                            '<i class= "icon icon-widget-performance" ></i>' +
+                            '<span style="margin:20px;font-size:30px;color:red;"> Not Done :' + (participant[k].participant - participant[k].countYes) + '</span>' +
+                            '</span>' +
+                            '</div>' +
+
+                            '<div class="state-item">' +
+                            '<span>' +
+                            '<i class= "icon icon-widget-verified" ></i>' +
+                            '<span style="margin:20px;font-size:38px;"> Participant :' + participant[k].participant + '</span>' +
+                            '</span>' +
+                            '</div>' +
+
+                            '</div>' +
+                            '</div>' +
+
+                            '<div class="widget-footer">' +
+                            '<span class="text-center">' +
+                            '<a href="# #testfak" onClick="popupData(\'' + participant[k].Jurusan + ',' + participant[k].Binusian + '\') "class="fancybox-trigger fancbox.ajax">Show Detail</a>' +
+                            '</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                    }
+                    else
+                    {
+                        $('#tbParticipant').append(
+                            '<div class="column one-half">' +
+                            '<div class="widget">' +
+                            '<div class="widget-head">' +
+                            '<span class="head-wrap">' +
+                            '<span class="label">' +
+                            '<span class="title">' + participant[k].AssessmentTitle + '- ' + participant[k].Jurusan + '</span>' +
+                            '</span>' +
+                            '</span>' +
+                            '</div>' +
+
+                            '<div class="widget-body">' +
+                            '<div class="widget-big-state" >' +
+
+                            '<div class="state-item">' +
+                            '<span>' +
+                            '<i class= "icon icon-widget-action" ></i>'+
+                            '<span style="margin:20px;font-size:30px;color:green;"> Completely :' + participant[k].countYes +'</span>' + 
+                            '</span>' +
+                            '</div>' +
+
+                            '<div class="state-item">' +
+                            '<span>' +
+                            '<i class= "icon icon-widget-performance" ></i>' +
+                            '<span style="margin:20px;font-size:30px;color:red;"> Not Done :' + (participant[k].participant-participant[k].countYes) + '</span>' +
+                            '</span>' +
+                            '</div>' +
+
+                            '<div class="state-item">' +
+                            '<span>' +
+                            '<i class= "icon icon-widget-verified" ></i>' +
+                            '<span style="margin:20px;font-size:38px;"> Participant :' + participant[k].participant  + '</span>' +
+                            '</span>' +
+                            '</div>' +
+
+                            '</div>' +
+                            '</div>' +
+
+                            '<div class="widget-footer">' +
+                            '<span class="text-center">' +
+                            '-' +
+                            '</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                    }
+                    
+
+
 
                 }
         
             }
         }
+
+
+        function popupData(data)
+        {
+            var getData = data.split(",");
+          
+            $.ajax
+            ({
+                method: "POST",
+                url: "/api/Dashboard/getDetailTransaction",
+                data:
+                {
+                    Jurusan: getData[0],
+                    COntainsNim: getData[1],
+                },
+                success: function (data) {
+                
+                    $('#testTitle').html(data[0].AssessmentTitle);
+                    var output = [] ,l = data.length;
+
+                    var i = 0;
+                    for (i = 0; i < l; i++) {
+
+                        
+                        output.push(appendDataTableRowsPopup((i + 1), data[i].NIM, data[i].Jurusan, data[i].TransactionDate));
+
+                              
+                        $table = $('#myTable').DataTable();
+                        $table.clear();
+                        $table.rows.add(output);
+                        $table.draw();
+                    }
+                    
+
+
+                }
+            });
+        }
+
+        function appendDataTableRowsPopup(no, nim, jurusan, dateWork) 
+        {
+            var d = new Date(dateWork);
+                var array = [
+                    "<tr>" +
+                    "<td>" + no + "</td>" +
+                    "</tr>",
+
+                    "<tr>" +
+                    "<td>" + nim + "</td>" +
+                    "</tr>",
+
+                    "<tr>" +
+                    "<td>" + jurusan + "</td>" +
+                    "</tr>",
+
+                    "<tr>" +
+                    "<td>" + d.toLocaleString() + "</td>" +
+                    "</tr>"
+                ];
+                return array;
+            
+        };
+
+
+
+
+
 
         function showRankingResultTable(data) {
             //console.log(data);
@@ -316,11 +432,8 @@
                 }
             }
 
+           
             
-
-
-            //console.log(output);
-
             var rank = [];
             for (var k in output) {
                 if (output.hasOwnProperty(k)) {
@@ -373,14 +486,13 @@
                     '</td>' +
                     '</tr>'
                 }
-
-
-
                 return rowStr;
             }
 
         }
 
+
+    
 
     </script>
 }

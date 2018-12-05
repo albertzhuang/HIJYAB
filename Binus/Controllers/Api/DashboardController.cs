@@ -39,6 +39,7 @@ namespace Binus.Controllers.Api
 
                                select new
                                {
+                                   x.TransactionID,
                                    x.NIM,
                                    x.Status,
                                    x.Jurusan,
@@ -60,6 +61,52 @@ namespace Binus.Controllers.Api
             {
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
                 result.Content = new StringContent(JsonConvert.SerializeObject(json, new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                }));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage getDetailTransaction(SearchBinusian sb)
+        {
+
+
+            var ranking = (from x in db.ResultAssessments1
+                           join y in db.Assessments1 on x.AssessmentID equals y.AssessmentID
+                           select new
+                           {
+                               x.NIM,
+                               x.ResultWord,
+                               y.AssessmentTitle
+                           });
+
+
+            var detailTranssaction = (from x in db.Transactions1
+                                      join y in db.Assessments1 on x.AssessmentID equals y.AssessmentID
+
+                               where x.Status.Equals("Yes") && x.Jurusan == sb.Jurusan && x.NIM.StartsWith(sb.COntainsNim)
+                               select new
+                               {
+                                   x.NIM,
+                                   y.AssessmentTitle,
+                                   x.TransactionDate,
+                                   x.Jurusan
+                               });
+
+
+
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new StringContent(JsonConvert.SerializeObject(detailTranssaction, new JsonSerializerSettings()
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 }));
