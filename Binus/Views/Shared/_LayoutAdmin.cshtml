@@ -298,29 +298,14 @@
     <!-- BINUSMAYA
     <link rel="stylesheet" type="text/css" href="modules/binusmaya/css/style.css">
     <script type="text/javascript" src="modules/binusmaya/js/script.js"></script>-->
-
     @*JQUERY 3.3.1*@
     @*ALERT : NOT SUPPORT FANCY BOX*@
     @*<script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>*@
 
 
-    <script type="text/javascript">
-        $("button").click(function(event) { event.preventDefault(); });
+    <script type="text/javascript" src="~/Content/js/main.js"></script>
 
-        (function ($) {
-            $(document).ready(function () {
-                $('.update-freeze-pane').click(function (e) {
-                    e.preventDefault();
-                    $('.freeze-pane').data('has-init', 'no');
-
-                    $('.freeze-pane').binus_freeze_pane({
-                        fixed_left: 0,
-                        on_window_load: false
-                    });
-                });
-            });
-        })(jQuery);
-    </script>
+    
 
     @RenderSection("scripts", required: false)
 </body>

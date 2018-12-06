@@ -1816,6 +1816,7 @@
     <Content Include="Content\js\development\vendor\multiselect.js" />
     <Content Include="Content\js\development\vendor\raphael.js" />
     <Content Include="Content\js\development\vendor\sly.js" />
+    <Content Include="Content\js\main.js" />
     <Content Include="Content\js\script.js" />
     <Content Include="Content\js\vendor\html5shiv.js" />
     <Content Include="Data\BinusModel.Context.tt">

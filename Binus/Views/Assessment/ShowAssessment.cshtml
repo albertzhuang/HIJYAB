@@ -28,6 +28,29 @@
 
                 </div>
 
+                <div class="template" id="assessment-sensory-container" style="display:none;">
+                    <div class="freeze-pane">
+                        <table class="zebra">
+                            <thead>
+                                <tr>
+                                    <th>Statement</th>
+                                    <th>Type</th>
+                                    <th class="template score-sensory-word">XX</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Statement Sensory</td>
+                                    <td>Type of sensory</td>
+                                    <td>
+                                        <input type="radio" class="subquestion" name="test" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <div class="template" id="assessment-intelligence-container" style="display:none;">
                     <div class="statement-intelligence template" style="display:none;">
                         <div class="row">
@@ -81,73 +104,86 @@
 
 @section scripts {
     <script type="text/javascript">
-        const assessmentContainer=$("#assessment-container");
-        const assessmentIntelligenceContainer=$("#assessment-intelligence-container");
+        var assessmentContainer=$("#assessment-container");
+        var assessmentIntelligenceContainer=$("#assessment-intelligence-container");
+        var assessmentSensoryContainer = $("#assessment-sensory-container");
+
         const ascii_A=65;
+
         $(document).ready(function() {
+            console.log(localStorage.test);
             $.ajax({
                 method: "GET",
                 url: "/api/assessment/getCurrentAssessment",
                 success: function(data) {
-                    console.log(data);
+                                       
+                    $("#assessment-title").text(data.assessmentTitle);
+                    $("#assessment-description").text(data.assessmentDescription);
+                    
                     let assessmentID=data.assessmentID;
                     let assessmentTypeID=parseInt(data.assessmentTypeID);
+
+
                     switch(assessmentTypeID) {
                         //return assessment intelligence
-                        case 1:
-                            $.ajax({
-                                method: "GET",
-                                url: "/api/assessment/getCurrentAssessmentIntelligence",
-                                data: {
-                                    assessmentID: assessmentID
-                                },
-                                success: function(data) {
-                                    $("#assessment-title").text(data.assessmentTitle);
-                                    $("#assessment-description").text(data.assessmentDescription);
-                                    $("#button-start").show();
+                        case 1 :
+                            if(localStorage.content!==undefined) {
+                                $("#target-id").html(localStorage.content);
+                                assessmentContainer=$("#assessment-container");
+                                assessmentIntelligenceContainer=$("#assessment-intelligence-container");
+                            }
+                            else{
+                                $.ajax({
+                                    method: "GET",
+                                    url: "/api/assessment/getCurrentAssessmentIntelligence",
+                                    data: {
+                                        assessmentID: assessmentID
+                                    },
+                                    success: function(data) {
+                                        $("#button-start").show();
 
-                                    let currentContainer=assessmentIntelligenceContainer;
-                                    currentContainer=currentContainer.clone();
-                                    currentContainer.removeClass("template");
-                                    currentContainer.show();
+                                        let currentContainer=assessmentIntelligenceContainer;
+                                        currentContainer=currentContainer.clone();
+                                        currentContainer.removeClass("template");
+                                        currentContainer.show();
 
-                                    assessmentContainer.append(currentContainer);
+                                        assessmentContainer.append(currentContainer);
 
-                                    let test = assessmentContainer.find("#assessment-intelligence-container").first();
-                                    data.statementIntelligences.forEach(function(statementIntelligence) {
-                                        let template=assessmentIntelligenceContainer.find(".template").first();
-                                        template=template.clone();
-                                        template.removeClass("template");
-                                        
+                                        let test=assessmentContainer.find("#assessment-intelligence-container").first();
+                                        data.statementIntelligences.forEach(function(statementIntelligence) {
+                                            let template=assessmentIntelligenceContainer.find(".template").first();
+                                            template=template.clone();
+                                            template.removeClass("template");
 
-                                        template.find(".statement-intelligence-no").text(
-                                            test.find(".statement-intelligence").length + ".");
-                                        template.find(".statement-intelligence-value").text(
-                                            statementIntelligence.statementIntelligence);
+                                            template.find(".statement-intelligence-no").text(
+                                                test.find(".statement-intelligence").length+".");
+                                            template.find(".statement-intelligence-value").text(
+                                                statementIntelligence.statementIntelligence);
 
-                                        statementIntelligence.statementDetailIntelligences.forEach(function(statementDetailIntelligence) {
-                                            let currentDetailContainer=template.find("#statement-detail-intelligence-container").first();
-                                            let templateDetail=currentDetailContainer.find(".template").first();
-                                            templateDetail=templateDetail.clone();
-                                            templateDetail.removeClass("template");
-                                            templateDetail.show();
+                                            statementIntelligence.statementDetailIntelligences.forEach(function(statementDetailIntelligence) {
+                                                let currentDetailContainer=template.find("#statement-detail-intelligence-container").first();
+                                                let templateDetail=currentDetailContainer.find(".template").first();
+                                                templateDetail=templateDetail.clone();
+                                                templateDetail.removeClass("template");
+                                                templateDetail.show();
 
-                                            templateDetail.find(".statement-detail-intelligence-no").text(
-                                                String.fromCharCode(currentDetailContainer.find(".statement-detail-intelligence:not(.template)").length + ascii_A) + ".");
-                                            templateDetail.find(".statement-detail-intelligence-value").text(statementDetailIntelligence.statementDetailIntelligence);
+                                                templateDetail.find(".statement-detail-intelligence-no").text(
+                                                    String.fromCharCode(currentDetailContainer.find(".statement-detail-intelligence:not(.template)").length+ascii_A)+".");
+                                                templateDetail.find(".statement-detail-intelligence-value").text(statementDetailIntelligence.statementDetailIntelligence);
 
-                                            let selectScore=templateDetail.find("select[name='select-score-statement-intelligence']");
-                                            data.scoreIntelligences.forEach(function(scoreIntelligence) {
-                                                selectScore.append(
-                                                    "<option value='"+scoreIntelligence.scoreValue+"'>"+scoreIntelligence.scoreWord+"</option>"
-                                                );
+                                                let selectScore=templateDetail.find("select[name='select-score-statement-intelligence']");
+                                                data.scoreIntelligences.forEach(function(scoreIntelligence) {
+                                                    selectScore.append(
+                                                        "<option value='"+scoreIntelligence.scoreValue+"'>"+scoreIntelligence.scoreWord+"</option>"
+                                                    );
+                                                });
+                                                currentDetailContainer.append(templateDetail);
                                             });
-                                            currentDetailContainer.append(templateDetail);
+                                            currentContainer.append(template);
                                         });
-                                        currentContainer.append(template);
-                                    });
-                                }
-                            });
+                                    }
+                                });
+                            }
                             break;
                         //return assessment sensory
                         case 2:
@@ -170,23 +206,9 @@
             });
         });
 
-        //$("#button-next,#button-prev").click(function(){
-        //    let currentContainer = assessmentContainer.find("#assessment-intelligence-container").first();
-        //    let assessmentIntelligences = currentContainer.find(".statement-intelligence:not(.template)");
-        //    let currentStatement = currentContainer.find(".selected");
-            
-        //    if(currentStatement.length>1) {
-        //        $("#button-prev").show();
-        //    }
-        //    else if(currentStatement.length==assessmentIntelligences.length) {
-        //        $("#button-next").hide();
-        //    }
-        //});
-
         $("#button-start").click(function() {
             assessmentContainer.show();
             $("#button-next").show();
-            //$("#button-prev").show();
             let currentContainer = assessmentContainer.find("#assessment-intelligence-container").first();
             let assessmentIntelligences = currentContainer.find(".statement-intelligence:not(.template)");
             
@@ -197,7 +219,15 @@
         });
 
 
-        $("#button-next").click(function(){
+        $(document).on("change","select",function() {
+            $("option[value="+this.value+"]",this)
+                .attr("selected",true).siblings()
+                .removeAttr("selected")
+        });
+
+
+        $(document).on("click","#button-next",function() {
+            localStorage.content=$("#target-id").html();
             let currentContainer = assessmentContainer.find("#assessment-intelligence-container").first();
             let assessmentIntelligences=currentContainer.find(".statement-intelligence:not(.template,.selected)");
             let currentStatement = currentContainer.find(".selected");
@@ -218,7 +248,8 @@
             }
         });
 
-        $("#button-prev").click(function(){
+        $(document).on("click","#button-prev",function() {
+            localStorage.content = $("#target-id").html();
             let currentContainer = assessmentContainer.find("#assessment-intelligence-container").first();
             let currentStatement = currentContainer.find(".selected");
             currentStatement.last().hide();

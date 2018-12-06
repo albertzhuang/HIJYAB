@@ -73,6 +73,34 @@ namespace Binus.Controllers.Api
         }
 
         [HttpGet]
+        public AssessmentSensory getCurrentAssessmentSensory(int assessmentID)
+        {
+            var result = (from assessment in db.Assessments1
+                          join assessmentSensory in db.AssessmentSensories1 on assessment.AssessmentID equals assessmentSensory.AssessmentID
+                          where assessment.AssessmentID == assessmentID
+                          select new AssessmentSensory
+                          {
+                              assessmentTitle = assessment.AssessmentTitle,
+                              assessmentDescription = assessment.AssessmentDescription,
+                              statementSensories = (from statementSensory in db.StatementSensories1
+                                                    where statementSensory.AssessmentSensoryID == assessmentSensory.AssessmentSensoryID
+                                                    select new StatementSensory {
+                                                        statementSensoryID = statementSensory.StatementSensoryID,
+                                                        statementSensory = statementSensory.StatementSensory
+                                                    }).ToList(),
+                              scoreSensories = (from scoreSensory in db.ScoreSensories1
+                                             where scoreSensory.AssessmentSensoryID == assessmentSensory.AssessmentSensoryID
+                                             select new ScoreSensory
+                                             {
+                                                 
+                                             }).ToList()
+
+                          }).FirstOrDefault();
+
+            return result;
+        }
+
+        [HttpGet]
         public Assessment getCurrentAssessment()
         {
             int assessmentID = (int)HttpContext.Current.Session["assessmentID"];
