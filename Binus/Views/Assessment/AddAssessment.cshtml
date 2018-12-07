@@ -315,6 +315,8 @@
             });
 
 
+            console.log(sensories);
+
             //get last row from sensories table
             $.ajax({
                 method: "GET",
@@ -326,7 +328,6 @@
                     });
                 }
             });
-            
         });
 
         $(document).on("click", "#button-cancel", function(){

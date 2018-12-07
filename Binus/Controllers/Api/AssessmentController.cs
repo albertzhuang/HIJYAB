@@ -86,15 +86,22 @@ namespace Binus.Controllers.Api
                                                     where statementSensory.AssessmentSensoryID == assessmentSensory.AssessmentSensoryID
                                                     select new StatementSensory {
                                                         statementSensoryID = statementSensory.StatementSensoryID,
-                                                        statementSensory = statementSensory.StatementSensory
+                                                        statementSensory = statementSensory.StatementSensory,
+                                                        sensory = (from sensory in db.Sensories1
+                                                                   where statementSensory.SensoryID == sensory.SensoryID
+                                                                   select new Sensory {
+                                                                       sensoryID = sensory.SensoryID,
+                                                                       sensory = sensory.Sensory
+                                                                   }).FirstOrDefault()
                                                     }).ToList(),
                               scoreSensories = (from scoreSensory in db.ScoreSensories1
-                                             where scoreSensory.AssessmentSensoryID == assessmentSensory.AssessmentSensoryID
-                                             select new ScoreSensory
-                                             {
-                                                 
+                                                where scoreSensory.AssessmentSensoryID == assessmentSensory.AssessmentSensoryID
+                                                select new ScoreSensory
+                                                {
+                                                    scoreValue = scoreSensory.ScoreValue,
+                                                    scoreWord = scoreSensory.ScoreWord
                                              }).ToList()
-
+                             
                           }).FirstOrDefault();
 
             return result;
@@ -134,6 +141,29 @@ namespace Binus.Controllers.Api
                               lastUpdate = assessment.LastUpdate.ToString()
                           }).ToList();
             return result;
+        }
+
+        [HttpGet]
+        public HttpResponseMessage getLastSensory()
+        {
+
+            int fk_sensoryID = int.Parse(db.Sensories1
+                    .OrderByDescending(x => x.SensoryID)
+                    .Select(x => x.SensoryID).First().ToString());
+
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new StringContent(JsonConvert.SerializeObject(fk_sensoryID));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+
         }
 
         [HttpPost]

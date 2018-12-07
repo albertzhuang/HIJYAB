@@ -238,3 +238,6 @@ WHERE AssessmentID = 1003
 USE Binus
 
 SELECT * FROM AssessmentIntelligences
+
+select * FROM Sensories
+
