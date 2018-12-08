@@ -52,6 +52,28 @@
                 </div>
                 @*END ASSESSMENT SENSORY*@
 
+                @*START ASSESSMENT PROCRASINATOR*@
+                <div class="template" id="assessment-procrasinator-container" style="display:none;">
+                    <table class="zebra">
+                        <thead>
+                            <tr>
+                                <th>Statement</th>
+                                <th>Type</th>
+                                <th class="template header-procrasinator" style="display:none;">XX</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="template row-procrasinator" style="display:none;">
+                                <td class="statement-procrasinator"></td>
+                                <td class="template procrasinator-word" style="display:none;">
+                                    <input type="radio" class="input-procrasinator" name="input-procrasiantor" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                @*END ASSESSMENT PROCRASINATOR*@
+
                 @*START ASSESSMENT INTELLIGENCE*@
                 <div class="template" id="assessment-intelligence-container" style="display:none;">
                     <div class="statement-intelligence template" style="display:none;">
@@ -137,7 +159,6 @@
                         let assessmentTypeID=parseInt(data.assessmentTypeID);
 
 
-
                         switch(assessmentTypeID) {
                             //return assessment intelligence
                             case 1 :
@@ -195,9 +216,6 @@
                                 break;
                             //return assessment sensory
                             case 2:
-
-                            
-
                                 $.ajax({
                                     method: "GET",
                                     url: "/api/assessment/getCurrentAssessmentSensory",
@@ -212,14 +230,14 @@
                                         currentContainer.removeClass("template");
                                         currentContainer.show();
 
-                                        data.sensories.forEach(function(sensory){                                        
+                                        data.scoreSensories.forEach(function(scoreSensory){                                        
                                             let template = currentContainer.find(".header-sensory").first();
                                         
                                             template = template.clone();
                                             template.removeClass("template");
                                             template.show();
                                         
-                                            template.text(sensory.sensory);
+                                            template.text(scoreSensory.scoreWord);
 
                                             currentContainer.find("thead>tr").append(template);
 
@@ -232,7 +250,7 @@
                                             currentContainer.find("tbody>tr").append(inputTemplate);
                                         });
 
-                                        data.sensories.forEach(function(sensory){
+                                        data.scoreSensories.forEach(function(scoreSensory){
                                             let template = currentContainer.find(".sensory-word").first();
                                             template = template.clone();
                                             template.removeClass("template");

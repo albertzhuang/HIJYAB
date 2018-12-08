@@ -136,6 +136,37 @@ namespace Binus.Controllers.Api
         }
 
         [HttpGet]
+        public AssessmentProcrasinator getCurrentAssessmentProcrasinator(int assessmentID)
+        {
+
+            var result = (from assessmentProcrasinator in db.AssessmentProcrasinators1
+                          where assessmentProcrasinator.AssessmentID == assessmentID
+                          select new AssessmentProcrasinator
+                          {
+                              statementProcrasinators = (from statementProcrasinator in db.StatementProcrasinators1
+                                                         where statementProcrasinator.AssessmentProcrasinatorID == assessmentProcrasinator.AssessmentProcrasinatorID
+                                                         select new StatementProcrasinator {
+                                                             statementProcrasinator = statementProcrasinator.StatementProcrasinator
+                                                         }).ToList(),
+                              scoreProcrasinators = (from scoreProcrasinator in db.ScoreProcrasinators1
+                                                     where scoreProcrasinator.AssessmentProcrasinatorID == assessmentProcrasinator.AssessmentProcrasinatorID
+                                                     select new ScoreProcrasinator
+                                                     {
+                                                         startValue = scoreProcrasinator.StartValue,
+                                                         endValue = scoreProcrasinator.EndValue,
+                                                         scoreWord = scoreProcrasinator.ScoreWord
+                                                     }).ToList(),
+                              agreements = (from agreement in db.Agreements1
+                                            where agreement.AssessmentProcrasinatorID == assessmentProcrasinator.AssessmentProcrasinatorID
+                                            select new Agreement {
+                                                agreement = agreement.Agreement
+                                            }).ToList()
+                          }).FirstOrDefault();
+
+            return result;
+        }
+
+        [HttpGet]
         public IEnumerable<Assessment> getAllAssessment()
         {
             var result = (from assessment in db.Assessments1
