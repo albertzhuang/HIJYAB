@@ -17,5 +17,9 @@
 $(document).on("change","select",function() {
     $("option[value="+this.value+"]",this)
         .attr("selected",true).siblings()
-        .removeAttr("selected")
+        .removeAttr("selected");
+});
+
+$(document).on("change","input[type='radio']",function() {
+    $(this).attr("checked",true).parents(".row-sensory").find("input[type='radio']:not(:checked)").removeAttr("checked");
 });

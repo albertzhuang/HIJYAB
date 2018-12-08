@@ -24,33 +24,35 @@
                 <p id="assessment-description" style="text-align: justify;">
                 </p>
 
-                <div class="showassessment" id="assessment-container" style="display:none;">
-                    <div class="template" id="assessment-sensory-container" style="display:block;">
-                        <div class="freeze-pane">
-                            <table class="zebra">
-                                <thead>
-                                    <tr>
-                                        <th>Statement</th>
-                                        <th>Type</th>
-                                        <th class="template score-sensory-word">XX</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Statement Sensory</td>
-                                        <td>Type of sensory</td>
-                                        <td>
-                                            <input type="radio" class="subquestion" name="test" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="showassessment" id="assessment-container" style="display:block;">
+
                 </div>
 
-                
 
+                @*START ASSESSMENT SENSORY*@
+                <div class="template" id="assessment-sensory-container" style="display:none;">
+                    <table class="zebra">
+                        <thead>
+                            <tr>
+                                <th>Statement</th>
+                                <th>Type</th>
+                                <th class="template header-sensory" style="display:none;">XX</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="template row-sensory" style="display:none;">
+                                <td class="statement-sensory"></td>
+                                <td class="sensory"></td>
+                                <td class="template sensory-word" style="display:none;">
+                                    <input type="radio" class="input-sensory" name="input-sensory" /> 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                @*END ASSESSMENT SENSORY*@
+
+                @*START ASSESSMENT INTELLIGENCE*@
                 <div class="template" id="assessment-intelligence-container" style="display:none;">
                     <div class="statement-intelligence template" style="display:none;">
                         <div class="row">
@@ -85,6 +87,7 @@
                         </div>
                     </div>
                 </div>
+                @*END ASSESSMENT INTELLIGENCE*@
 
                 <p style="text-align:center;">
                     <button class="button button-orange" id="button-start" style="display:none;">Start Assessment</button>
@@ -111,28 +114,33 @@
         const ascii_A=65;
 
         $(document).ready(function() {
-            console.log(localStorage.test);
-            $.ajax({
-                method: "GET",
-                url: "/api/assessment/getCurrentAssessment",
-                success: function(data) {
+            
+            if(localStorage.content!==undefined) {
+                $("#target-id").html(localStorage.content);
+                assessmentContainer=$("#assessment-container");
+                assessmentIntelligenceContainer=$("#assessment-intelligence-container");
+                assessmentSensoryContainer=$("#assessment-sensory-container");
+
+                
+            }
+            else
+            {
+                $.ajax({
+                    method: "GET",
+                    url: "/api/assessment/getCurrentAssessment",
+                    success: function(data) {
                                        
-                    $("#assessment-title").text(data.assessmentTitle);
-                    $("#assessment-description").text(data.assessmentDescription);
+                        $("#assessment-title").text(data.assessmentTitle);
+                        $("#assessment-description").text(data.assessmentDescription);
                     
-                    let assessmentID=data.assessmentID;
-                    let assessmentTypeID=parseInt(data.assessmentTypeID);
+                        let assessmentID=data.assessmentID;
+                        let assessmentTypeID=parseInt(data.assessmentTypeID);
 
 
-                    switch(assessmentTypeID) {
-                        //return assessment intelligence
-                        case 1 :
-                            if(localStorage.content!==undefined) {
-                                $("#target-id").html(localStorage.content);
-                                assessmentContainer=$("#assessment-container");
-                                assessmentIntelligenceContainer=$("#assessment-intelligence-container");
-                            }
-                            else{
+
+                        switch(assessmentTypeID) {
+                            //return assessment intelligence
+                            case 1 :
                                 $.ajax({
                                     method: "GET",
                                     url: "/api/assessment/getCurrentAssessmentIntelligence",
@@ -183,27 +191,84 @@
                                         });
                                     }
                                 });
-                            }
-                            break;
-                        //return assessment sensory
-                        case 2:
-                            $.ajax({
-                                method: "GET",
-                                url: "/api/assessment/getCurrentAssessmentSensory",
-                                data: {
-                                    assessmentID: assessmentID
-                                },
-                                success: function(data) {
-                                    console.log(data);
-                                }
-                            });
-                            break;
-                        //return asssessment procrasinator
-                        case 3:
-                            break;
+                            
+                                break;
+                            //return assessment sensory
+                            case 2:
+
+                            
+
+                                $.ajax({
+                                    method: "GET",
+                                    url: "/api/assessment/getCurrentAssessmentSensory",
+                                    data: {
+                                        assessmentID: assessmentID
+                                    },
+                                    success: function(data) {
+                                        $("#button-submit").show();
+
+                                        let currentContainer = assessmentSensoryContainer;
+                                        currentContainer =  currentContainer.clone();
+                                        currentContainer.removeClass("template");
+                                        currentContainer.show();
+
+                                        data.sensories.forEach(function(sensory){                                        
+                                            let template = currentContainer.find(".header-sensory").first();
+                                        
+                                            template = template.clone();
+                                            template.removeClass("template");
+                                            template.show();
+                                        
+                                            template.text(sensory.sensory);
+
+                                            currentContainer.find("thead>tr").append(template);
+
+
+                                            let inputTemplate = currentContainer.find(".sensory-word").first();
+                                            template = template.clone();
+                                            template.removeClass("template");
+                                            template.show();
+
+                                            currentContainer.find("tbody>tr").append(inputTemplate);
+                                        });
+
+                                        data.sensories.forEach(function(sensory){
+                                            let template = currentContainer.find(".sensory-word").first();
+                                            template = template.clone();
+                                            template.removeClass("template");
+                                            template.show();
+                                       
+                                        
+                                            currentContainer.find("tbody>tr").append(template);
+                                        });
+
+                                        $(data.statementSensories).each(function(index,statementSensory){
+                                            let template = currentContainer.find(".row-sensory").first();
+                                            template = template.clone();
+                                            template.removeClass("template");
+                                            template.show();
+
+                                            template.find(".statement-sensory").text(statementSensory.statementSensory);
+                                            template.find(".sensory").text(statementSensory.sensory.sensory);
+
+                                            template.find("input[name='input-sensory']").attr('name', "row"+index);
+
+                                            currentContainer.find("tbody").append(template);
+                                        });
+
+                                        assessmentContainer.append(currentContainer);
+                                    }
+                                });
+                                break;
+                            //return asssessment procrasinator
+                            case 3:
+
+
+                                break;
+                        }
                     }
-                }
-            });
+                });
+            }
         });
 
         $("#button-start").click(function() {
@@ -273,6 +338,10 @@
             if(currentStatement.length==1) {
                 $(this).hide();
             }
+        });
+
+        $(document).on("change", "input[type='radio']", function(){
+            localStorage.content=$("#target-id").html();
         });
     </script>
 }

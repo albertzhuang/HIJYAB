@@ -5,9 +5,20 @@
     margin-top : 40px;
 }
 
-#assessment-intelligence-container {
-    font-size: 16px !important;
+.zebra td {
+    font-size:12px !important;
+
 }
+
+#assessment-sensory-container 
+{
+    margin-top : 50px;
+}  
+
+#assessment-container {
+    font-size: 16px;
+}
+
 
 
 #titleAssessment, #descriptionAssessment {

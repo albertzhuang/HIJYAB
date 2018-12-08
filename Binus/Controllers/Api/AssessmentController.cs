@@ -100,8 +100,15 @@ namespace Binus.Controllers.Api
                                                 {
                                                     scoreValue = scoreSensory.ScoreValue,
                                                     scoreWord = scoreSensory.ScoreWord
-                                             }).ToList()
-                             
+                                             }).ToList(),
+                              sensories = (from sensory in db.Sensories1
+                                           join statementSensory in db.StatementSensories1 on sensory.SensoryID equals statementSensory.SensoryID
+                                           join assessmentSensory in db.AssessmentSensories1 on statementSensory.AssessmentSensoryID equals assessmentSensory.AssessmentSensoryID
+                                           where assessmentSensory.AssessmentID == assessmentID
+                                           select new Sensory {
+                                               sensoryID = sensory.SensoryID,
+                                               sensory = sensory.Sensory
+                                           }).ToList() 
                           }).FirstOrDefault();
 
             return result;
