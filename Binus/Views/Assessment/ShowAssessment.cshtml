@@ -28,52 +28,6 @@
 
                 </div>
 
-
-                @*START ASSESSMENT SENSORY*@
-                <div class="template" id="assessment-sensory-container" style="display:none;">
-                    <table class="zebra">
-                        <thead>
-                            <tr>
-                                <th>Statement</th>
-                                <th>Type</th>
-                                <th class="template header-sensory" style="display:none;">XX</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="template row-sensory" style="display:none;">
-                                <td class="statement-sensory"></td>
-                                <td class="sensory"></td>
-                                <td class="template sensory-word" style="display:none;">
-                                    <input type="radio" class="input-sensory" name="input-sensory" /> 
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                @*END ASSESSMENT SENSORY*@
-
-                @*START ASSESSMENT PROCRASINATOR*@
-                <div class="template" id="assessment-procrasinator-container" style="display:none;">
-                    <table class="zebra">
-                        <thead>
-                            <tr>
-                                <th>Statement</th>
-                                <th>Type</th>
-                                <th class="template header-procrasinator" style="display:none;">XX</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="template row-procrasinator" style="display:none;">
-                                <td class="statement-procrasinator"></td>
-                                <td class="template procrasinator-word" style="display:none;">
-                                    <input type="radio" class="input-procrasinator" name="input-procrasiantor" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                @*END ASSESSMENT PROCRASINATOR*@
-
                 @*START ASSESSMENT INTELLIGENCE*@
                 <div class="template" id="assessment-intelligence-container" style="display:none;">
                     <div class="statement-intelligence template" style="display:none;">
@@ -111,6 +65,50 @@
                 </div>
                 @*END ASSESSMENT INTELLIGENCE*@
 
+                @*START ASSESSMENT SENSORY*@
+                <div class="template" id="assessment-sensory-container" style="display:none;">
+                    <table class="zebra">
+                        <thead>
+                            <tr>
+                                <th>Statement</th>
+                                <th>Type</th>
+                                <th class="template header-sensory" style="display:none;">XX</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="template row-sensory" style="display:none;">
+                                <td class="statement-sensory"></td>
+                                <td class="sensory"></td>
+                                <td class="template sensory-word" style="display:none;">
+                                    <input type="radio" class="input-sensory" name="input-sensory" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                @*END ASSESSMENT SENSORY*@
+
+                @*START ASSESSMENT PROCRASINATOR*@
+                <div class="template" id="assessment-procrasinator-container" style="display:none;">
+                    <table class="zebra">
+                        <thead>
+                            <tr>
+                                <th>Statement</th>
+                                <th class="template header-procrasinator" style="display:none;">XX</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="template row-procrasinator" style="display:none;">
+                                <td class="statement-procrasinator"></td>
+                                <td class="template procrasinator-word" style="display:none;">
+                                    <input type="radio" class="input-procrasinator" name="input-procrasiantor" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                @*END ASSESSMENT PROCRASINATOR*@
+
                 <p style="text-align:center;">
                     <button class="button button-orange" id="button-start" style="display:none;">Start Assessment</button>
                     <button class="button button-secondary" id="button-prev" style="display:none;">Previous</button>
@@ -132,6 +130,7 @@
         var assessmentContainer=$("#assessment-container");
         var assessmentIntelligenceContainer=$("#assessment-intelligence-container");
         var assessmentSensoryContainer = $("#assessment-sensory-container");
+        var assessmentProcrasinatorContainer = $("#assessment-procrasinator-container");
 
         const ascii_A=65;
 
@@ -141,9 +140,7 @@
                 $("#target-id").html(localStorage.content);
                 assessmentContainer=$("#assessment-container");
                 assessmentIntelligenceContainer=$("#assessment-intelligence-container");
-                assessmentSensoryContainer=$("#assessment-sensory-container");
-
-                
+                assessmentSensoryContainer=$("#assessment-sensory-container");   
             }
             else
             {
@@ -256,7 +253,6 @@
                                             template.removeClass("template");
                                             template.show();
                                        
-                                        
                                             currentContainer.find("tbody>tr").append(template);
                                         });
 
@@ -280,7 +276,58 @@
                                 break;
                             //return asssessment procrasinator
                             case 3:
+                                $.ajax({
+                                    method: "GET",
+                                    url: "/api/assessment/getCurrentAssessmentProcrasinator",
+                                    data: {
+                                        assessmentID : assessmentID
+                                    },
+                                    success: function(data) {
+                                        console.log(data);
+                                        $("#button-submit").show();
 
+                                        let currentContainer=assessmentProcrasinatorContainer;
+
+                                        currentContainer=currentContainer.clone();
+                                        currentContainer.removeClass("template");
+                                        currentContainer.show();
+
+                                        data.agreements.forEach(function(agreement){
+                                            let template = currentContainer.find(".header-procrasinator").first();
+                                            template = template.clone();
+                                            template.removeClass("template");
+                                            template.show();
+
+                                            template.text(agreement.agreement);
+                                            currentContainer.find("thead>tr").append(template);
+                                        });
+
+                                        data.agreements.forEach(function(){
+                                            let template = currentContainer.find(".procrasinator-word").first();
+                                            template = template.clone();
+                                            template.removeClass("template");
+                                            template.show();
+
+
+                                            currentContainer.find("tbody>tr").append(template);
+                                        });
+
+                                        $(data.statementProcrasinators).each(function(index,statementProcrasinator) {
+                                            let template=currentContainer.find(".row-procrasinator").first();
+                                            template=template.clone();
+                                            template.removeClass("template");
+                                            template.show();
+
+                                            template.find(".statement-procrasinator").text(statementProcrasinator.statementProcrasinator);
+                                            
+                                            template.find("input[name='input-procrasiantor']").attr('name',"row"+index);
+
+                                            currentContainer.find("tbody").append(template);
+                                        });
+
+                                        assessmentContainer.append(currentContainer);
+                                    }
+                                });
 
                                 break;
                         }
