@@ -8,6 +8,8 @@ namespace Binus.Models.AssessmentIntelligence
     public class StatementDetailIntelligence
     {
         public int statementDetailIntelligenceID { get; set; }
+        public int statementSelectedValue { get; set; }
         public string statementDetailIntelligence { get; set; }
+        
     }
 }

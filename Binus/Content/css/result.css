@@ -1,0 +1,44 @@
+﻿.tk-title {
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.role-title {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.role-description {
+    text-align: center;
+    font-weight: 700;
+}
+
+#myTable_length label {
+    line-height: 80px !important;
+}
+
+.headerquestion > p, .headerquestion > ol {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.headerquestion > ol > li {
+    padding-bottom: 10px;
+}
+
+.gambar {
+    background: url(../template/images/logo.png) no-repeat top left;
+    display: block;
+    width: 150px;
+    height: 80px;
+}
+
+.tambahan {
+    text-align: center;
+    font-size: 20px;
+    color: green;
+}

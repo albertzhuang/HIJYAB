@@ -33,6 +33,5 @@ namespace Binus.Controllers
         {
             return View();
         }
-
     }
 }

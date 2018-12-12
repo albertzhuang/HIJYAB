@@ -7,10 +7,10 @@ namespace Binus.Models
 {
     public class ResultAssessment
     {
-        public int assessmentid { get; set; }
-        public string binusian_id { get; set; }
-        public String[] result { get; set; }
-        public string description { get; set; }
-
+        public int resultAssessmentID { get; set; }
+        public int assessmentID { get; set; }
+        public string nim { get; set; }
+        public string resultWord { get; set; }
+        public int resultValue { get; set; }
     }
 }

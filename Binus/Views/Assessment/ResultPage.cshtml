@@ -1,150 +1,57 @@
 ﻿
 @{
+    /**/
     ViewBag.Title = "ResultPage";
-   
 }
-<style>
-    body {
-    }
 
-    .tk-title {
-        font-size: 25px;
-        font-weight: 700;
-        text-align: center;
-        text-transform: uppercase;
-    }
-
-    .role-title {
-        font-size: 20px;
-        font-weight: 700;
-        text-align: center;
-        text-transform: uppercase;
-    }
-
-    .role-description {
-        text-align: center;
-        font-weight: 700;
-    }
-
-    #myTable_length label {
-        line-height: 80px !important;
-    }
-
-    .headerquestion > p, .headerquestion > ol {
-        font-size: 14px;
-        font-weight: 700;
-    }
-
-        .headerquestion > ol > li {
-            padding-bottom: 10px;
-        }
-
-    .gambar {
-        background: url(../template/images/logo.png) no-repeat top left;
-        display: block;
-        width: 150px;
-        height: 80px;
-    }
-
-    .tambahan
-    {
-        text-align:center;
-        font-size:20px;
-        color:green;
-    }
-</style>
+@section css
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/css/result.css">
+}
 
 
 <div class="main-content has-widget" id="main-content">
     <div class="container">
         <div class="box-container">
             <div class="single-content popup-content" id="target-id">
-                <h1 class="tk-title" id="thanks-header">THANKYOU, HENDRA EFFENDI</h1>
-
-                <blockquote>
-                    <h3 class="role-title">Your Psikotest Result</h3>
-                        <h1 class="tk-title" id="resultTitle">TEST</h1>
-                        <h3 class="role-description" id="descriptionTest">
-
-                        </h3>
+                <div id="assessment-container">
+                    <h1 class="tk-title current-username"></h1>
+                    <blockquote>
+                        <h3 class="role-title">Your Result</h3>
+                        <h1 class="tk-title assessment-result"></h1>
+                        <h3 class="role-description" id="descriptionTest"></h3>
                         <h3 class="tambahan"></h3>
-                </blockquote>
+                    </blockquote>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
-
 @section scripts {
     <script type="text/javascript">
+        const assessmentContainer = $("#assessment-container");
 
-        $(document).ready(function () {
-       
-            var str = window.location.href;
-            var res = str.split("/");
-            var idAssessment = res[5];
-            var tipeTest = res[6];
-            
+        $(document).ready(function() {
             $.ajax({
                 method: "GET",
-                url: "/api/assessment/getResultAssessment/" + idAssessment,
-                success: function (data) {
-                  
-                    console.log(data.length);
-                    var role = "";
-                    var desc = "";
-                    var tampungcaseresult = "";
-                    var tampungdescresult = "";
-                    $('#thanks-header').text("THANKYOU," + data[0].BinusianID); //aman
-                    $('.role-title').text(data[0].Assessment.AssessmentTitle + " result :"); //aman
+                url: "/api/assessment/getCurrentResultAssessment",
+                success: function(data) {
+                    let currentUsername = data[0].nim;
+                    assessmentContainer.find(".current-username").text(currentUsername);
 
-                    if (data.length == 1) {
-                        $('#resultTitle').text(data[0].Result);
-                       if (tipeTest == 3) {
-                            console.log("procrastinator");
-                            if (data[0].Result == "Occasional Procrastinator")
-                                $('.tambahan').text("If you are Occasional Procrastinator, seriously consider going to the college counseling center for some guidance in conquering procrastination.");
-                        }
+
+                    if(data.length<1) {
+                        data.forEach(function() {
+
+                        });
                     }
-                    else
-                    {   
-                        for (var i = 0 ; i < data.length ; i++)
-                        {
-                           
-                            role += data[i].Result;
-                            desc += data[i].Describe;
-
-                            if (data.length-1 != i) {
-                                role += ",";
-                                desc += " & ";
-                            }
-
-                        }
-                 
-
-                        $('#resultTitle').text(role);
-
-                        if (tipeTest == 1) {
-                            console.log("intelligence");
-                            $('#descriptionTest').text(desc);
-                            
-                        }
-
-                        if (role.includes(","))
-                            $('.tambahan').text("Notes: Jika kamu memiliki lebih dari satu kepribadian, maka kamu lebih condong ke yang pertama");
-
+                    else {
+                        assessmentContainer.find(".assessment-result").text(data[0].resultWord);
                     }
-
+                    
                 }
             });
-
-          
-       
-
-
         });
     </script>
 }
-
-

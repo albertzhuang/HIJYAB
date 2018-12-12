@@ -36,6 +36,69 @@ namespace Binus.Controllers.Api
         }
 
         [HttpGet]
+        public IEnumerable<ResultAssessment> getCurrentResultAssessment()
+        {
+            var studentNIM = HttpContext.Current.Session["student"] as string;
+            var assessmentID = (int)HttpContext.Current.Session["assessmentID"];
+
+            var result = (from resultAssessment in db.ResultAssessments1
+                          where resultAssessment.AssessmentID == assessmentID &&
+                          resultAssessment.NIM == studentNIM
+                          select new ResultAssessment {
+                              resultAssessmentID = resultAssessment.ResultAssessmentID,
+                              assessmentID = resultAssessment.AssessmentID,
+                              nim = resultAssessment.NIM,
+                              resultWord = resultAssessment.ResultWord,
+                              resultValue = resultAssessment.ResultValue
+                          }).ToList();
+
+            return result;
+        }
+
+        [HttpGet]
+        public AssessmentType getCurrentAssessmentType()
+        {
+            var assessmentID = (int)HttpContext.Current.Session["assessmentID"];
+
+            var result = (from assessment in db.Assessments1
+                          join assessmentType in db.AssessmentTypes1 on assessment.AssessmentTypeID equals assessmentType.AssessmentTypeID
+                          where assessment.AssessmentID == assessmentID
+                          select new AssessmentType {
+                            assessmentTypeID = assessmentType.AssessmentTypeID,  
+                            assessmentType = assessmentType.AssessmentType
+                          }).FirstOrDefault();
+
+            return result;
+        }
+
+        [HttpPost]
+        public HttpResponseMessage postAssessmentIntelligence(AssessmentIntelligence model)
+        {
+            var studentNIM = HttpContext.Current.Session["student"] as string;
+            var assessmentID = (int)HttpContext.Current.Session["assessmentID"];
+            foreach (var value in model.statementIntelligences)
+            {
+                ResultAssessments resultAssessment = new ResultAssessments();
+                resultAssessment.NIM = studentNIM;
+                resultAssessment.ResultWord = value.statementIntelligence;
+                resultAssessment.ResultValue = value.countStatementIntelligence;
+                resultAssessment.AssessmentID = assessmentID;
+
+                db.ResultAssessments1.Add(resultAssessment);
+                db.SaveChanges();
+            }
+
+            Transactions studentTransaction = (from transaction in db.Transactions1
+                                        where transaction.NIM == studentNIM && transaction.AssessmentID == assessmentID
+                                        select transaction).FirstOrDefault();
+            studentTransaction.Status = "finish";
+            db.SaveChanges();
+            
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+        
+
+        [HttpGet]
         public AssessmentIntelligence getCurrentAssessmentIntelligence(int assessmentID){
             var result = (from assessment in db.Assessments1
                           join assessmentIntelligence in db.AssessmentIntelligences1 on assessment.AssessmentID equals assessmentIntelligence.AssessmentID
@@ -138,7 +201,6 @@ namespace Binus.Controllers.Api
         [HttpGet]
         public AssessmentProcrasinator getCurrentAssessmentProcrasinator(int assessmentID)
         {
-
             var result = (from assessmentProcrasinator in db.AssessmentProcrasinators1
                           where assessmentProcrasinator.AssessmentID == assessmentID
                           select new AssessmentProcrasinator

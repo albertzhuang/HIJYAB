@@ -51,10 +51,14 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MultipartDataMediaFormatter, Version=2.0.2.0, Culture=neutral, PublicKeyToken=67148dd0761d95a0, processorArchitecture=MSIL">
       <HintPath>..\packages\MultipartDataMediaFormatter.V2.2.0.2\lib\net45\MultipartDataMediaFormatter.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -1978,14 +1982,19 @@
     <Content Include="Views\Assessment\Manage.cshtml" />
     <Content Include="Views\Assessment\ResultPage.cshtml" />
     <Content Include="Views\Assessment\ShowAssessment.cshtml" />
-    <Content Include="Views\Shared\Assessment\AssessmentIntelligence.cshtml" />
-    <Content Include="Views\Shared\Assessment\AssessmentProcrasinator.cshtml" />
-    <Content Include="Views\Shared\Assessment\AssessmentSensory.cshtml" />
+    <Content Include="Views\Shared\AssessmentAdmin\AssessmentIntelligence.cshtml" />
+    <Content Include="Views\Shared\AssessmentAdmin\AssessmentProcrasinator.cshtml" />
+    <Content Include="Views\Shared\AssessmentAdmin\AssessmentSensory.cshtml" />
     <Content Include="Views\Transaction\index.cshtml" />
     <Content Include="Views\Report\index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Error\Unauthorized.cshtml" />
     <Content Include="Views\Shared\_LayoutStudent.cshtml" />
+    <Content Include="Views\Shared\Popup\PopupConfirmation.cshtml" />
+    <Content Include="Views\Shared\Popup\PopupLoading.cshtml" />
+    <Content Include="Views\Shared\AssessmentStudent\AssessmentIntelligence.cshtml" />
+    <Content Include="Views\Shared\AssessmentStudent\AssessmentSensory.cshtml" />
+    <Content Include="Views\Shared\AssessmentStudent\AssessmentProcrasinator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

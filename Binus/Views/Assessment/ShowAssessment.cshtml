@@ -15,8 +15,13 @@
             <div class="single-content popup-content " id="target-id">
                 <div class="page-sub-heading">
                     <div class="row" style="height:30px;">
-                        <div class="column">
-                            <h2 id="assessment-title" class="page-heading" style="line-height:40px;"></h2>
+                        <div class="column two-thirds ">
+                            <h2 id="assessment-title" class="page-heading" style="line-height:40px;">Assessment Detail</h2>
+                        </div>
+                        <div class="column one-third">
+                            <p style="float:right;">
+                                <a href="#popup_confirmation" class="fancybox-trigger fancbox.ajax button button-primary" id="button-submit" style="display:none;">Submit</a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -28,86 +33,9 @@
 
                 </div>
 
-                @*START ASSESSMENT INTELLIGENCE*@
-                <div class="template" id="assessment-intelligence-container" style="display:none;">
-                    <div class="statement-intelligence template" style="display:none;">
-                        <div class="row">
-                            <div class="col-md-1">
-                                <span class="statement-intelligence-no">XX</span>
-                            </div>
-
-                            <div class="col-md-11">
-                                <p class="statement-intelligence-value">Statement Intelligence</p>
-                            </div>
-                        </div>
-                        <div id="statement-detail-intelligence-container">
-                            <div class="statement-detail-intelligence template" style="display : none;">
-                                <div class="row">
-                                    <div class="col-md-1 center-vertical" style="text-align:right;">
-                                        <div>
-                                            <span class="statement-detail-intelligence-no">XX</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8 center-vertical" style="text-align: left;">
-                                        <span class="statement-detail-intelligence-value"></span>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <span class="custom-sensory">
-                                            <select name="select-score-statement-intelligence">
-                                                @*<option disabled selected value="0"> -- SELECT AN OPTION -- </option>*@
-                                            </select>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*END ASSESSMENT INTELLIGENCE*@
-
-                @*START ASSESSMENT SENSORY*@
-                <div class="template" id="assessment-sensory-container" style="display:none;">
-                    <table class="zebra">
-                        <thead>
-                            <tr>
-                                <th>Statement</th>
-                                <th>Type</th>
-                                <th class="template header-sensory" style="display:none;">XX</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="template row-sensory" style="display:none;">
-                                <td class="statement-sensory"></td>
-                                <td class="sensory"></td>
-                                <td class="template sensory-word" style="display:none;">
-                                    <input type="radio" class="input-sensory" name="input-sensory" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                @*END ASSESSMENT SENSORY*@
-
-                @*START ASSESSMENT PROCRASINATOR*@
-                <div class="template" id="assessment-procrasinator-container" style="display:none;">
-                    <table class="zebra">
-                        <thead>
-                            <tr>
-                                <th>Statement</th>
-                                <th class="template header-procrasinator" style="display:none;">XX</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="template row-procrasinator" style="display:none;">
-                                <td class="statement-procrasinator"></td>
-                                <td class="template procrasinator-word" style="display:none;">
-                                    <input type="radio" class="input-procrasinator" name="input-procrasiantor" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                @*END ASSESSMENT PROCRASINATOR*@
+                @RenderPage("~/Views/Shared/AssessmentStudent/AssessmentIntelligence.cshtml")
+                @RenderPage("~/Views/Shared/AssessmentStudent/AssessmentSensory.cshtml")
+                @RenderPage("~/Views/Shared/AssessmentStudent/AssessmentProcrasinator.cshtml")
 
                 <p style="text-align:center;">
                     <button class="button button-orange" id="button-start" style="display:none;">Start Assessment</button>
@@ -124,41 +52,41 @@
     </div>
 </div>
 
+@RenderPage("~/Views/Shared/Popup/PopupConfirmation.cshtml")
+@RenderPage("~/Views/Shared/Popup/PopupLoading.cshtml")
 
 @section scripts {
     <script type="text/javascript">
         var assessmentContainer=$("#assessment-container");
         var assessmentIntelligenceContainer=$("#assessment-intelligence-container");
-        var assessmentSensoryContainer = $("#assessment-sensory-container");
-        var assessmentProcrasinatorContainer = $("#assessment-procrasinator-container");
+        var assessmentSensoryContainer=$("#assessment-sensory-container");
+        var assessmentProcrasinatorContainer=$("#assessment-procrasinator-container");
 
         const ascii_A=65;
 
         $(document).ready(function() {
-            
             if(localStorage.content!==undefined) {
                 $("#target-id").html(localStorage.content);
                 assessmentContainer=$("#assessment-container");
                 assessmentIntelligenceContainer=$("#assessment-intelligence-container");
-                assessmentSensoryContainer=$("#assessment-sensory-container");   
+                assessmentSensoryContainer=$("#assessment-sensory-container");
             }
-            else
-            {
+            else {
                 $.ajax({
                     method: "GET",
                     url: "/api/assessment/getCurrentAssessment",
                     success: function(data) {
-                                       
+
                         $("#assessment-title").text(data.assessmentTitle);
                         $("#assessment-description").text(data.assessmentDescription);
-                    
+
                         let assessmentID=data.assessmentID;
                         let assessmentTypeID=parseInt(data.assessmentTypeID);
 
 
                         switch(assessmentTypeID) {
                             //return assessment intelligence
-                            case 1 :
+                            case 1:
                                 $.ajax({
                                     method: "GET",
                                     url: "/api/assessment/getCurrentAssessmentIntelligence",
@@ -209,7 +137,6 @@
                                         });
                                     }
                                 });
-                            
                                 break;
                             //return assessment sensory
                             case 2:
@@ -222,50 +149,47 @@
                                     success: function(data) {
                                         $("#button-submit").show();
 
-                                        let currentContainer = assessmentSensoryContainer;
-                                        currentContainer =  currentContainer.clone();
+                                        let currentContainer=assessmentSensoryContainer;
+                                        currentContainer=currentContainer.clone();
                                         currentContainer.removeClass("template");
                                         currentContainer.show();
 
-                                        data.scoreSensories.forEach(function(scoreSensory){                                        
-                                            let template = currentContainer.find(".header-sensory").first();
-                                        
-                                            template = template.clone();
+                                        data.scoreSensories.forEach(function(scoreSensory) {
+                                            let template=currentContainer.find(".header-sensory").first();
+
+                                            template=template.clone();
                                             template.removeClass("template");
                                             template.show();
-                                        
                                             template.text(scoreSensory.scoreWord);
 
                                             currentContainer.find("thead>tr").append(template);
-
-
-                                            let inputTemplate = currentContainer.find(".sensory-word").first();
-                                            template = template.clone();
+                                            let inputTemplate=currentContainer.find(".sensory-word").first();
+                                            template=template.clone();
                                             template.removeClass("template");
                                             template.show();
 
                                             currentContainer.find("tbody>tr").append(inputTemplate);
                                         });
 
-                                        data.scoreSensories.forEach(function(scoreSensory){
-                                            let template = currentContainer.find(".sensory-word").first();
-                                            template = template.clone();
+                                        data.scoreSensories.forEach(function(scoreSensory) {
+                                            let template=currentContainer.find(".sensory-word").first();
+                                            template=template.clone();
                                             template.removeClass("template");
                                             template.show();
-                                       
+
                                             currentContainer.find("tbody>tr").append(template);
                                         });
 
-                                        $(data.statementSensories).each(function(index,statementSensory){
-                                            let template = currentContainer.find(".row-sensory").first();
-                                            template = template.clone();
+                                        $(data.statementSensories).each(function(index,statementSensory) {
+                                            let template=currentContainer.find(".row-sensory").first();
+                                            template=template.clone();
                                             template.removeClass("template");
                                             template.show();
 
                                             template.find(".statement-sensory").text(statementSensory.statementSensory);
                                             template.find(".sensory").text(statementSensory.sensory.sensory);
 
-                                            template.find("input[name='input-sensory']").attr('name', "row"+index);
+                                            template.find("input[name='input-sensory']").attr('name',"row"+index);
 
                                             currentContainer.find("tbody").append(template);
                                         });
@@ -280,21 +204,19 @@
                                     method: "GET",
                                     url: "/api/assessment/getCurrentAssessmentProcrasinator",
                                     data: {
-                                        assessmentID : assessmentID
+                                        assessmentID: assessmentID
                                     },
                                     success: function(data) {
                                         console.log(data);
                                         $("#button-submit").show();
-
                                         let currentContainer=assessmentProcrasinatorContainer;
-
                                         currentContainer=currentContainer.clone();
                                         currentContainer.removeClass("template");
                                         currentContainer.show();
 
-                                        data.agreements.forEach(function(agreement){
-                                            let template = currentContainer.find(".header-procrasinator").first();
-                                            template = template.clone();
+                                        data.agreements.forEach(function(agreement) {
+                                            let template=currentContainer.find(".header-procrasinator").first();
+                                            template=template.clone();
                                             template.removeClass("template");
                                             template.show();
 
@@ -302,12 +224,11 @@
                                             currentContainer.find("thead>tr").append(template);
                                         });
 
-                                        data.agreements.forEach(function(){
-                                            let template = currentContainer.find(".procrasinator-word").first();
-                                            template = template.clone();
+                                        data.agreements.forEach(function() {
+                                            let template=currentContainer.find(".procrasinator-word").first();
+                                            template=template.clone();
                                             template.removeClass("template");
                                             template.show();
-
 
                                             currentContainer.find("tbody>tr").append(template);
                                         });
@@ -319,16 +240,13 @@
                                             template.show();
 
                                             template.find(".statement-procrasinator").text(statementProcrasinator.statementProcrasinator);
-                                            
                                             template.find("input[name='input-procrasiantor']").attr('name',"row"+index);
-
                                             currentContainer.find("tbody").append(template);
                                         });
 
                                         assessmentContainer.append(currentContainer);
                                     }
                                 });
-
                                 break;
                         }
                     }
@@ -339,63 +257,117 @@
         $("#button-start").click(function() {
             assessmentContainer.show();
             $("#button-next").show();
-            let currentContainer = assessmentContainer.find("#assessment-intelligence-container").first();
-            let assessmentIntelligences = currentContainer.find(".statement-intelligence:not(.template)");
-            
+            let currentContainer=assessmentContainer.find("#assessment-intelligence-container").first();
+            let assessmentIntelligences=currentContainer.find(".statement-intelligence:not(.template)");
+
             assessmentIntelligences.first().addClass("selected");
             assessmentIntelligences.first().show();
-            
+
             $(this).hide();
+            $("#button-submit").show();
         });
 
+        $(document).on("click","#button_yes",function() {
 
-        $(document).on("change","select",function() {
-            $("option[value="+this.value+"]",this)
-                .attr("selected",true).siblings()
-                .removeAttr("selected")
+            $.ajax({
+                method : "GET",
+                url: "/api/assessment/getCurrentAssessmentType",
+                success : function (data)
+                {
+                    console.log(data);
+                    let assessmentTypeID = parseInt(data.assessmentTypeID);
+                    switch(assessmentTypeID) {
+                        case 1:
+                            let currentContainer=assessmentContainer.find("#assessment-intelligence-container").first();
+                            let statementIntelligences=[];
+                            let countStatementIntelligence=0;
+
+                            currentContainer.find(".statement-intelligence:not(.template)").each(function() {
+                                let currentDetailContainer=$(this).find("#statement-detail-intelligence-container").first();
+                                currentDetailContainer.find(".statement-detail-intelligence:not(.template)").each(function() {
+                                    countStatementIntelligence+=parseInt($(this).find("select[name='select-score-statement-intelligence']").val());
+                                });
+
+                                statementIntelligences.push({
+                                    statementIntelligence: $(this).find(".statement-intelligence-value").text(),
+                                    countStatementIntelligence: countStatementIntelligence
+                                });
+
+                                countStatementIntelligence=0;
+                                statementDetailIntelligences=[];
+                            });
+
+                            statementIntelligences.sort(function(a,b) {
+                                return b.countStatementIntelligence-a.countStatementIntelligence;
+                            });
+
+                            let maxCountScore=Math.max.apply(Math,statementIntelligences.map(function(statementIntelligence) { return statementIntelligence.countStatementIntelligence }));
+
+                            statementIntelligences=statementIntelligences.filter(x => x.countStatementIntelligence===maxCountScore);
+
+                            $.ajax({
+                                method: "POST",
+                                url: "/api/assessment/postAssessmentIntelligence",
+                                data: {
+                                    statementIntelligences: statementIntelligences
+                                },
+                                success: function() {
+                                    localStorage.clear();
+                                    window.location.href="/assessment/ResultPage";
+                                }
+                            });
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                    }
+                }
+            });
+            
         });
-
 
         $(document).on("click","#button-next",function() {
-            localStorage.content=$("#target-id").html();
-            let currentContainer = assessmentContainer.find("#assessment-intelligence-container").first();
+
+            let currentContainer=assessmentContainer.find("#assessment-intelligence-container").first();
             let assessmentIntelligences=currentContainer.find(".statement-intelligence:not(.template,.selected)");
-            let currentStatement = currentContainer.find(".selected");
+            let currentStatement=currentContainer.find(".selected");
             currentStatement.last().hide();
-            
+
             assessmentIntelligences.first().addClass("selected");
             assessmentIntelligences.first().show();
 
             currentStatement=currentContainer.find(".selected");
-            assessmentIntelligences = currentContainer.find(".statement-intelligence:not(.template)");
+            assessmentIntelligences=currentContainer.find(".statement-intelligence:not(.template)");
 
             if(assessmentIntelligences.length==currentStatement.length) {
                 $(this).hide();
             }
 
-            if(currentStatement.length > 1) {
+            if(currentStatement.length>1) {
                 $("#button-prev").show();
             }
+
+            localStorage.content=$("#target-id").html();
         });
 
         $(document).on("click","#button-prev",function() {
-            localStorage.content = $("#target-id").html();
-            let currentContainer = assessmentContainer.find("#assessment-intelligence-container").first();
-            let currentStatement = currentContainer.find(".selected");
+
+            let currentContainer=assessmentContainer.find("#assessment-intelligence-container").first();
+            let currentStatement=currentContainer.find(".selected");
             currentStatement.last().hide();
             currentStatement.last().removeClass("selected");
-            currentStatement = currentContainer.find(".selected");
+            currentStatement=currentContainer.find(".selected");
             currentStatement.last().hide();
             currentStatement.last().removeClass("selected");
 
-            let assessmentIntelligences = currentContainer.find(".statement-intelligence:not(.template,.selected)");
+            let assessmentIntelligences=currentContainer.find(".statement-intelligence:not(.template,.selected)");
             assessmentIntelligences.first().show();
             assessmentIntelligences.first().addClass("selected");
 
-            currentStatement = currentContainer.find(".selected");
-            assessmentIntelligences = currentContainer.find(".statement-intelligence:not(.template)");
-            console.log(currentStatement.length + " " + assessmentIntelligences.length);
-            
+            currentStatement=currentContainer.find(".selected");
+            assessmentIntelligences=currentContainer.find(".statement-intelligence:not(.template)");
+
             if(currentStatement.length<assessmentIntelligences.length) {
                 $("#button-next").show();
             }
@@ -403,9 +375,15 @@
             if(currentStatement.length==1) {
                 $(this).hide();
             }
+
+            localStorage.content=$("#target-id").html();
         });
 
-        $(document).on("change", "input[type='radio']", function(){
+        $(document).on("change","input[type='radio']",function() {
+            localStorage.content=$("#target-id").html();
+        });
+
+        $(document).on("change","select[name='select-score-statement-intelligence']",function() {
             localStorage.content=$("#target-id").html();
         });
     </script>
