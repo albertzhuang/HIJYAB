@@ -147,12 +147,12 @@
                                         assessmentID: assessmentID
                                     },
                                     success: function(data) {
-                                        $("#button-submit").show();
+                                        $("#button-start").show();
 
                                         let currentContainer=assessmentSensoryContainer;
                                         currentContainer=currentContainer.clone();
                                         currentContainer.removeClass("template");
-                                        currentContainer.show();
+                                        //currentContainer.show();
 
                                         data.scoreSensories.forEach(function(scoreSensory) {
                                             let template=currentContainer.find(".header-sensory").first();
@@ -173,7 +173,9 @@
 
                                         data.scoreSensories.forEach(function(scoreSensory) {
                                             let template=currentContainer.find(".sensory-word").first();
+                                            
                                             template=template.clone();
+                                            template.addClass(scoreSensory.scoreWord);
                                             template.removeClass("template");
                                             template.show();
 
@@ -188,9 +190,8 @@
 
                                             template.find(".statement-sensory").text(statementSensory.statementSensory);
                                             template.find(".sensory").text(statementSensory.sensory.sensory);
-
+                                            template.find(".sensory").addClass(statementSensory.sensory.sensory);
                                             template.find("input[name='input-sensory']").attr('name',"row"+index);
-
                                             currentContainer.find("tbody").append(template);
                                         });
 
@@ -255,30 +256,52 @@
         });
 
         $("#button-start").click(function() {
-            assessmentContainer.show();
-            $("#button-next").show();
-            let currentContainer=assessmentContainer.find("#assessment-intelligence-container").first();
-            let assessmentIntelligences=currentContainer.find(".statement-intelligence:not(.template)");
+                $.ajax({
+                    method: "GET",
+                    url: "/api/assessment/getCurrentAssessmentType",
+                    success: function(data) {
+                        assessmentContainer.show();
+                        let assessmentTypeID=parseInt(data.assessmentTypeID);
+                        let currentContainer;
+                        switch(assessmentTypeID) {
+                            case 1:
+                                $("#button-next").show();
+                                currentContainer=assessmentContainer.find("#assessment-intelligence-container").first();
+                                let assessmentIntelligences=currentContainer.find(".statement-intelligence:not(.template)");
 
-            assessmentIntelligences.first().addClass("selected");
-            assessmentIntelligences.first().show();
+                                assessmentIntelligences.first().addClass("selected");
+                                assessmentIntelligences.first().show();
+                                break;
+                            case 2: 
+                                currentContainer = assessmentContainer.find("#assessment-sensory-container").first();
+                                currentContainer.show();    
+                                break;
+                            case 3:
+                                currentContainer = assessmentContainer.find("#assessment-procrasinator-container").first();
+                                currentContainer.show();
+                                break;
 
-            $(this).hide();
+                        }
+                    }
+                });
+
             $("#button-submit").show();
+            $(this).hide();
         });
 
         $(document).on("click","#button_yes",function() {
+
+            let currentContainer;
 
             $.ajax({
                 method : "GET",
                 url: "/api/assessment/getCurrentAssessmentType",
                 success : function (data)
                 {
-                    console.log(data);
                     let assessmentTypeID = parseInt(data.assessmentTypeID);
                     switch(assessmentTypeID) {
                         case 1:
-                            let currentContainer=assessmentContainer.find("#assessment-intelligence-container").first();
+                            currentContainer=assessmentContainer.find("#assessment-intelligence-container").first();
                             let statementIntelligences=[];
                             let countStatementIntelligence=0;
 
@@ -318,6 +341,15 @@
                             });
                             break;
                         case 2:
+                            currentContainer=assessmentContainer.find("#assessment-sensory-container").first();
+                            let scoreSensories = [];
+                            currentContainer.find(".header-sensory:not(.template)").each(function(){
+                                scoreSensories.push({scoreWord : $(this).text()});
+                            });
+                                 
+                            scoreSensories.forEach(function(){
+                                let temp = currentContainer.find("." + $(this).scoreWord).find("input:checked");
+                            });
                             break;
                         case 3:
                             break;

@@ -18,7 +18,6 @@ namespace Binus.Controllers.Api
         [HttpGet]
         public IEnumerable<Transaction> getUserTransaction()
         {
-
             var result = (from transaction in db.Transactions1
                           join assessment in db.Assessments1 on transaction.AssessmentID equals assessment.AssessmentID
                           join assessmentType in db.AssessmentTypes1 on assessment.AssessmentTypeID equals assessmentType.AssessmentTypeID
@@ -30,7 +29,7 @@ namespace Binus.Controllers.Api
                               status = transaction.Status,
                               assessmentType = assessmentType.AssessmentType,
                               assessmentTitle = assessment.AssessmentTitle,
-                              transactionDate = transaction.TransactionDate.ToString()
+                              transactionDate = transaction.TransactionDate.ToString()  
                           }).ToList();
 
             return result;

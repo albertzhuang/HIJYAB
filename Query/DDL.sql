@@ -225,7 +225,7 @@ SELECT * FROM Students
 SELECT * FROM Users
 
 INSERT INTO Transactions VALUES(2,'user','created',GETDATE())
-INSERT INTO Transactions VALUES(1010,'user','created',GETDATE())
+INSERT INTO Transactions VALUES(1011,'user','created',GETDATE())
 SELECT * FROM Assessments
 
 SELECT * FROM Transactions
@@ -242,3 +242,12 @@ SELECT * FROM AssessmentIntelligences
 select * FROM Sensories
 USE Binus
 SELECT * FROM Assessments
+
+SELECT * FROM ResultAssessments
+
+DELETE FROM ResultAssessments
+
+SELECT * FROM Assessments
+
+
+

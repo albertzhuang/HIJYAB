@@ -37,19 +37,18 @@
                 method: "GET",
                 url: "/api/assessment/getCurrentResultAssessment",
                 success: function(data) {
+                    console.log(data);
                     let currentUsername = data[0].nim;
-                    assessmentContainer.find(".current-username").text(currentUsername);
+                    assessmentContainer.find(".current-username").text("THANKS, " + currentUsername);
 
+                    assessmentContainer.find(".assessment-result").text(data[0].resultWord);
 
-                    if(data.length<1) {
-                        data.forEach(function() {
-
+                    if(data.length!=1) {
+                        data.shift();
+                        data.forEach(function(result) {
+                            assessmentContainer.find(".assessment-result").text(assessmentContainer.find(".assessment-result").text()+" & "+result.resultWord);
                         });
                     }
-                    else {
-                        assessmentContainer.find(".assessment-result").text(data[0].resultWord);
-                    }
-                    
                 }
             });
         });

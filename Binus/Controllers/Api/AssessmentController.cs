@@ -138,6 +138,7 @@ namespace Binus.Controllers.Api
         [HttpGet]
         public AssessmentSensory getCurrentAssessmentSensory(int assessmentID)
         {
+
             var result = (from assessment in db.Assessments1
                           join assessmentSensory in db.AssessmentSensories1 on assessment.AssessmentID equals assessmentSensory.AssessmentID
                           where assessment.AssessmentID == assessmentID

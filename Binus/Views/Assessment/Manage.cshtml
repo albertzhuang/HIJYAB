@@ -57,8 +57,12 @@
                                     <td class="assessment-type">XX</td>
                                     <td class="assessment-transaction-date">XX</td>
                                     <td class="assessment-action">
-                                        <span>
-                                            <i class="icon-button icon-view button-do-assessment"></i>
+                                        <span style="display:none;" class="assessment-do">
+                                            <i class="icon-button icon-edit button-do-assessment"></i>
+                                            <span class="assessment-id" style="display: none">XX</span>
+                                        </span>
+                                        <span style="display:none;" class="assessment-view">
+                                            <i class="icon-button icon-view button-view-assessment"></i>
                                             <span class="assessment-id" style="display: none">XX</span>
                                         </span>
                                     </td>
@@ -98,6 +102,7 @@
                 },
                 success: function(data) {
                     data.forEach(function(value) {
+                       
                         let template=assessmentContainer.find(".template").first();
                         template=template.clone();
                         template.removeClass("template");
@@ -108,10 +113,18 @@
                         template.find(".assessment-type").text(value.assessmentType);
                         template.find(".assessment-transaction-date").text(value.transactionDate);
                         template.find(".assessment-id").text(value.assessmentID);
+                        if(value.status === "finish") {
+                            template.find(".assessment-view").show();
+                        }
+                        else {
+                            template.find(".assessment-do").show();
+                        }
+
                         assessmentContainer.append(template);
                         dataTable.DataTable().rows.add(template);
+                        
                     });
-                    dataTable.DataTable().draw();
+                    dataTable.DataTable().columns.adjust().draw();
                     assessmentContainer.find(".template").remove();
                 }
             });
@@ -120,9 +133,8 @@
         
         $(document).on("click",".button-do-assessment",function() {
             let currentAssessment = $(this).parents(".assessment");
-            let assessmentID = currentAssessment.find(".assessment-id").text();
-            
-            console.log(assessmentID);  
+            let assessmentID = currentAssessment.find(".assessment-id").first().text();
+
             $.ajax({
                 method : "POST",
                 url: "/api/assessment/createCurrentAssessment",
@@ -131,6 +143,23 @@
                 },
                 success: function() {
                     window.location.href="/assessment/ShowAssessment";
+                }
+            });
+        });
+
+        $(document).on("click",".button-view-assessment",function() {
+            let currentAssessment=$(this).parents(".assessment");
+            let assessmentID=currentAssessment.find(".assessment-id").first().text();
+
+
+            $.ajax({
+                method: "POST",
+                url: "/api/assessment/createCurrentAssessment",
+                data: {
+                    assessmentID: assessmentID
+                },
+                success: function() {
+                    window.location.href="/assessment/ResultPage";
                 }
             });
         });
