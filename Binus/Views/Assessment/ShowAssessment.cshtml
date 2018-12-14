@@ -152,7 +152,6 @@
                                         let currentContainer=assessmentSensoryContainer;
                                         currentContainer=currentContainer.clone();
                                         currentContainer.removeClass("template");
-                                        //currentContainer.show();
 
                                         data.scoreSensories.forEach(function(scoreSensory) {
                                             let template=currentContainer.find(".header-sensory").first();
@@ -175,7 +174,8 @@
                                             let template=currentContainer.find(".sensory-word").first();
                                             
                                             template=template.clone();
-                                            template.addClass(scoreSensory.scoreWord);
+                                            template.find(".input-sensory").addClass(scoreSensory.scoreWord);
+                                            template.find(".input-sensory").attr("value",scoreSensory.scoreValue);
                                             template.removeClass("template");
                                             template.show();
 
@@ -280,7 +280,6 @@
                                 currentContainer = assessmentContainer.find("#assessment-procrasinator-container").first();
                                 currentContainer.show();
                                 break;
-
                         }
                     }
                 });
@@ -341,15 +340,41 @@
                             });
                             break;
                         case 2:
-                            currentContainer=assessmentContainer.find("#assessment-sensory-container").first();
-                            let scoreSensories = [];
-                            currentContainer.find(".header-sensory:not(.template)").each(function(){
-                                scoreSensories.push({scoreWord : $(this).text()});
+
+                            $.ajax({
+                                method : "GET",
+                                url: "/api/assessment/getCurrentSensories",
+                                success : function(data){
+                                    console.log(data);
+                                    currentContainer=assessmentContainer.find("#assessment-sensory-container").first();
+                                    let scoreSensories=[];
+                                    currentContainer.find(".header-sensory:not(.template)").each(function() {
+                                        scoreSensories.push({
+                                            scoreWord: $(this).text(),
+                                            scoreValue: 0
+                                        });
+                                    });
+
+                                    currentContainer.find(".row-sensory:not(.template)").each(function() {
+                                        let temp=$(this).find("input:checked").first();
+                                        console.log(temp.attr("class"));
+                                        scoreSensories.forEach(function(scoreSensory) {
+                                            
+                                            if(temp.hasClass(scoreSensory.scoreWord)) {
+                                                scoreSensory.scoreValue++;
+                                            }
+                                        });
+                                    });
+
+
+                                    console.log(scoreSensories);
+                                }
                             });
-                                 
-                            scoreSensories.forEach(function(){
-                                let temp = currentContainer.find("." + $(this).scoreWord).find("input:checked");
-                            });
+
+
+                            
+
+                          
                             break;
                         case 3:
                             break;

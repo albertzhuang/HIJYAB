@@ -21,6 +21,23 @@ GO
 EXEC sp_MSforeachtable 'DROP TABLE ?'
 GO
 
+
+CREATE TABLE Users
+(
+	UserID INT PRIMARY KEY IDENTITY(1,1),
+	Username VARCHAR(MAX) NOT NULL,
+	[Password] VARCHAR(MAX) NOT NULL
+)
+
+CREATE TABLE Students
+(
+	StudentID INT PRIMARY KEY IDENTITY(1,1),
+	NIM VARCHAR(MAX) NOT NULL,
+	[Password] VARCHAR(MAX) NOT NULL
+) 
+
+
+
 CREATE TABLE AssessmentTypes
 (
 	AssessmentTypeID int primary key identity(1,1),
@@ -42,6 +59,8 @@ CREATE TABLE Assessments
 	LastUpdate DATETIME NOT NULL
 )
 
+USE BINUS
+
 DROP TABLE Transactions
 
 CREATE TABLE Transactions
@@ -53,10 +72,13 @@ CREATE TABLE Transactions
 	TransactionDate DATETIME NOT NULL
 )
 
+
+
 CREATE TABLE ResultAssessments
 (
 	ResultAssessmentID INT PRIMARY KEY IDENTITY(1,1),
 	AssessmentID INT FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+	NIM VARCHAR(MAX) NOT NULL,
 	ResultWord VARCHAR(MAX) NOT NULL,
 	ResultValue INT NOT NULL
 )
@@ -141,14 +163,15 @@ CREATE TABLE AssessmentSensories
 CREATE TABLE Sensories
 (
 	SensoryID INT PRIMARY KEY IDENTITY(1,1),
+	--AssessmentSensoryID INT FOREIGN KEY(AssessmentSensoryID) REFERENCES AssessmentSensories(AssessmentSensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	Sensory VARCHAR(MAX) NOT NULL
 )
 
 CREATE TABLE StatementSensories
 (
 	StatementSensoryID INT PRIMARY KEY IDENTITY(1,1),
-	SensoryID INT FOREIGN KEY(SensoryID) REFERENCES Sensories(SensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	AssessmentSensoryID INT FOREIGN KEY(AssessmentSensoryID) REFERENCES AssessmentSensories(AssessmentSensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+	SensoryID INT FOREIGN KEY(SensoryID) REFERENCES Sensories(SensoryID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	StatementSensory VARCHAR(MAX) NOT NULL,	
 )
 
@@ -199,21 +222,9 @@ USE BINUS
 
 DROP TABLE Users
 
-CREATE TABLE Users
-(
-	UserID INT PRIMARY KEY IDENTITY(1,1),
-	Username VARCHAR(MAX) NOT NULL,
-	[Password] VARCHAR(MAX) NOT NULL
-)
 
-DROP TABLE Stundets
 
-CREATE TABLE Students
-(
-	StudentID INT PRIMARY KEY IDENTITY(1,1),
-	Nim VARCHAR(MAX) NOT NULL,
-	[Password] VARCHAR(MAX) NOT NULL
-) 
+DROP TABLE Students
 
 
 SELECT * FROM Students
@@ -221,33 +232,13 @@ SELECT * FROM Students
 INSERT INTO Users VALUES('admin', 'admin')
 INSERT INTO Students VALUES('user', 'user')
 
-SELECT * FROM Students
-SELECT * FROM Users
-
 INSERT INTO Transactions VALUES(2,'user','created',GETDATE())
-INSERT INTO Transactions VALUES(1011,'user','created',GETDATE())
+INSERT INTO Transactions VALUES(8,'user','created',GETDATE())
 SELECT * FROM Assessments
+
+INSERT INTO Sensories VALUES('test')
 
 SELECT * FROM Transactions
 
-SELECT * FROM Assessments
-
-SELECT * FROM Assessments
-WHERE AssessmentID = 1003
-
-USE Binus
-
-SELECT * FROM AssessmentIntelligences
-
-select * FROM Sensories
-USE Binus
-SELECT * FROM Assessments
-
-SELECT * FROM ResultAssessments
-
-DELETE FROM ResultAssessments
-
-SELECT * FROM Assessments
-
-
-
+SELECT * FROM AssessmentSensories
+SELECT * FROM Sensories

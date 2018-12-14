@@ -179,6 +179,22 @@ namespace Binus.Controllers.Api
         }
 
         [HttpGet]
+        public IEnumerable<Sensory> getCurrentSensories()
+        {
+            var assessmentID = (int)HttpContext.Current.Session["assessmentID"];
+            var result = (from assessment in db.Assessments1
+                          join assessmentSensory in db.AssessmentSensories1 on assessment.AssessmentID equals assessmentSensory.AssessmentID
+                          join statementSensory in db.StatementSensories1 on assessmentSensory.AssessmentSensoryID equals statementSensory.AssessmentSensoryID
+                          join sensory in db.Sensories1 on statementSensory.SensoryID equals sensory.SensoryID
+                          where assessment.AssessmentID == assessmentID
+                          select new Sensory {
+                                sensory = sensory.Sensory
+                          }).ToList();
+
+            return result;
+        }
+
+        [HttpGet]
         public Assessment getCurrentAssessment()
         {
             int assessmentID = (int)HttpContext.Current.Session["assessmentID"];

@@ -29,7 +29,7 @@ namespace Binus.Controllers.Api
             }
             else
             {
-                Students student = db.Students1.Where(u => u.Nim.Equals(model.username)
+                Students student = db.Students1.Where(u => u.NIM.Equals(model.username)
                 && u.Password.Equals(model.password)).FirstOrDefault();                
                 
                 if(student != null)
