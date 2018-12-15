@@ -59,11 +59,11 @@
                                     <td class="assessment-action">
                                         <span style="display:none;" class="assessment-do">
                                             <i class="icon-button icon-edit button-do-assessment"></i>
-                                            <span class="assessment-id" style="display: none">XX</span>
+                                            <span class="transaction-id" style="display: none">XX</span>
                                         </span>
                                         <span style="display:none;" class="assessment-view">
                                             <i class="icon-button icon-view button-view-assessment"></i>
-                                            <span class="assessment-id" style="display: none">XX</span>
+                                            <span class="transaction-id" style="display: none">XX</span>
                                         </span>
                                     </td>
                                 </tr>
@@ -112,7 +112,7 @@
                         template.find(".assessment-title").text(value.assessmentTitle);
                         template.find(".assessment-type").text(value.assessmentType);
                         template.find(".assessment-transaction-date").text(value.transactionDate);
-                        template.find(".assessment-id").text(value.assessmentID);
+                        template.find(".transaction-id").text(value.transactionID);
                         if(value.status === "finish") {
                             template.find(".assessment-view").show();
                         }
@@ -133,13 +133,13 @@
         
         $(document).on("click",".button-do-assessment",function() {
             let currentAssessment = $(this).parents(".assessment");
-            let assessmentID = currentAssessment.find(".assessment-id").first().text();
+            let transactionID = currentAssessment.find(".transaction-id").first().text();
 
             $.ajax({
                 method : "POST",
-                url: "/api/assessment/createCurrentAssessment",
+                url: "/api/assessment/createCurrentTransaction",
                 data: {
-                    assessmentID: assessmentID
+                    transactionID: transactionID
                 },
                 success: function() {
                     window.location.href="/assessment/ShowAssessment";
@@ -149,17 +149,16 @@
 
         $(document).on("click",".button-view-assessment",function() {
             let currentAssessment=$(this).parents(".assessment");
-            let assessmentID=currentAssessment.find(".assessment-id").first().text();
-
+            let transactionID=currentAssessment.find(".transaction-id").first().text();
 
             $.ajax({
                 method: "POST",
-                url: "/api/assessment/createCurrentAssessment",
+                url: "/api/assessment/createCurrentTransaction",
                 data: {
-                    assessmentID: assessmentID
+                    transactionID: transactionID
                 },
                 success: function() {
-                    window.location.href="/assessment/ResultPage";
+                    window.location.href="/assessment/ShowAssessment";
                 }
             });
         });

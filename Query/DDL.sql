@@ -72,12 +72,10 @@ CREATE TABLE Transactions
 	TransactionDate DATETIME NOT NULL
 )
 
-
-
 CREATE TABLE ResultAssessments
 (
 	ResultAssessmentID INT PRIMARY KEY IDENTITY(1,1),
-	AssessmentID INT FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+	TransactionID INT FOREIGN KEY(TransactionID) REFERENCES Transactions(TransactionID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	NIM VARCHAR(MAX) NOT NULL,
 	ResultWord VARCHAR(MAX) NOT NULL,
 	ResultValue INT NOT NULL
@@ -233,7 +231,7 @@ INSERT INTO Users VALUES('admin', 'admin')
 INSERT INTO Students VALUES('user', 'user')
 
 INSERT INTO Transactions VALUES(2,'user','created',GETDATE())
-INSERT INTO Transactions VALUES(8,'user','created',GETDATE())
+INSERT INTO Transactions VALUES(1012,'user','created',GETDATE())
 SELECT * FROM Assessments
 
 INSERT INTO Sensories VALUES('test')
@@ -242,3 +240,24 @@ SELECT * FROM Transactions
 
 SELECT * FROM AssessmentSensories
 SELECT * FROM Sensories
+
+SELECT * FROM ResultAssessments	
+
+SELECT * FROM Assessments
+
+SELECT * FROM Transactions
+
+DELETE FROM ResultAssessments
+UPDATE Transactions SET Status = 'created' WHERE TransactionID = 1005
+
+SELECT DISTINCT s.Sensory FROM Assessments a JOIN
+Transactions t on a.AssessmentID = t.AssessmentID
+JOIN AssessmentSensories ab on a.AssessmentID = ab.AssessmentID
+JOIN StatementSensories ss on ab.AssessmentSensoryID = ss.AssessmentSensoryID
+JOIN Sensories s on s.SensoryID = ss.SensoryID
+WHERE t.TransactionID = 1
+
+
+SELECT * FROM Assessments
+
+SELECT * FROM ResultAssessments

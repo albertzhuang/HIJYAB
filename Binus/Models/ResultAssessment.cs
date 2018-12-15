@@ -8,7 +8,7 @@ namespace Binus.Models
     public class ResultAssessment
     {
         public int resultAssessmentID { get; set; }
-        public int assessmentID { get; set; }
+        public int transactionID { get; set; }
         public string nim { get; set; }
         public string resultWord { get; set; }
         public int resultValue { get; set; }

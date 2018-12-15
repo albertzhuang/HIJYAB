@@ -83,7 +83,7 @@
                         let assessmentID=data.assessmentID;
                         let assessmentTypeID=parseInt(data.assessmentTypeID);
 
-
+                        $("#button-start").show();
                         switch(assessmentTypeID) {
                             //return assessment intelligence
                             case 1:
@@ -94,7 +94,7 @@
                                         assessmentID: assessmentID
                                     },
                                     success: function(data) {
-                                        $("#button-start").show();
+                                       
 
                                         let currentContainer=assessmentIntelligenceContainer;
                                         currentContainer=currentContainer.clone();
@@ -147,8 +147,6 @@
                                         assessmentID: assessmentID
                                     },
                                     success: function(data) {
-                                        $("#button-start").show();
-
                                         let currentContainer=assessmentSensoryContainer;
                                         currentContainer=currentContainer.clone();
                                         currentContainer.removeClass("template");
@@ -183,14 +181,15 @@
                                         });
 
                                         $(data.statementSensories).each(function(index,statementSensory) {
+                                            
                                             let template=currentContainer.find(".row-sensory").first();
                                             template=template.clone();
                                             template.removeClass("template");
                                             template.show();
 
                                             template.find(".statement-sensory").text(statementSensory.statementSensory);
+                                            template.addClass(statementSensory.sensory.sensory);
                                             template.find(".sensory").text(statementSensory.sensory.sensory);
-                                            template.find(".sensory").addClass(statementSensory.sensory.sensory);
                                             template.find("input[name='input-sensory']").attr('name',"row"+index);
                                             currentContainer.find("tbody").append(template);
                                         });
@@ -208,13 +207,12 @@
                                         assessmentID: assessmentID
                                     },
                                     success: function(data) {
-                                        console.log(data);
                                         $("#button-submit").show();
                                         let currentContainer=assessmentProcrasinatorContainer;
                                         currentContainer=currentContainer.clone();
                                         currentContainer.removeClass("template");
-                                        currentContainer.show();
-
+                                        
+                                    
                                         data.agreements.forEach(function(agreement) {
                                             let template=currentContainer.find(".header-procrasinator").first();
                                             template=template.clone();
@@ -329,7 +327,7 @@
 
                             $.ajax({
                                 method: "POST",
-                                url: "/api/assessment/postAssessmentIntelligence",
+                                url: "/api/assessment/postResultAssessmentIntelligence",
                                 data: {
                                     statementIntelligences: statementIntelligences
                                 },
@@ -340,43 +338,47 @@
                             });
                             break;
                         case 2:
-
                             $.ajax({
                                 method : "GET",
                                 url: "/api/assessment/getCurrentSensories",
                                 success : function(data){
-                                    console.log(data);
+                             
                                     currentContainer=assessmentContainer.find("#assessment-sensory-container").first();
-                                    let scoreSensories=[];
-                                    currentContainer.find(".header-sensory:not(.template)").each(function() {
-                                        scoreSensories.push({
-                                            scoreWord: $(this).text(),
-                                            scoreValue: 0
-                                        });
-                                    });
+                                    let sensories=data;
 
-                                    currentContainer.find(".row-sensory:not(.template)").each(function() {
-                                        let temp=$(this).find("input:checked").first();
-                                        console.log(temp.attr("class"));
-                                        scoreSensories.forEach(function(scoreSensory) {
-                                            
-                                            if(temp.hasClass(scoreSensory.scoreWord)) {
-                                                scoreSensory.scoreValue++;
+                                    data.forEach(function(value){
+                                        currentContainer.find("."+value.sensory).each(function(){
+                                            temp=parseInt($(this).find("input:checked").first().val());
+                                            if(temp!=="undefined") {
+                                                value.sensoryValue += temp;
                                             }
-                                        });
+                                        }); 
+                                    });                                    
+
+                                    sensories.sort(function(a,b) {
+                                        return b.sensoryValue-a.sensoryValue;
                                     });
 
+                                    let maxCountScore=Math.max.apply(Math,sensories.map(function(sensory) { return sensory.sensoryValue }));
 
-                                    console.log(scoreSensories);
+                                    sensories=sensories.filter(x => x.sensoryValue===maxCountScore);
+                                    
+                                    $.ajax({
+                                        method : "POST",
+                                        url: "/api/assessment/postResultAssessmentSensory",
+                                        data :{
+                                            sensories : sensories
+                                        },
+                                        success: function() {
+                                            localStorage.clear();
+                                            window.location.href="/assessment/ResultPage";
+                                        }
+                                    });
                                 }
                             });
-
-
-                            
-
-                          
                             break;
                         case 3:
+
                             break;
                     }
                 }
