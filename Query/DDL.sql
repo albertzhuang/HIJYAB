@@ -22,12 +22,19 @@ EXEC sp_MSforeachtable 'DROP TABLE ?'
 GO
 
 
+DROP TABLE Users
+
 CREATE TABLE Users
 (
 	UserID INT PRIMARY KEY IDENTITY(1,1),
 	Username VARCHAR(MAX) NOT NULL,
-	[Password] VARCHAR(MAX) NOT NULL
+	[Password] VARCHAR(MAX) NOT NULL,
+	[Role] VARCHAR(MAX) NOT NULL,
+	Fullname VARCHAR(MAX) NOT NULL
 )
+
+
+
 
 CREATE TABLE Students
 (
@@ -230,6 +237,13 @@ SELECT * FROM Students
 INSERT INTO Users VALUES('admin', 'admin')
 INSERT INTO Students VALUES('user', 'user')
 
+
+SELECT * FROM Users
+INSERT INTO Users VALUES('admin','admin','admin','admin_admin')
+INSERT INTO Users VALUES('student','student','student','student001')
+
+
+
 INSERT INTO Transactions VALUES(2,'user','created',GETDATE())
 INSERT INTO Transactions VALUES(1012,'user','created',GETDATE())
 SELECT * FROM Assessments
@@ -261,3 +275,10 @@ WHERE t.TransactionID = 1
 SELECT * FROM Assessments
 
 SELECT * FROM ResultAssessments
+
+USE Binus
+
+SELECT * FROM Users
+
+SELECT * FROM Students
+

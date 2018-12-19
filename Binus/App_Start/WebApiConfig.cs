@@ -9,7 +9,9 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json.Serialization;
 using System.Web.Http.Filters;
 using System.Web.Routing;
-using Binus.Controllers.Filter;
+using Microsoft.Owin.Security.OAuth;
+using System.Configuration;
+using System.Web.Http.Cors;
 
 namespace Binus
 {
@@ -32,17 +34,23 @@ namespace Binus
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            RouteTable.Routes.MapHttpRoute(
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            ).RouteHandler = new RouteHandler();
+            );
 
             config.Formatters.Add(new CustomJsonFormatter());
+
+            EnableCorsAttribute cors = new EnableCorsAttribute("*","*","*");
+            config.EnableCors(cors);
         }
     }
 }

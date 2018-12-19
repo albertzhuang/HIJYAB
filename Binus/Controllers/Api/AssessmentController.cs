@@ -11,7 +11,6 @@ using Binus.Models.AssessmentProcrasiantor;
 using Binus.Models.AssessmentIntelligence;
 using Binus.Models.AssessmentSensory;
 using Binus.Models;
-using Binus.Controllers.Filter;
 using System.Web;
 
 

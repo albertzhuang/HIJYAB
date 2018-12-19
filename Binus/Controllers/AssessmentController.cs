@@ -3,32 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Binus.Controllers.Filter;
 
 namespace Binus.Controllers
 {
     [Authorize]
     public class AssessmentController : Controller
     {
-        [AuthorizeAdmin]
+        [Authorize(Roles = "admin")]
         public ActionResult AddAssessment()
         {
             return View();
         }
 
-        [AuthorizeStudent]
+        [Authorize(Roles = "student")]
         public ActionResult Manage()
         {
             return View();
         }
 
-        [AuthorizeStudent]
+        [Authorize(Roles = "student")]
         public ActionResult ShowAssessment()
         {
             return View();
         }
-        
-        [AuthorizeStudent]
+
+        [Authorize(Roles = "student")]
         public ActionResult ResultPage()
         {
             return View();
