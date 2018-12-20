@@ -479,9 +479,6 @@
                         });
                     });
 
-
-
-
                     $.ajax({
                         method: "POST",
                         url: "/api/assessment/createAssessmentSensory",
@@ -517,7 +514,10 @@
 
 
                     $(".agreement:not(.template)").each(function() {
-                        agreements.push({ agreement: $(this).find("input[name='input-agreement']").val() });
+                        agreements.push({ 
+                            agreement: $(this).find("input[name='input-agreement']").val(), 
+                            agreementValue : $(this).find("input[name='input-agreement-value']").val()   
+                        });
                     });
 
                     $(".score-procrasinator:not(.template)").each(function() {

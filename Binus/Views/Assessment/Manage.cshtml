@@ -94,6 +94,11 @@
         const dataTable = $("#assessment-table");
 
         $(document).ready(function(){
+            
+            $.ajaxSetup({
+                headers: { "Authorization": "Bearer "+sessionStorage.getItem("access_token") }
+            });
+
             $.ajax({
                 method: "GET",
                 url: "/api/transaction/getUserTransaction",
@@ -135,32 +140,16 @@
             let currentAssessment = $(this).parents(".assessment");
             let transactionID = currentAssessment.find(".transaction-id").first().text();
 
-            $.ajax({
-                method : "POST",
-                url: "/api/assessment/createCurrentTransaction",
-                data: {
-                    transactionID: transactionID
-                },
-                success: function() {
-                    window.location.href="/assessment/ShowAssessment";
-                }
-            });
+            localStorage.setItem("transactionID", transactionID);
+            window.location.href = "/assessment/ShowAssessment";
         });
 
         $(document).on("click",".button-view-assessment",function() {
             let currentAssessment=$(this).parents(".assessment");
             let transactionID=currentAssessment.find(".transaction-id").first().text();
 
-            $.ajax({
-                method: "POST",
-                url: "/api/assessment/createCurrentTransaction",
-                data: {
-                    transactionID: transactionID
-                },
-                success: function() {
-                    window.location.href="/assessment/ShowAssessment";
-                }
-            });
+            localStorage.setItem("transactionID", transactionID);
+            window.location.href = "/assessment/ResultPage";
         });
 
 

@@ -22,4 +22,9 @@ $(document).on("change","select",function() {
 
 $(document).on("change","input[type='radio']",function() {
     $(this).attr("checked",true).parents(".row-sensory").find("input[type='radio']:not(:checked)").removeAttr("checked");
+
+});
+
+$(document).on("change","input[type='radio']",function() {
+    $(this).attr("checked",true).parents(".row-sensory").find("input[type='radio']:not(:checked)").removeAttr("checked");
 });

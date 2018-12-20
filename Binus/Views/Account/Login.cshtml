@@ -89,6 +89,10 @@
                 success: function(data) {
                     sessionStorage.setItem("access_token", data.access_token);
                     window.location.href="/Account/Home";
+                    
+                    $.ajaxSetup({
+                        headers: { "Authorization": "Bearer "+sessionStorage.getItem("access_token") }
+                    });
                 }
             });
         });

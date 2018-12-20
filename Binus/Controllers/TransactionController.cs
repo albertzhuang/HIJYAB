@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Binus.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class TransactionController : Controller
     {
         // GET: Transaction

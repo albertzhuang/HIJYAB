@@ -235,6 +235,7 @@
     <Compile Include="Controllers\Api\AssessmentController.cs" />
     <Compile Include="Controllers\Api\AssessmentTypeController.cs" />
     <Compile Include="Controllers\Api\LanguageController.cs" />
+    <Compile Include="Controllers\Api\ResultController.cs" />
     <Compile Include="Controllers\Api\TransactionController.cs" />
     <Compile Include="Controllers\AssessmentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />

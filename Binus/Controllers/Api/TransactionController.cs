@@ -4,13 +4,15 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 using Binus.Data;
 using Binus.Models;
 
 namespace Binus.Controllers.Api
 {
-    [Authorize]
+    
+    [Authorize(Roles ="student")]
     public class TransactionController : ApiController
     {
         BinusEntities db = new BinusEntities();
@@ -18,10 +20,13 @@ namespace Binus.Controllers.Api
         [HttpGet]
         public IEnumerable<Transaction> getUserTransaction()
         {
+            var identity = (ClaimsIdentity)User.Identity;
+           
             var result = (from transaction in db.Transactions1
                           join assessment in db.Assessments1 on transaction.AssessmentID equals assessment.AssessmentID
+                          join user in db.Users1 on transaction.UserID equals user.UserID
+                          where user.Username == identity.Name
                           join assessmentType in db.AssessmentTypes1 on assessment.AssessmentTypeID equals assessmentType.AssessmentTypeID
-                          where transaction.NIM == User.Identity.Name
                           select new Transaction
                           {
                               transactionID = transaction.TransactionID,

@@ -66,24 +66,21 @@ CREATE TABLE Assessments
 	LastUpdate DATETIME NOT NULL
 )
 
-USE BINUS
-
-DROP TABLE Transactions
-
 CREATE TABLE Transactions
 (
 	TransactionID INT PRIMARY KEY IDENTITY(1,1),
 	AssessmentID INT FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-	NIM VARCHAR(MAX) NOT NULL,
+	UserID INT FOREIGN KEY(UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	[Status] VARCHAR(MAX) NOT NULL,
 	TransactionDate DATETIME NOT NULL
 )
+
+DROP TABLE ResultAssessments
 
 CREATE TABLE ResultAssessments
 (
 	ResultAssessmentID INT PRIMARY KEY IDENTITY(1,1),
 	TransactionID INT FOREIGN KEY(TransactionID) REFERENCES Transactions(TransactionID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-	NIM VARCHAR(MAX) NOT NULL,
 	ResultWord VARCHAR(MAX) NOT NULL,
 	ResultValue INT NOT NULL
 )
@@ -207,7 +204,8 @@ CREATE TABLE Agreements
 (
 	AgreementID INT PRIMARY KEY IDENTITY(1,1),
 	AssessmentProcrasinatorID INT FOREIGN KEY(AssessmentProcrasinatorID) REFERENCES AssessmentProcrasinators(AssessmentProcrasinatorID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-	Agreement VARCHAR(MAX) NOT NULL
+	Agreement VARCHAR(MAX) NOT NULL,
+	AgreementValue int NOT NULL,
 )
 
 CREATE TABLE ScoreProcrasinators
@@ -219,17 +217,6 @@ CREATE TABLE ScoreProcrasinators
 	EndValue INT NOT NULL
 )
 --END PROCRASINATOR
-
-
-
-
-USE BINUS
-
-DROP TABLE Users
-
-
-
-DROP TABLE Students
 
 
 SELECT * FROM Students
@@ -245,40 +232,29 @@ INSERT INTO Users VALUES('student','student','student','student001')
 
 
 INSERT INTO Transactions VALUES(2,'user','created',GETDATE())
-INSERT INTO Transactions VALUES(1012,'user','created',GETDATE())
+INSERT INTO Transactions VALUES(1010,2,'created',GETDATE())
 SELECT * FROM Assessments
-
-INSERT INTO Sensories VALUES('test')
-
+SELECT * FROM Users
 SELECT * FROM Transactions
 
-SELECT * FROM AssessmentSensories
-SELECT * FROM Sensories
-
-SELECT * FROM ResultAssessments	
-
 SELECT * FROM Assessments
-
-SELECT * FROM Transactions
-
-DELETE FROM ResultAssessments
-UPDATE Transactions SET Status = 'created' WHERE TransactionID = 1005
-
-SELECT DISTINCT s.Sensory FROM Assessments a JOIN
-Transactions t on a.AssessmentID = t.AssessmentID
-JOIN AssessmentSensories ab on a.AssessmentID = ab.AssessmentID
-JOIN StatementSensories ss on ab.AssessmentSensoryID = ss.AssessmentSensoryID
-JOIN Sensories s on s.SensoryID = ss.SensoryID
-WHERE t.TransactionID = 1
-
-
-SELECT * FROM Assessments
-
 SELECT * FROM ResultAssessments
 
-USE Binus
+SELECT * FROM Transactions
 
-SELECT * FROM Users
+DELETE FROM Transactions
+DELETE FROM ResultAssessments
+WHERE ResultAssessmentID = 6
 
-SELECT * FROM Students
+SELECT * FROM Agreements
+
+SELECT * FROM ScoreProcrasinators
+
+SELECT * FROM ScoreProcrasinators
+
+SELECT * FROM Transactions
+
+UPDATE Transactions SET Status = 'created'
+where TransactionID = 5
+
 

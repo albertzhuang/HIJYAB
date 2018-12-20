@@ -12,57 +12,22 @@ using Binus.Models.AssessmentIntelligence;
 using Binus.Models.AssessmentSensory;
 using Binus.Models;
 using System.Web;
-
+using System.Security.Claims;
 
 namespace Binus.Controllers.Api
 {
     public class AssessmentController : ApiController
     {
         BinusEntities db = new BinusEntities();
-        
+   
+        [Authorize (Roles = "student")]
         [HttpGet]
-        public string getTest()
-        {
-            return HttpContext.Current.Session["admin"] as string;
-        }
-
-        [HttpPost]
-        public HttpResponseMessage createCurrentTransaction(Assessment model)
-        {
-            HttpContext.Current.Session["transactionID"] = model.transactionID;
-          
-            return new HttpResponseMessage(HttpStatusCode.OK);
-        }
-
-        [HttpGet]
-        public IEnumerable<ResultAssessment> getCurrentResultAssessment()
-        {
-            var studentNIM = HttpContext.Current.Session["student"] as string;
-            var transactionID = (int)HttpContext.Current.Session["transactionID"];
-
-            var result = (from resultAssessment in db.ResultAssessments1
-                          where resultAssessment.TransactionID == transactionID &&
-                          resultAssessment.NIM == studentNIM
-                          select new ResultAssessment {
-                              resultAssessmentID = resultAssessment.ResultAssessmentID,
-                              transactionID = resultAssessment.TransactionID,
-                              nim = resultAssessment.NIM,
-                              resultWord = resultAssessment.ResultWord,
-                              resultValue = resultAssessment.ResultValue
-                          }).ToList();
-
-            return result;
-        }
-
-        [HttpGet]
-        public AssessmentType getCurrentAssessmentType()
-        {
-            var transactionID = (int)HttpContext.Current.Session["transactionID"];
-
+        public AssessmentType getCurrentAssessmentType(int id)
+        { 
             var result = (from transaction in db.Transactions1
                           join assessment in db.Assessments1 on transaction.AssessmentID equals assessment.AssessmentID
                           join assessmentType in db.AssessmentTypes1 on assessment.AssessmentTypeID equals assessmentType.AssessmentTypeID
-                          where transaction.TransactionID == transactionID
+                          where transaction.TransactionID == id
                           select new AssessmentType {
                             assessmentTypeID = assessmentType.AssessmentTypeID,  
                             assessmentType = assessmentType.AssessmentType
@@ -71,17 +36,17 @@ namespace Binus.Controllers.Api
             return result;
         }
 
+
+        [Authorize (Roles ="student")]
         [HttpPost]
         public HttpResponseMessage postResultAssessmentSensory(AssessmentSensory model)
         {
-            var studentNIM = HttpContext.Current.Session["student"] as string;
-            var transactionID = (int)HttpContext.Current.Session["transactionID"];
+            var identity = (ClaimsIdentity)User.Identity;
 
             foreach(var value in model.sensories)
             {
                 ResultAssessments resultAssessment = new ResultAssessments();
-                resultAssessment.NIM = studentNIM;
-                resultAssessment.TransactionID = transactionID;
+                resultAssessment.TransactionID = model.transactionID;
                 resultAssessment.ResultWord = value.sensory;
                 resultAssessment.ResultAssessmentID = value.sensoryValue;
 
@@ -90,7 +55,51 @@ namespace Binus.Controllers.Api
             }
 
             Transactions studentTransaction = (from transaction in db.Transactions1
-                                               where transaction.NIM == studentNIM && transaction.TransactionID == transactionID
+                                               join user in db.Users1 on transaction.UserID equals user.UserID
+                                               where user.Username == identity.Name && transaction.TransactionID == model.transactionID
+                                               select transaction).FirstOrDefault();
+
+            studentTransaction.Status = "finish";
+            db.SaveChanges();
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [Authorize(Roles ="student")]
+        [HttpPost]
+        public HttpResponseMessage postResultAssessmentProcrasinator(AssessmentProcrasinator model)
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+
+            IEnumerable<ScoreProcrasinator> scoreProcrasinators = (from transaction in db.Transactions1
+                                                                   join assessment in db.Assessments1 on transaction.AssessmentID equals assessment.AssessmentID
+                                                                   join assessmenProcrasinator in db.AssessmentProcrasinators1 on assessment.AssessmentID equals assessmenProcrasinator.AssessmentID
+                                                                   join scoreProcrasinator in db.ScoreProcrasinators1 on assessmenProcrasinator.AssessmentProcrasinatorID equals scoreProcrasinator.AssessmentProcrasinatorID
+                                                                   select new ScoreProcrasinator {
+                                                                        scoreWord = scoreProcrasinator.ScoreWord,
+                                                                        startValue = scoreProcrasinator.StartValue,
+                                                                        endValue = scoreProcrasinator.EndValue
+                                                                   }).ToList();
+            foreach(ScoreProcrasinator scoreProcrasinator in scoreProcrasinators)
+            {
+                if(model.countScore >= scoreProcrasinator.startValue &&
+                    model.countScore <= scoreProcrasinator.endValue)
+                {
+                    ResultAssessments resultAssessment = new ResultAssessments();
+                    resultAssessment.ResultWord = scoreProcrasinator.scoreWord;
+                    resultAssessment.ResultValue = model.countScore;
+                    resultAssessment.TransactionID = model.transactionID;
+
+                    db.ResultAssessments1.Add(resultAssessment);
+                    db.SaveChanges();
+                    break;
+                }
+            }
+
+
+            Transactions studentTransaction = (from transaction in db.Transactions1
+                                               join user in db.Users1 on transaction.UserID equals user.UserID
+                                               where user.Username == identity.Name && transaction.TransactionID == model.transactionID
                                                select transaction).FirstOrDefault();
             studentTransaction.Status = "finish";
             db.SaveChanges();
@@ -98,26 +107,29 @@ namespace Binus.Controllers.Api
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
+
+        [Authorize(Roles ="student")]
         [HttpPost]
         public HttpResponseMessage postResultAssessmentIntelligence(AssessmentIntelligence model)
         {
-            var studentNIM = HttpContext.Current.Session["student"] as string;
-            var transactionID = (int)HttpContext.Current.Session["transactionID"];
+            var identity = (ClaimsIdentity)User.Identity;
+            
+
             foreach (var value in model.statementIntelligences)
             {
                 ResultAssessments resultAssessment = new ResultAssessments();
-                resultAssessment.NIM = studentNIM;
                 resultAssessment.ResultWord = value.statementIntelligence;
                 resultAssessment.ResultValue = value.countStatementIntelligence;
-                resultAssessment.TransactionID = transactionID;
+                resultAssessment.TransactionID = model.transactionID;
 
                 db.ResultAssessments1.Add(resultAssessment);
                 db.SaveChanges();
             }
 
             Transactions studentTransaction = (from transaction in db.Transactions1
-                                        where transaction.NIM == studentNIM && transaction.TransactionID == transactionID
-                                               select transaction).FirstOrDefault();
+                                                join user in db.Users1 on transaction.UserID equals user.UserID
+                                                where user.Username == identity.Name && transaction.TransactionID == model.transactionID
+                                                select transaction).FirstOrDefault();
             studentTransaction.Status = "finish";
             db.SaveChanges();
             
@@ -125,6 +137,7 @@ namespace Binus.Controllers.Api
         }
         
 
+        [Authorize(Roles ="student")]
         [HttpGet]
         public AssessmentIntelligence getCurrentAssessmentIntelligence(int assessmentID){
             var result = (from assessment in db.Assessments1
@@ -162,10 +175,10 @@ namespace Binus.Controllers.Api
             return result;
         }
 
+
         [HttpGet]
         public AssessmentSensory getCurrentAssessmentSensory(int assessmentID)
         {
-
             var result = (from assessment in db.Assessments1
                           join assessmentSensory in db.AssessmentSensories1 on assessment.AssessmentID equals assessmentSensory.AssessmentID
                           where assessment.AssessmentID == assessmentID
@@ -205,16 +218,18 @@ namespace Binus.Controllers.Api
             return result;
         }
 
+
+        [Authorize(Roles = "student")]
         [HttpGet]
-        public IEnumerable<Sensory> getCurrentSensories()
+        public IEnumerable<Sensory> getCurrentSensories(int id)
         {
-            var transactionID = (int)HttpContext.Current.Session["transactionID"];
+
             var result = (from transaction in db.Transactions1
                           join assessment in db.Assessments1 on transaction.AssessmentID equals assessment.AssessmentID
                           join assessmentSensory in db.AssessmentSensories1 on assessment.AssessmentID equals assessmentSensory.AssessmentID
                           join statementSensory in db.StatementSensories1 on assessmentSensory.AssessmentSensoryID equals statementSensory.AssessmentSensoryID
                           join sensory in db.Sensories1 on statementSensory.SensoryID equals sensory.SensoryID
-                          where transaction.TransactionID == transactionID
+                          where transaction.TransactionID == id
                           select new Sensory
                           {
                               sensory = sensory.Sensory
@@ -225,17 +240,16 @@ namespace Binus.Controllers.Api
             return temp;
         }
 
-        [HttpGet]
-        public Assessment getCurrentAssessment()
-        {
-            int transactionID = (int)HttpContext.Current.Session["transactionID"];
- 
 
+        [Authorize(Roles ="student")]
+        [HttpGet]
+        public Assessment getCurrentAssessment(int id)
+        {
             var result = (from transaction in db.Transactions1
                           join assessment in db.Assessments1 on transaction.AssessmentID equals assessment.AssessmentID
                                      join assessmentType in db.AssessmentTypes1 on assessment.AssessmentTypeID equals assessmentType.AssessmentTypeID
-                                      where transaction.TransactionID == transactionID
-                                      select new Assessment
+                                      where transaction.TransactionID == id
+                          select new Assessment
                                       {
                                           assessmentID = assessment.AssessmentID,
                                           assessmentTypeID = assessment.AssessmentTypeID,
@@ -270,7 +284,8 @@ namespace Binus.Controllers.Api
                               agreements = (from agreement in db.Agreements1
                                             where agreement.AssessmentProcrasinatorID == assessmentProcrasinator.AssessmentProcrasinatorID
                                             select new Agreement {
-                                                agreement = agreement.Agreement
+                                                agreement = agreement.Agreement,
+                                                agreementValue = agreement.AgreementValue
                                             }).ToList()
                           }).FirstOrDefault();
 
@@ -489,6 +504,7 @@ namespace Binus.Controllers.Api
             {
                 Agreements agreement = new Agreements();
                 agreement.Agreement = value.agreement;
+                agreement.AgreementValue = value.agreementValue;
                 agreement.AssessmentProcrasinatorID = fk_assessmentProcrasinatorID;
 
                 db.Agreements1.Add(agreement);

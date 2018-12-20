@@ -11,7 +11,7 @@ namespace Binus.Extentions
         public static string GetUserId(this IOwinContext ctx)
         {
             var result = "-1";
-            var claim = ctx.Authentication.User.Claims.FirstOrDefault(c => c.Type == "UserID");
+            var claim = ctx.Authentication.User.Claims.FirstOrDefault(c => c.Type == "userID");
             if (claim != null)
             {
                 result = claim.Value;

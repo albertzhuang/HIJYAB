@@ -33,14 +33,19 @@
         const assessmentContainer = $("#assessment-container");
 
         $(document).ready(function() {
+            $.ajaxSetup({
+                headers: { "Authorization": "Bearer "+sessionStorage.getItem("access_token") }
+            });
+            
             $.ajax({
                 method: "GET",
-                url: "/api/assessment/getCurrentResultAssessment",
+                url: "/api/result/getCurrentResultAssessment",
+                data: {
+                    id : localStorage.getItem("transactionID")
+                },
                 success: function(data) {
-                    console.log(data);
-                    let currentUsername = data[0].nim;
+                    let currentUsername = data[0].fullname;
                     assessmentContainer.find(".current-username").text("THANKS, " + currentUsername);
-
                     assessmentContainer.find(".assessment-result").text(data[0].resultWord);
 
                     if(data.length!=1) {

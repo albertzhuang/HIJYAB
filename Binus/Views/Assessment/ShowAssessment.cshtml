@@ -65,6 +65,10 @@
         const ascii_A=65;
 
         $(document).ready(function() {
+            $.ajaxSetup({
+                headers: { "Authorization": "Bearer "+sessionStorage.getItem("access_token") }
+            });
+
             if(localStorage.content!==undefined) {
                 $("#target-id").html(localStorage.content);
                 assessmentContainer=$("#assessment-container");
@@ -75,8 +79,10 @@
                 $.ajax({
                     method: "GET",
                     url: "/api/assessment/getCurrentAssessment",
-                    success: function(data) {
-
+                    data : {
+                        id : localStorage.getItem("transactionID")
+                    },
+                    success: function(data) {   
                         $("#assessment-title").text(data.assessmentTitle);
                         $("#assessment-description").text(data.assessmentDescription);
 
@@ -94,8 +100,6 @@
                                         assessmentID: assessmentID
                                     },
                                     success: function(data) {
-                                       
-
                                         let currentContainer=assessmentIntelligenceContainer;
                                         currentContainer=currentContainer.clone();
                                         currentContainer.removeClass("template");
@@ -207,6 +211,8 @@
                                         assessmentID: assessmentID
                                     },
                                     success: function(data) {
+                                        console.log(data);
+
                                         $("#button-submit").show();
                                         let currentContainer=assessmentProcrasinatorContainer;
                                         currentContainer=currentContainer.clone();
@@ -223,12 +229,13 @@
                                             currentContainer.find("thead>tr").append(template);
                                         });
 
-                                        data.agreements.forEach(function() {
+                                        data.agreements.forEach(function(agreement) {
                                             let template=currentContainer.find(".procrasinator-word").first();
                                             template=template.clone();
                                             template.removeClass("template");
                                             template.show();
 
+                                            template.find(".input-procrasinator").attr("value", agreement.agreementValue);
                                             currentContainer.find("tbody>tr").append(template);
                                         });
 
@@ -239,7 +246,8 @@
                                             template.show();
 
                                             template.find(".statement-procrasinator").text(statementProcrasinator.statementProcrasinator);
-                                            template.find("input[name='input-procrasiantor']").attr('name',"row"+index);
+                                            template.find("input[name='input-procrasiantor']").attr("name","row"+index);
+                                           
                                             currentContainer.find("tbody").append(template);
                                         });
 
@@ -257,6 +265,9 @@
                 $.ajax({
                     method: "GET",
                     url: "/api/assessment/getCurrentAssessmentType",
+                    data : {
+                        id : localStorage.getItem("transactionID")
+                    },
                     success: function(data) {
                         assessmentContainer.show();
                         let assessmentTypeID=parseInt(data.assessmentTypeID);
@@ -293,6 +304,9 @@
             $.ajax({
                 method : "GET",
                 url: "/api/assessment/getCurrentAssessmentType",
+                data : {
+                    id : localStorage.getItem("transactionID")
+                },
                 success : function (data)
                 {
                     let assessmentTypeID = parseInt(data.assessmentTypeID);
@@ -300,7 +314,7 @@
                         case 1:
                             currentContainer=assessmentContainer.find("#assessment-intelligence-container").first();
                             let statementIntelligences=[];
-                            let countStatementIntelligence=0;
+                            let countStatementIntelligence = 0;
 
                             currentContainer.find(".statement-intelligence:not(.template)").each(function() {
                                 let currentDetailContainer=$(this).find("#statement-detail-intelligence-container").first();
@@ -329,10 +343,11 @@
                                 method: "POST",
                                 url: "/api/assessment/postResultAssessmentIntelligence",
                                 data: {
-                                    statementIntelligences: statementIntelligences
+                                    statementIntelligences: statementIntelligences,
+                                    transactionID : localStorage.getItem("transactionID")
                                 },
                                 success: function() {
-                                    localStorage.clear();
+                                    localStorage.removeItem("content");
                                     window.location.href="/assessment/ResultPage";
                                 }
                             });
@@ -341,8 +356,10 @@
                             $.ajax({
                                 method : "GET",
                                 url: "/api/assessment/getCurrentSensories",
+                                data : {
+                                    id : localStorage.getItem("transactionID")
+                                },
                                 success : function(data){
-                             
                                     currentContainer=assessmentContainer.find("#assessment-sensory-container").first();
                                     let sensories=data;
 
@@ -367,10 +384,11 @@
                                         method : "POST",
                                         url: "/api/assessment/postResultAssessmentSensory",
                                         data :{
-                                            sensories : sensories
+                                            sensories : sensories,
+                                            transactionID : localStorage.getItem("transactionID")
                                         },
                                         success: function() {
-                                            localStorage.clear();
+                                            localStorage.removeItem("content");
                                             window.location.href="/assessment/ResultPage";
                                         }
                                     });
@@ -378,6 +396,27 @@
                             });
                             break;
                         case 3:
+                            currentContainer=assessmentContainer.find("#assessment-procrasinator-container").first();
+                            let countScore = 0;
+                            currentContainer.find(".row-procrasinator:not(.template)").each(function(){
+                                let temp=parseInt($(this).find("input:checked").first().val());
+                                if(temp!=="undefined") {
+                                    countScore+=temp;
+                                }
+                            });
+                            $.ajax({
+                                method : "POST",
+                                url : "/api/assessment/postResultAssessmentProcrasinator",
+                                data: {
+                                    countScore : countScore,
+                                    transactionID : localStorage.getItem("transactionID")
+                                },
+                                success: function() {
+                                    localStorage.removeItem("content");
+                                    window.location.href="/assessment/ResultPage";
+                                }
+                            });
+                           
 
                             break;
                     }
@@ -406,6 +445,7 @@
             if(currentStatement.length>1) {
                 $("#button-prev").show();
             }
+
 
             localStorage.content=$("#target-id").html();
         });
@@ -438,9 +478,16 @@
             localStorage.content=$("#target-id").html();
         });
 
-        $(document).on("change","input[type='radio']",function() {
+        $(document).on("change","input[type='radio']",function() {    
             localStorage.content=$("#target-id").html();
         });
+
+
+        $(document).on("change", ".input-procrasinator", function(){
+            $(this).attr("checked",true).parents(".row-procrasinator").find(".input-procrasinator:not(:checked)").removeAttr("checked");
+            localStorage.content=$("#target-id").html();
+        });
+
 
         $(document).on("change","select[name='select-score-statement-intelligence']",function() {
             localStorage.content=$("#target-id").html();
