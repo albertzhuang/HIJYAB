@@ -1,0 +1,32 @@
+﻿.icon {
+    width : 40px !important;
+}
+
+.widget-head{
+    height : 40px !important;
+}
+
+.box-container .widget
+{
+    border : none;
+}
+
+.box-container .widget .performance-meter
+{
+    margin-top: 25px;
+}
+
+.widget-header-text {
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #0098D7;
+    line-height: 28px;
+    text-transform: uppercase;
+}
+
+.widget .widget-bar-meter .bar-meter .bar-scale {
+    width: 70% !important;
+}

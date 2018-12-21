@@ -3,6 +3,13 @@
     ViewBag.Title = "Binus University";
 }
 
+
+@section css
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/css/home.css">
+}
+
+
 <div class="site-content" id="site-content">
     <section class="user-content">
         <div class="container">
@@ -16,8 +23,8 @@
                         </div>
                         <div class="details">
                             <div class="field">
-                                <h2 class="student-name">Jeff Chang</h2>
-                                <span class="position">PANTEK</span>
+                                <h2 class="student-name">Username</h2>
+                                <span class="position">Position</span>
                             </div>
                         </div>
                     </section>
@@ -27,52 +34,25 @@
     </section>
     <div class="main-content has-widget" id="main-content">
         <div class="container">
-            <div class="box-container">
-                <div class="widget-parent" id="widget-parent">
-                    <div class="row">
-                        <div class="column">
-                            <div class="widget">
-                                <div class="widget-head" id="widget-current-courses-wrap">
-                                    <span class="head-wrap">
-                                        <i class="icon icon-widget-formal-education"></i>
-                                        <span class="label">
-                                            <span class="title">List Assessment</span>
-                                            </span>
-                                    </span>
-                                </div>
-                                <div class="widget-body">
-                                    <ul id="widget-current-courses" class="widget-list widget-scrolled" data-show="7" data-items="4">
-                                        <li id="011597" class="scrolled-item" data-number="1"><a href="https://binusmaya.binus.ac.id/newStudent/#/class/info.COMP6161/011597/1810/LEC/29484" class="title">[Type Test] - [Title Test]</a></li>
-                                        <li id="011597" class="scrolled-item" data-number="1"><a href="https://binusmaya.binus.ac.id/newStudent/#/class/info.COMP6161/011597/1810/LEC/29484" class="title">Intelligence - Your Intelligence Test?</a></li>
-                                    </ul>
-                                </div>                              
-                                <div class="widget-footer has-navigation" id="widget-course-footer" style="display:none;">
-                                    <span class="text-right">
-                                        <span class="nav-container">
-                                            <a href="#" class="btn-nav up widget-scrolled-up"></a>
-                                            <a href="#" class="btn-nav down widget-scrolled-down"></a>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+            <div class="widget-parent" id="widget-parent">
+                <div class="box-container">
+                    <div class="row text-center">
+                        <h1 class="widget-header-text">Header Description</h1>
                     </div>
-                </div>
-                <div class="page-sub-heading">
-                    <h2>Participant</h2>
-                </div>
-                <div class="widget-parent" id="widget-parent">
                     <div class="row">
-                        <div class="column one-half">
+                        <div class="column one-third">
                             <div class="widget">
+                                <!-- widget header -->
                                 <div class="widget-head">
                                     <span class="head-wrap">
-                                        <i class="icon icon-widget-performance"></i>
+                                        <i class="icon icon-widget-statistic"></i>
                                         <span class="label">
-                                            <span class="title">[Judul Test]- [Acad Program]</span>
+                                            <span class="title">Widget Header</span>
+                                            <span class="pre-title">Widget Subtitle</span>
                                         </span>
                                     </span>
                                 </div>
+
                                 <div class="widget-body">
                                     <div class="widget-performance-meter">
                                         <div class="group-item">
@@ -99,25 +79,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="widget-footer">
-                                    <span class="text-center">
-                                       @* <a href="#/index/dashboard#gpa">Show Detail</a>*@
-                                        <a href="# #testfak" class="fancybox-trigger fancybox.ajax">Show Detail</a>
 
-                                    </span>
+                                <div class="widget-footer">
+                                    <span class="text-center">Widget Description</span>
                                 </div>
+                                <!-- widget footer -->
                             </div>
                         </div>
-                        <div class="column one-half">
+                        <div class="column one-third">
                             <div class="widget">
+                                <!-- widget header -->
                                 <div class="widget-head">
                                     <span class="head-wrap">
-                                        <i class="icon icon-widget-performance"></i>
+                                        <i class="icon icon-widget-statistic"></i>
                                         <span class="label">
-                                            <span class="title">[Judul Test]- [Acad Program]</span>
+                                            <span class="title">Widget Header</span>
+                                            <span class="pre-title">Widget Subtitle</span>
                                         </span>
                                     </span>
                                 </div>
+
                                 <div class="widget-body">
                                     <div class="widget-performance-meter">
                                         <div class="group-item">
@@ -144,24 +125,26 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="widget-footer">
-                                    <span class="text-center">
-                                        <a href="# #testfak" class="fancybox-trigger fancybox.ajax">Show Detail</a>
-                                    </span>
+                                    <span class="text-center">Widget Description</span>
                                 </div>
+                                <!-- widget footer -->
                             </div>
                         </div>
-
-                        <div class="column one-half">
+                        <div class="column one-third">
                             <div class="widget">
+                                <!-- widget header -->
                                 <div class="widget-head">
                                     <span class="head-wrap">
-                                        <i class="icon icon-widget-performance"></i>
+                                        <i class="icon icon-widget-statistic"></i>
                                         <span class="label">
-                                            <span class="title">[Judul Test]- [Acad Program]</span>
+                                            <span class="title">Widget Header</span>
+                                            <span class="pre-title">Widget Subtitle</span>
                                         </span>
                                     </span>
                                 </div>
+
                                 <div class="widget-body">
                                     <div class="widget-performance-meter">
                                         <div class="group-item">
@@ -188,140 +171,215 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="widget-footer">
-                                    <span class="text-center">
-                                        <a href="# #testfak" class="fancybox-trigger fancybox.ajax">Show Detail</a>
+                                    <span class="text-center">Widget Description</span>
+                                </div>
+                                <!-- widget footer -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column two-thirds">
+                        <div class="widget-parent">
+                            <div class="widget">
+                                <!-- widget header -->
+                                <div class="widget-head">
+                                    <span class="head-wrap">
+                                        <i class="icon icon-widget-statistic"></i>
+                                        <span class="label">
+                                            <span class="title">Widget Header</span>
+                                            <span class="pre-title">Widget Subtitle</span>
+                                        </span>
+                                    </span>
+                                </div>
+
+                                <div class="widget-body">
+                                    <!-- widget bar meter -->
+                                    <div class="widget-bar-meter">
+                                        <div class="bar-meter" data-percentage="90">
+                                            <div class="bar-scale">
+                                                <div class="the-bar">
+                                                    <span class="the-value">999.999.999</span>
+                                                </div>
+                                                <ul class="bar-x-scales">
+                                                    <li>
+                                                        <span class="value">0</span>
+                                                        <span class="label"></span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="value">500</span>
+                                                        <span class="label">recipient</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="value">1</span>
+                                                        <span class="label"></span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="widget-footer">
+                                    <span class="text-center">Widget Description</span>
+                                </div>
+                                <!-- widget footer -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column one-third">
+                        <div class="widget auto-height">
+                            <!-- widget header -->
+                            <div class="widget-head">
+                                <span class="head-wrap">
+                                    <i class="icon icon-widget-statistic"></i>
+                                    <span class="label">
+                                        <span class="title">Widget Header</span>
+                                        <span class="pre-title">Widget Subtitle</span>
+                                    </span>
+                                </span>
+                            </div>
+
+                            <div class="widget-body">
+                                <!-- widget news -->
+                                <div class="widget-news">
+                                    <div class="news-item">
+                                        <span class="details">
+                                            <h3 class="title">
+                                                Pengumuman Jadwal Briefing...
+                                            </h3>
+                                            <span class="credential">12 December 2014</span>
+                                        </span>
+                                    </div>
+                                    <div class="news-item">
+                                        <span class="details">
+                                            <h3 class="title">
+                                                Pengumuman Jadwal Briefing...
+                                            </h3>
+                                            <span class="credential">12 December 2014</span>
+                                        </span>
+                                    </div>
+                                    <div class="news-item">
+                                        <span class="details">
+                                            <h3 class="title">
+                                                Pengumuman Jadwal Briefing...
+                                            </h3>
+                                            <span class="credential">12 December 2014</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="widget-footer has-navigation">
+                                <span class="text-right">
+                                    <span class="nav-container">
+                                        <a href="#" class="btn-nav up widget-scrolled-up"></a>
+                                        <a href="#" class="btn-nav down widget-scrolled-down"></a>
+                                    </span>
+                                </span>
+                            </div>
+                            <!-- widget footer -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <div class="widget auto-height">
+                            <div class="widget-head">
+                                <span class="head-wrap">
+                                    <i class="icon icon-widget-achievement"></i>
+                                    <span class="label">
+                                        <span class="title">Widget Auto Height</span>
+                                        <span class="pre-title">Widget Subtitle</span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="widget-body">
+                                <table class="zebra">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Milan Baros</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Milan Baros</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Milan Baros</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Milan Baros</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Milan Baros</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Milan Baros</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>Milan Baros</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>Milan Baros</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>Milan Baros</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="pagination">
+                                    <span class="page-display">Page 7 of 10</span>
+                                    <span class="page-number">
+                                        <a href="#" class="item">1</a>
+                                        <a href="#" class="item">«</a>
+                                        <a href="#" class="item">5</a>
+                                        <a href="#" class="item">6</a>
+                                        <span class="item current">7</span>
+                                        <a href="#" class="item">8</a>
+                                        <a href="#" class="item">9</a>
+                                        <a href="#" class="item">»</a>
+                                        <a href="#" class="item">10</a>
+                                    </span>
+                                    <span class="page-button">
+                                        <a href="#" class="prev"></a>
+                                        <a href="#" class="next"></a>
                                     </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="page-sub-heading">
-                    <h2>Ranking</h2>
-                </div>
-                <div class="widget-parent" id="widget-parent">
-                    <div class="row">
-                        <div class="column">
-                            <div class="widget auto-height">
-                                <div class="widget-head">
-                                    <span class="head-wrap">
-                                        <i class="icon icon-widget-achievement"></i>
-                                        <span class="label">
-                                            <span class="title">Top 5 of [Judul Test]</span>
-                                        </span>
-                                    </span>
-                                </div>
-                                <div class="widget-body">
-                                    <table class="zebra">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Score</th>
-                                                <th>Result</th>
-                                                <th>Participant</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>20</td>
-                                                <td>Occasional Procrastinator</td>
-                                                <td>40</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>20</td>
-                                                <td>Chronic Procrastinator</td>
-                                                <td>10</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>20</td>
-                                                <td>Verbal Procrastinator</td>
-                                                <td>5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>20</td>
-                                                <td>Interpersonal</td>
-                                                <td>5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>20</td>
-                                                <td>Interpersonal</td>
-                                                <td>5</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="widget auto-height">
-                                <div class="widget-head">
-                                    <span class="head-wrap">
-                                        <i class="icon icon-widget-achievement"></i>
-                                        <span class="label">
-                                            <span class="title">Top 5 of [Judul Test]</span>
-                                        </span>
-                                    </span>
-                                </div>
-                                <div class="widget-body">
-                                    <table class="zebra">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Score</th>
-                                                <th>Result</th>
-                                                <th>Participant</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>20</td>
-                                                <td>Verbal Intelligence</td>
-                                                <td>40</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>20</td>
-                                                <td>Intrapersonal</td>
-                                                <td>10</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>20</td>
-                                                <td>Interpersonal</td>
-                                                <td>5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>20</td>
-                                                <td>Interpersonal</td>
-                                                <td>5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>20</td>
-                                                <td>Interpersonal</td>
-                                                <td>5</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
             </div>
-
         </div>
     </div>
 </div>
@@ -368,32 +426,32 @@
 
 
 
-    @*@section scripts
-        {
-            <script type="text/javascript">
+@*@section scripts
+    {
+        <script type="text/javascript">
 
 
-                $.ajax
-                ({
-                    method: "GET",
-                    url: "/api/assessment/getAllResult",
+            $.ajax
+            ({
+                method: "GET",
+                url: "/api/assessment/getAllResult",
 
-                    success: function (data) {
-                      //  console.log(data);
-                        data.forEach(function (value)
-                        {
+                success: function (data) {
+                  //  console.log(data);
+                    data.forEach(function (value)
+                    {
 
-                            console.log(value.AssessmentIntelligence.Title);
-                        });
-
-
-
-
-
-                    }
-                });
+                        console.log(value.AssessmentIntelligence.Title);
+                    });
 
 
 
-            </script>
-        }*@
+
+
+                }
+            });
+
+
+
+        </script>
+    }*@

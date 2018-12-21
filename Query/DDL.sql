@@ -75,7 +75,6 @@ CREATE TABLE Transactions
 	TransactionDate DATETIME NOT NULL
 )
 
-DROP TABLE ResultAssessments
 
 CREATE TABLE ResultAssessments
 (
@@ -256,5 +255,7 @@ SELECT * FROM Transactions
 
 UPDATE Transactions SET Status = 'created'
 where TransactionID = 5
+
+
 
 
