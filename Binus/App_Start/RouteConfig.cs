@@ -15,8 +15,8 @@ namespace Binus
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}/{tipeid}",
-                defaults: new { controller = "Home" , action = "Index", id = UrlParameter.Optional , tipeid = UrlParameter.Optional }
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Account" , action = "Login", id = UrlParameter.Optional , tipeid = UrlParameter.Optional }
             );
         }
     }

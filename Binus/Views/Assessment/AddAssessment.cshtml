@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Assessment - Binus Maya";
+    ViewBag.Title = "Binus University";
 }
 
 @section css
@@ -96,8 +96,7 @@
         const ascii_A=65;
 
         var sensories=[];
-
-
+ 
         //START DOCUMENT
         $(document).ready(function() {
             $.ajax
@@ -551,6 +550,12 @@
                         }
                     });
                     break;
+            }
+        });
+
+        $("input").focusout(function() {
+            if($(this).val().length===0) {
+                $(this).addClass("has-error");
             }
         });
     </script>

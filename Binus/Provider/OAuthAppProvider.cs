@@ -36,10 +36,11 @@ namespace Binus.Provider
                         new Claim("userID", user.userID.ToString())                        
                     };
 
-                    ClaimsIdentity oAutIdentity = new ClaimsIdentity(claims, Startup.OAuthOptions.AuthenticationType);
+                    ClaimsIdentity oAuthIdentity = new ClaimsIdentity(claims, Startup.OAuthOptions.AuthenticationType);
                     ClaimsIdentity cookiesIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationType);
-                    context.Validated(new AuthenticationTicket(oAutIdentity, new AuthenticationProperties() { }));
+                    context.Validated(new AuthenticationTicket(oAuthIdentity, new AuthenticationProperties() { }));
                     context.Request.Context.Authentication.SignIn(cookiesIdentity);
+                    
                 } 
                 else
                 {
