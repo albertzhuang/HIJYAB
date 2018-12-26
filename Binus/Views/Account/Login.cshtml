@@ -77,23 +77,38 @@
 
         $("#button-submit").click(function() {
             $.ajax({
-                method: "POST",
-                url: "/token",
-                data:
-                {
-                    username: $("input[name='input-username']").val(),
-                    password: $("input[name='input-password']").val(),
-                    grant_type: "password"
+                headers : {
+                    "Content-Type": "application/json"
                 },
-                success: function(data) {
-                    sessionStorage.setItem("access_token", data.access_token);
-                    window.location.href="/Account/Home";
-                    
-                    $.ajaxSetup({
-                        headers: { "Authorization": "Bearer "+sessionStorage.getItem("access_token") }
-                    });
+                method : "POST",
+                url: "https://bm5dev.binus.ac.id/adapi/api/activedirectory/Validate?key=4k00Mw04N6h9MkxZuX3217vnsmurhptKZhdZjFq5W43zDS2lj4CRZ7RyCfjwTK71",
+                data : {
+                    userName: "albert007@binus.ac.id",
+                    Password: "Buekath@0212"
+                },    
+                success : function(data){
+                    console.log(data);
                 }
-            });
+            }); 
+
+            //$.ajax({
+            //    method: "POST",
+            //    url: "/token",
+            //    data:
+            //    {
+            //        username: $("input[name='input-username']").val(),
+            //        password: $("input[name='input-password']").val(),
+            //        grant_type: "password"
+            //    },
+            //    success: function(data) {
+            //        sessionStorage.setItem("access_token", data.access_token);
+            //        window.location.href="/Account/Home";
+                    
+            //        $.ajaxSetup({
+            //            headers: { "Authorization": "Bearer "+sessionStorage.getItem("access_token") }
+            //        });
+            //    }
+            //});
         });
     </script>
 </body>

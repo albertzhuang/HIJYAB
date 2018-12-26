@@ -11,13 +11,26 @@ namespace Binus.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Account");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [Authorize]
         public ActionResult Home()
         {
             return View();
+        }
+
+        public ActionResult Logout()
+        {
+            HttpContext.GetOwinContext().Authentication.SignOut();
+            return RedirectToAction("Login", "Account");
         }
     }
 }

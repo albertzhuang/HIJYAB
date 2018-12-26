@@ -12,6 +12,93 @@ INSERT INTO Languages VALUES('Bahasa Indonesia'),('English')
 
 INSERT INTO AssessmentTypes VALUES('AssessmentIntelligence'),('AssessmentSensory'),('AssessmentProcrasinator')
 	
+USE Binus
+SELECT * FROM StatementDetailIntelligences
+SELECT * FROM AssessmentIntelligences
+SELECT * FROM StatementIntelligences
+SELECT * FROM Assessments
+SELECT * FROM ScoreIntelligences
+INSERT INTO ScoreIntelligences VALUES(6, 0, 'not like me')
+INSERT INTO ScoreIntelligences VALUES(6, 1, 'like me')
+INSERT INTO ScoreIntelligences VALUES(6, 2, 'very much like me')
+
+
+INSERT INTO Assessments VALUES(1, 'Assessment Test Case', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id felis lectus. Praesent et pharetra diam. Suspendisse quis dignissim purus. Etiam mattis erat urna, sed tincidunt turpis facilisis sed. Nulla posuere odio non urna dapibus rhoncus. Maecenas congue libero nec felis dignissim, a mollis tellus vulputate. Pellentesque nec risus quis arcu tempus malesuada. Nunc viverra blandit tellus, at condimentum nulla porta vitae. Sed consectetur aliquet massa et maximus.', GETDATE())
+INSERT INTO AssessmentIntelligences VALUES(1014)
+INSERT INTO StatementIntelligences VALUES(6, 'Verbal - Linguistic (Great Books), composition, History')
+INSERT INTO StatementIntelligences VALUES(6, 'Logical - Mathematical (Algebra, philosophy, chemistry)')
+INSERT INTO StatementIntelligences VALUES(6, 'Musical (Music Appreciation, Orchestra)')
+INSERT INTO StatementIntelligences VALUES(6, 'Bodily - Kinesthetic (Recreatuin Studies, Engineering)')
+INSERT INTO StatementIntelligences VALUES(6, 'Spatial (Geometry, Art, Computer Science)')
+INSERT INTO StatementIntelligences VALUES(6, 'Interpersonal (Psychology, Sociology, Nursing)')
+INSERT INTO StatementIntelligences VALUES(6, 'Intrapersonal (Religious, Studies, Film Studies)')
+INSERT INTO StatementIntelligences VALUES(6, 'Naturalist (Biology, Evolution, Forensic Science)')
+
+INSERT INTO StatementDetailIntelligences 
+VALUES
+(8,'I like read.'),
+(8,'I enjoy finding out the meanings of new words.'),
+(8,'I appreciate humor involving wordplay.'),
+(8,'I enjoy telling or writing spoems or stories.'),
+(8,'I recall written or verbal material well.')
+
+INSERT INTO StatementDetailIntelligences 
+VALUES
+(9,'I like read.'),
+(9,'I enjoy finding out the meanings of new words.'),
+(9,'I appreciate humor involving wordplay.'),
+(9,'I enjoy telling or writing spoems or stories.'),
+(9,'I recall written or verbal material well.')
+
+INSERT INTO StatementDetailIntelligences 
+VALUES
+(10,'I like read.'),
+(10,'I enjoy finding out the meanings of new words.'),
+(10,'I appreciate humor involving wordplay.'),
+(10,'I enjoy telling or writing spoems or stories.'),
+(10,'I recall written or verbal material well.')
+
+INSERT INTO StatementDetailIntelligences 
+VALUES
+(11,'I like read.'),
+(11,'I enjoy finding out the meanings of new words.'),
+(11,'I appreciate humor involving wordplay.'),
+(11,'I enjoy telling or writing spoems or stories.'),
+(11,'I recall written or verbal material well.')
+
+INSERT INTO StatementDetailIntelligences 
+VALUES
+(12,'I like read.'),
+(12,'I enjoy finding out the meanings of new words.'),
+(12,'I appreciate humor involving wordplay.'),
+(12,'I enjoy telling or writing spoems or stories.'),
+(12,'I recall written or verbal material well.')
+
+INSERT INTO StatementDetailIntelligences 
+VALUES
+(13,'I like read.'),
+(13,'I enjoy finding out the meanings of new words.'),
+(13,'I appreciate humor involving wordplay.'),
+(13,'I enjoy telling or writing spoems or stories.'),
+(13,'I recall written or verbal material well.')
+
+INSERT INTO StatementDetailIntelligences 
+VALUES
+(14,'I like read.'),
+(14,'I enjoy finding out the meanings of new words.'),
+(14,'I appreciate humor involving wordplay.'),
+(14,'I enjoy telling or writing spoems or stories.'),
+(14,'I recall written or verbal material well.')
+
+INSERT INTO StatementDetailIntelligences 
+VALUES
+(15,'I like read.'),
+(15,'I enjoy finding out the meanings of new words.'),
+(15,'I appreciate humor involving wordplay.'),
+(15,'I enjoy telling or writing spoems or stories.'),
+(15,'I recall written or verbal material well.')
+
+
 
 INSERT INTO StatementDetailIntelligences (StatementIntelligenceID,StatementDetailIntelligence) 
 VALUES

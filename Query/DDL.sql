@@ -229,9 +229,8 @@ INSERT INTO Users VALUES('admin','admin','admin','admin_admin')
 INSERT INTO Users VALUES('student','student','student','student001')
 
 
-
 INSERT INTO Transactions VALUES(2,'user','created',GETDATE())
-INSERT INTO Transactions VALUES(1010,2,'created',GETDATE())
+INSERT INTO Transactions VALUES(1014,2,'created',GETDATE())
 SELECT * FROM Assessments
 SELECT * FROM Users
 SELECT * FROM Transactions

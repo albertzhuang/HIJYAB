@@ -39,8 +39,7 @@ namespace Binus
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
-
+            
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
@@ -49,7 +48,7 @@ namespace Binus
 
             config.Formatters.Add(new CustomJsonFormatter());
 
-            EnableCorsAttribute cors = new EnableCorsAttribute("*","*","*");
+            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*","*");
             config.EnableCors(cors);
         }
     }

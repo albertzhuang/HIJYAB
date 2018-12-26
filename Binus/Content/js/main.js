@@ -28,3 +28,11 @@ $(document).on("change","input[type='radio']",function() {
 $(document).on("change","input[type='radio']",function() {
     $(this).attr("checked",true).parents(".row-sensory").find("input[type='radio']:not(:checked)").removeAttr("checked");
 });
+
+
+$(document).on("keypress keyup blur", ".allowNumeric", function(){
+    $(this).val($(this).val().replace(/[^\d].+/,""));
+    if((event.which<48||event.which>57)) {
+        event.preventDefault();
+    }
+});
