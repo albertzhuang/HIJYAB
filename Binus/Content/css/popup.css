@@ -1,0 +1,28 @@
+﻿.popup-content-dialog .icon-checklist {
+    width: 40px !important;
+    height: 35px !important;
+    background-position: 0px -2411px !important;
+}
+
+
+.popup-content-dialog .icon-wrapper .progress-text {
+    position: relative;
+    top: 8px;
+    vertical-align: top;
+}
+
+.success-text {
+    color: #47af74;
+}
+
+.error-text {
+    color: #ff5555;
+}
+
+
+
+.popup-content-dialog .icon-reject {
+    width: 40px !important;
+    height: 35px !important;
+    background-position: 0px -2378px !important;
+}

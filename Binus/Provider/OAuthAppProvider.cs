@@ -40,7 +40,6 @@ namespace Binus.Provider
                     ClaimsIdentity cookiesIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationType);
                     context.Validated(new AuthenticationTicket(oAuthIdentity, new AuthenticationProperties() { }));
                     context.Request.Context.Authentication.SignIn(cookiesIdentity);
-                    
                 } 
                 else
                 {

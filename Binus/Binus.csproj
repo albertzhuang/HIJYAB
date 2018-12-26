@@ -352,6 +352,7 @@
     <Content Include="Content\css\home.css" />
     <Content Include="Content\css\login.css" />
     <Content Include="Content\css\master.css" />
+    <Content Include="Content\css\popup.css" />
     <Content Include="Content\css\themes\affiliation\css\login.css" />
     <Content Include="Content\css\themes\affiliation\css\style.css" />
     <Content Include="Content\css\themes\affiliation\images\bg-login-overlay.png" />
@@ -2002,6 +2003,8 @@
     <Content Include="Views\Shared\AssessmentStudent\AssessmentProcrasinator.cshtml" />
     <Content Include="Views\Account\Home.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\Popup\PopupSuccess.cshtml" />
+    <Content Include="Views\Shared\Popup\PopupError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

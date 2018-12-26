@@ -7,6 +7,7 @@
 
 
 USE Binus
+
 INSERT INTO Languages VALUES('Bahasa Indonesia'),('English')
 
 INSERT INTO AssessmentTypes VALUES('AssessmentIntelligence'),('AssessmentSensory'),('AssessmentProcrasinator')

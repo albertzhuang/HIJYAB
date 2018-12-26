@@ -257,5 +257,5 @@ UPDATE Transactions SET Status = 'created'
 where TransactionID = 5
 
 
-
-
+use Binus
+SELECT * FROM Users
