@@ -98,6 +98,11 @@
 
         //START DOCUMENT
         $(document).ready(function() {
+
+            $.ajaxSetup({
+                headers: { "Authorization": "Bearer "+sessionStorage.getItem("access_token") }
+            });
+
             $.ajax
                 ({
                     method: "GET",
@@ -108,6 +113,8 @@
                         });
                     }
                 });
+
+
         });
 
         $("button").click(function(event) { event.preventDefault(); });

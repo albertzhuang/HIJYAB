@@ -31,7 +31,6 @@ namespace Binus
             {
                 AuthenticationType = "Cookies"
             };
-
         }
 
         public void ConfigureAuth(IAppBuilder app)

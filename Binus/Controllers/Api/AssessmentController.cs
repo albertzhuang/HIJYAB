@@ -55,8 +55,7 @@ namespace Binus.Controllers.Api
             }
 
             Transactions studentTransaction = (from transaction in db.Transactions1
-                                               join user in db.Users1 on transaction.UserID equals user.UserID
-                                               where user.Username == identity.Name && transaction.TransactionID == model.transactionID
+                                               where transaction.Username == identity.Name
                                                select transaction).FirstOrDefault();
 
             studentTransaction.Status = "finish";
@@ -98,8 +97,7 @@ namespace Binus.Controllers.Api
 
 
             Transactions studentTransaction = (from transaction in db.Transactions1
-                                               join user in db.Users1 on transaction.UserID equals user.UserID
-                                               where user.Username == identity.Name && transaction.TransactionID == model.transactionID
+                                               where transaction.Username == identity.Name
                                                select transaction).FirstOrDefault();
             studentTransaction.Status = "finish";
             db.SaveChanges();
@@ -114,7 +112,6 @@ namespace Binus.Controllers.Api
         {
             var identity = (ClaimsIdentity)User.Identity;
             
-
             foreach (var value in model.statementIntelligences)
             {
                 ResultAssessments resultAssessment = new ResultAssessments();
@@ -127,8 +124,7 @@ namespace Binus.Controllers.Api
             }
 
             Transactions studentTransaction = (from transaction in db.Transactions1
-                                                join user in db.Users1 on transaction.UserID equals user.UserID
-                                                where user.Username == identity.Name && transaction.TransactionID == model.transactionID
+                                                where transaction.Username == identity.Name
                                                 select transaction).FirstOrDefault();
             studentTransaction.Status = "finish";
             db.SaveChanges();
@@ -331,15 +327,19 @@ namespace Binus.Controllers.Api
         }
 
         [HttpPost]
+        [Authorize(Roles ="admin")]
         public HttpResponseMessage createAssessmentIntelligence(AssessmentIntelligence model)
         {
+            var identity = (ClaimsIdentity)User.Identity;
+
             Assessments assessment = new Assessments();
             assessment.AssessmentTypeID = 1;
             assessment.AssessmentTitle = model.assessmentTitle;
             assessment.AssessmentDescription = model.assessmentDescription;
             assessment.LastUpdate = DateTime.Now;
-            
-            db.Assessments1.Add(assessment);
+            assessment.CreatedBy = identity.Name;
+
+            db.Assessments1.Add(assessment);    
             db.SaveChanges();
 
 
@@ -390,27 +390,21 @@ namespace Binus.Controllers.Api
                 db.SaveChanges();
             }
 
-            try
-            {
-                var result = new HttpResponseMessage(HttpStatusCode.Accepted);
-                result.Content = new StringContent(JsonConvert.SerializeObject(model));
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                return result;
-            }
-            catch
-            {
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError); 
-            }
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public HttpResponseMessage createAssessmentSensory(AssessmentSensory model)
         {
+            var identity = (ClaimsIdentity)User.Identity;
+
             Assessments assessment = new Assessments();
             assessment.AssessmentTypeID = 2;
             assessment.AssessmentTitle = model.assessmentTitle;
             assessment.AssessmentDescription = model.assessmentDescription;
             assessment.LastUpdate = DateTime.Now;
+            assessment.CreatedBy = identity.Name;
 
             db.Assessments1.Add(assessment);
             db.SaveChanges();
@@ -461,27 +455,21 @@ namespace Binus.Controllers.Api
                 db.SaveChanges();
             }
 
-            try
-            {
-                var result = new HttpResponseMessage(HttpStatusCode.Accepted);
-                result.Content = new StringContent(JsonConvert.SerializeObject(model));
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                return result;
-            }
-            catch
-            {
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
-            }
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public HttpResponseMessage createAssessmentProcrasinator(AssessmentProcrasinator model)
         {
+            var identity = (ClaimsIdentity)User.Identity;
+
             Assessments assessment = new Assessments();
             assessment.AssessmentTypeID = 3;
             assessment.AssessmentTitle = model.assessmentTitle;
             assessment.AssessmentDescription = model.assessmentDescription;
             assessment.LastUpdate = DateTime.Now;
+            assessment.CreatedBy = identity.Name;
 
             db.Assessments1.Add(assessment);
             db.SaveChanges();
@@ -533,17 +521,7 @@ namespace Binus.Controllers.Api
                 db.SaveChanges();
             }
 
-            try
-            {
-                var result = new HttpResponseMessage(HttpStatusCode.Accepted);
-                result.Content = new StringContent(JsonConvert.SerializeObject(model));
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                return result;
-            }
-            catch
-            {
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
-            }
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

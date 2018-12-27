@@ -21,27 +21,30 @@ namespace Binus.Provider
         {
             return Task.Factory.StartNew(() =>
             {
-
                 var username = context.UserName;
                 var password = context.Password;
-                var userService = new UserService();
-                User user = userService.GetUserByCredentials(username, password);
+                var role = "admin";
 
-                if (user != null)
+                if (!string.IsNullOrEmpty(username))
                 {
+                    if (username.Contains("@binus.ac.id"))
+                    {
+                        role = "student";
+                    }
+
+
                     var claims = new List<Claim>()
                     {
-                        new Claim(ClaimTypes.Name, user.username),
-                        new Claim("fullname", user.fullname),
-                        new Claim(ClaimTypes.Role, user.role),
-                        new Claim("userID", user.userID.ToString())                        
+                        new Claim(ClaimTypes.Name, username),
+                        new Claim("fullname", username),
+                        new Claim(ClaimTypes.Role, role)
                     };
 
                     ClaimsIdentity oAuthIdentity = new ClaimsIdentity(claims, Startup.OAuthOptions.AuthenticationType);
                     ClaimsIdentity cookiesIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationType);
                     context.Validated(new AuthenticationTicket(oAuthIdentity, new AuthenticationProperties() { }));
                     context.Request.Context.Authentication.SignIn(cookiesIdentity);
-                } 
+                }
                 else
                 {
                     context.SetError("invalid_grant", "Error");

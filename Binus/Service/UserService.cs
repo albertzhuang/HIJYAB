@@ -11,28 +11,28 @@ namespace Binus.Service
     {
         BinusEntities db = new BinusEntities();
 
-        public User GetUserByCredentials(string username, string password)
-        {
-            Users tempUser = db.Users1.Where(u => u.Username.Equals(username)
-            && u.Password.Equals(password)).FirstOrDefault();
-            User user = null;
+        //public User GetUserByCredentials(string username, string password)
+        //{
+        //    Users tempUser = db.Users1.Where(u => u.Username.Equals(username)
+        //    && u.Password.Equals(password)).FirstOrDefault();
+        //    User user = null;
 
-            if (tempUser != null)
-            {
-                user = new User() {
-                    userID = tempUser.UserID,
-                    password = tempUser.Password,
-                    username = tempUser.Username,
-                    fullname = tempUser.Fullname,
-                    role = tempUser.Role
-                };
-            }
+        //    if (tempUser != null)
+        //    {
+        //        user = new User() {
+        //            userID = tempUser.UserID,
+        //            password = tempUser.Password,
+        //            username = tempUser.Username,
+        //            fullname = tempUser.Fullname,
+        //            role = tempUser.Role
+        //        };
+        //    }
 
-            if (user != null)
-            {
-                user.password = string.Empty;
-            }
-            return user;
-        }
+        //    if (user != null)
+        //    {
+        //        user.password = string.Empty;
+        //    }
+        //    return user;
+        //}
     }
 }

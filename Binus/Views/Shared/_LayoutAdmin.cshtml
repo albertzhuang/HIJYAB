@@ -34,7 +34,7 @@
             <div class="header-top">
                 <div class="container">
                     <section class="logo">
-                        <a href="index.php">
+                        <a href="@Url.Action("Home", "Account")">
                             <img src="~/Content/images/logo.png" alt="Logo">
                         </a>
                     </section>
@@ -71,45 +71,7 @@
                                 </ul>
 
                                 <ul class="menu right">
-                                    <li class="expand-notification expand-item has-child">
-                                        <a href="#" class="expand-action">
-                                            <i class="icon icon-information"></i>
-                                            <span class="notif-count">999</span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li class="sub-title">
-                                                Notification
-                                                <a href="#">Read All</a>
-                                            </li>
-                                            <li class="list-notification">
-                                                <div class="notification">
-                                                    <span class="thumbnail">
-                                                        <img src="~/Content/images/statics/avatar.png" alt="">
-                                                    </span>
-                                                    <span class="details">
-                                                        <span class="description">
-                                                            New Comment on <a href="#">Designing Web Interface</a>
-                                                        </span>
-                                                        <span class="date">28 Oktober 2014 | 11.00 pm</span>
-                                                    </span>
-                                                </div>
-                                                <div class="notification">
-                                                    <span class="thumbnail">
-                                                        <img src="~/Content/images/statics/avatar.png" alt="">
-                                                    </span>
-                                                    <span class="details">
-                                                        <span class="description">
-                                                            New Comment on <a href="#">Designing Web Interface</a>
-                                                        </span>
-                                                        <span class="date">28 Oktober 2014 | 11.00 pm</span>
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li class="view-all">
-                                                <a href="sample-notification.php">View All Notification</a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    
                                     <li class="expand-settings expand-item has-child">
                                         <a href="#" class="expand-action">
                                             <span class="label">Rebecca Setiadi</span>
@@ -123,11 +85,9 @@
                                                     <span class="student-name">Rebecca Setiadi</span>
                                                     <span class="email-address">rsetiadi@gmail.com</span>
                                                     <span class="link">
-                                                        <a href="#">Dashboard</a>
+                                                        <a href="@Url.Action("Home", "Account")">Dashboard</a>
                                                     </span>
-                                                    <span class="link">
-                                                        <a href="#">Account Settings</a>
-                                                    </span>
+                                                    
                                                 </div>
                                             </li>
                                             <li class="logout">

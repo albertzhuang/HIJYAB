@@ -63,6 +63,7 @@ CREATE TABLE Assessments
 	AssessmentTypeID int FOREIGN KEY(AssessmentTypeID) REFERENCES AssessmentTypes(AssessmentTypeID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 	AssessmentTitle VARCHAR(MAX) NOT NULL,
 	AssessmentDescription VARCHAR(MAX) NOT NULL,
+	CreatedBy VARCHAR(MAX) NOT NULL,
 	LastUpdate DATETIME NOT NULL
 )
 
@@ -70,7 +71,7 @@ CREATE TABLE Transactions
 (
 	TransactionID INT PRIMARY KEY IDENTITY(1,1),
 	AssessmentID INT FOREIGN KEY(AssessmentID) REFERENCES Assessments(AssessmentID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-	UserID INT FOREIGN KEY(UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+	Username VARCHAR(MAX),
 	[Status] VARCHAR(MAX) NOT NULL,
 	TransactionDate DATETIME NOT NULL
 )
@@ -258,3 +259,9 @@ where TransactionID = 5
 
 use Binus
 SELECT * FROM Users
+
+SELECT * FROM Assessments
+
+SELECT * FROM Transactions
+
+INSERT INTO Transactions VALUES(2, 'albert007@binus.ac.id', 'created', GETDATE())

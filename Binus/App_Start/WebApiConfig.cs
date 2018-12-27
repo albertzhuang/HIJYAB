@@ -48,7 +48,7 @@ namespace Binus
 
             config.Formatters.Add(new CustomJsonFormatter());
 
-            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*","*");
+            EnableCorsAttribute cors = new EnableCorsAttribute("https://bm5dev.binus.ac.id", "*","*");
             config.EnableCors(cors);
         }
     }

@@ -19,16 +19,16 @@ namespace Binus.Controllers.Api
         public IEnumerable<ResultAssessment> getCurrentResultAssessment(int id)
         {
             var identity = (ClaimsIdentity)User.Identity;
+            
             var result = (from resultAssessment in db.ResultAssessments1 
                           join transaction in db.Transactions1 on resultAssessment.TransactionID equals transaction.TransactionID
-                          join user in db.Users1 on transaction.UserID equals user.UserID
                           where resultAssessment.TransactionID == id &&
-                          user.Username == identity.Name
+                          transaction.Username == identity.Name
                           select new ResultAssessment
                           {
                               resultAssessmentID = resultAssessment.ResultAssessmentID,
                               transactionID = resultAssessment.TransactionID,
-                              fullname = user.Fullname,
+                              fullname = transaction.Username,
                               resultWord = resultAssessment.ResultWord,
                               resultValue = resultAssessment.ResultValue
                           }).ToList();

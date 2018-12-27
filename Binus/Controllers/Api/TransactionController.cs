@@ -24,8 +24,7 @@ namespace Binus.Controllers.Api
            
             var result = (from transaction in db.Transactions1
                           join assessment in db.Assessments1 on transaction.AssessmentID equals assessment.AssessmentID
-                          join user in db.Users1 on transaction.UserID equals user.UserID
-                          where user.Username == identity.Name
+                          where transaction.Username == identity.Name
                           join assessmentType in db.AssessmentTypes1 on assessment.AssessmentTypeID equals assessmentType.AssessmentTypeID
                           select new Transaction
                           {
