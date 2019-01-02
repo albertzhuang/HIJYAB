@@ -11,6 +11,7 @@ namespace Binus.Models.AssessmentProcrasiantor
         public string assessmentDescription { get; set; }
         public string assessmentType { get; set; }
         public int transactionID { get; set; }
+        public int assessmentID { get; set; }
         public int countScore { get; set; }
         public IEnumerable<StatementProcrasinator> statementProcrasinators { get; set; }
         public IEnumerable<ScoreProcrasinator> scoreProcrasinators { get; set; }

@@ -20,31 +20,31 @@ namespace Binus.Controllers.Api
     public class AssessmentController : ApiController
     {
         BinusEntities db = new BinusEntities();
-   
-        [Authorize (Roles = "student")]
+
+        [Authorize(Roles = "student")]
         [HttpGet]
         public AssessmentType getCurrentAssessmentType(int id)
-        { 
+        {
             var result = (from transaction in db.Transactions1
                           join assessment in db.Assessments1 on transaction.AssessmentID equals assessment.AssessmentID
                           join assessmentType in db.AssessmentTypes1 on assessment.AssessmentTypeID equals assessmentType.AssessmentTypeID
                           where transaction.TransactionID == id
                           select new AssessmentType {
-                            assessmentTypeID = assessmentType.AssessmentTypeID,  
-                            assessmentType = assessmentType.AssessmentType
+                              assessmentTypeID = assessmentType.AssessmentTypeID,
+                              assessmentType = assessmentType.AssessmentType
                           }).FirstOrDefault();
 
             return result;
         }
 
 
-        [Authorize (Roles ="student")]
+        [Authorize(Roles = "student")]
         [HttpPost]
         public HttpResponseMessage postResultAssessmentSensory(AssessmentSensory model)
         {
             var identity = (ClaimsIdentity)User.Identity;
 
-            foreach(var value in model.sensories)
+            foreach (var value in model.sensories)
             {
                 ResultAssessments resultAssessment = new ResultAssessments();
                 resultAssessment.TransactionID = model.transactionID;
@@ -66,7 +66,7 @@ namespace Binus.Controllers.Api
         }
 
 
-        [Authorize(Roles ="student")]
+        [Authorize(Roles = "student")]
         [HttpPost]
         public HttpResponseMessage postResultAssessmentProcrasinator(AssessmentProcrasinator model)
         {
@@ -77,13 +77,13 @@ namespace Binus.Controllers.Api
                                                                    join assessmenProcrasinator in db.AssessmentProcrasinators1 on assessment.AssessmentID equals assessmenProcrasinator.AssessmentID
                                                                    join scoreProcrasinator in db.ScoreProcrasinators1 on assessmenProcrasinator.AssessmentProcrasinatorID equals scoreProcrasinator.AssessmentProcrasinatorID
                                                                    select new ScoreProcrasinator {
-                                                                        scoreWord = scoreProcrasinator.ScoreWord,
-                                                                        startValue = scoreProcrasinator.StartValue,
-                                                                        endValue = scoreProcrasinator.EndValue
+                                                                       scoreWord = scoreProcrasinator.ScoreWord,
+                                                                       startValue = scoreProcrasinator.StartValue,
+                                                                       endValue = scoreProcrasinator.EndValue
                                                                    }).ToList();
-            foreach(ScoreProcrasinator scoreProcrasinator in scoreProcrasinators)
+            foreach (ScoreProcrasinator scoreProcrasinator in scoreProcrasinators)
             {
-                if(model.countScore >= scoreProcrasinator.startValue &&
+                if (model.countScore >= scoreProcrasinator.startValue &&
                     model.countScore <= scoreProcrasinator.endValue)
                 {
                     ResultAssessments resultAssessment = new ResultAssessments();
@@ -108,12 +108,12 @@ namespace Binus.Controllers.Api
         }
 
 
-        [Authorize(Roles ="student")]
+        [Authorize(Roles = "student")]
         [HttpPost]
         public HttpResponseMessage postResultAssessmentIntelligence(AssessmentIntelligence model)
         {
             var identity = (ClaimsIdentity)User.Identity;
-            
+
             foreach (var value in model.statementIntelligences)
             {
                 ResultAssessments resultAssessment = new ResultAssessments();
@@ -126,18 +126,18 @@ namespace Binus.Controllers.Api
             }
 
             Transactions studentTransaction = (from transaction in db.Transactions1
-                                                where transaction.Username == identity.Name
-                                                select transaction).FirstOrDefault();
+                                               where transaction.Username == identity.Name
+                                               select transaction).FirstOrDefault();
             studentTransaction.Status = "finish";
             db.SaveChanges();
-            
+
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
-        
 
-        [Authorize(Roles ="student")]
+
+
         [HttpGet]
-        public AssessmentIntelligence getCurrentAssessmentIntelligence(int assessmentID){
+        public AssessmentIntelligence getCurrentAssessmentIntelligence(int assessmentID) {
             var result = (from assessment in db.Assessments1
                           join assessmentIntelligence in db.AssessmentIntelligences1 on assessment.AssessmentID equals assessmentIntelligence.AssessmentID
                           where assessment.AssessmentID == assessmentID
@@ -165,10 +165,10 @@ namespace Binus.Controllers.Api
                                                                                             select new StatementDetailIntelligence
                                                                                             {
                                                                                                 statementDetailIntelligenceID = statementDetailIntelligence.StatementDetailIntelligenceID,
-                                                                                                statementDetailIntelligence =statementDetailIntelligence.StatementDetailIntelligence
+                                                                                                statementDetailIntelligence = statementDetailIntelligence.StatementDetailIntelligence
                                                                                             }).ToList()
-                                                         }).ToList()
-                           }).FirstOrDefault();
+                                                        }).ToList()
+                          }).FirstOrDefault();
 
             return result;
         }
@@ -202,7 +202,7 @@ namespace Binus.Controllers.Api
                                                 {
                                                     scoreValue = scoreSensory.ScoreValue,
                                                     scoreWord = scoreSensory.ScoreWord
-                                             }).ToList(),
+                                                }).ToList(),
                               sensories = (from sensory in db.Sensories1
                                            join statementSensory in db.StatementSensories1 on sensory.SensoryID equals statementSensory.SensoryID
                                            join assessmentSensory in db.AssessmentSensories1 on statementSensory.AssessmentSensoryID equals assessmentSensory.AssessmentSensoryID
@@ -210,7 +210,7 @@ namespace Binus.Controllers.Api
                                            select new Sensory {
                                                sensoryID = sensory.SensoryID,
                                                sensory = sensory.Sensory
-                                           }).ToList() 
+                                           }).ToList()
                           }).FirstOrDefault();
 
             return result;
@@ -234,33 +234,33 @@ namespace Binus.Controllers.Api
                           }).ToList();
 
             IEnumerable<Sensory> temp = result.GroupBy(sensory => sensory.sensory).Select(grp => grp.First()).ToList();
-            
+
             return temp;
         }
 
 
-        [Authorize(Roles ="student")]
+        [Authorize(Roles = "student")]
         [HttpGet]
         public Assessment getCurrentAssessment(int id)
         {
             var result = (from transaction in db.Transactions1
                           join assessment in db.Assessments1 on transaction.AssessmentID equals assessment.AssessmentID
-                                     join assessmentType in db.AssessmentTypes1 on assessment.AssessmentTypeID equals assessmentType.AssessmentTypeID
-                                      where transaction.TransactionID == id
+                          join assessmentType in db.AssessmentTypes1 on assessment.AssessmentTypeID equals assessmentType.AssessmentTypeID
+                          where transaction.TransactionID == id
                           select new Assessment
-                                      {
-                                          assessmentID = assessment.AssessmentID,
-                                          assessmentTypeID = assessment.AssessmentTypeID,
-                                          assessmentTitle = assessment.AssessmentTitle,
-                                          assessmentDescription = assessment.AssessmentDescription,
-                                          assessmentType = assessmentType.AssessmentType
-                                      }).FirstOrDefault();
+                          {
+                              assessmentID = assessment.AssessmentID,
+                              assessmentTypeID = assessment.AssessmentTypeID,
+                              assessmentTitle = assessment.AssessmentTitle,
+                              assessmentDescription = assessment.AssessmentDescription,
+                              assessmentType = assessmentType.AssessmentType
+                          }).FirstOrDefault();
 
             return result;
         }
 
 
-        
+
 
         [HttpGet]
         public AssessmentProcrasinator getCurrentAssessmentProcrasinator(int assessmentID)
@@ -293,7 +293,7 @@ namespace Binus.Controllers.Api
             return result;
         }
 
-        [Authorize (Roles ="admin")]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IEnumerable<Assessment> getAllAssessment()
         {
@@ -333,7 +333,7 @@ namespace Binus.Controllers.Api
         }
 
         [HttpPost]
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = "admin")]
         public HttpResponseMessage createAssessmentIntelligence(AssessmentIntelligence model)
         {
             var identity = (ClaimsIdentity)User.Identity;
@@ -345,7 +345,7 @@ namespace Binus.Controllers.Api
             assessment.LastUpdate = DateTime.Now;
             assessment.CreatedBy = identity.Name;
 
-            db.Assessments1.Add(assessment);    
+            db.Assessments1.Add(assessment);
             db.SaveChanges();
 
 
@@ -363,7 +363,7 @@ namespace Binus.Controllers.Api
                 .OrderByDescending(x => x.AssessmentIntelligenceID)
                 .Select(x => x.AssessmentIntelligenceID).First().ToString());
 
-            foreach(var value in model.statementIntelligences)
+            foreach (var value in model.statementIntelligences)
             {
                 StatementIntelligences statementIntelligence = new StatementIntelligences();
                 statementIntelligence.AssessmentIntelligenceID = fk_assessmentIntelligenceID;
@@ -399,7 +399,7 @@ namespace Binus.Controllers.Api
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = "admin")]
         [HttpDelete]
         public HttpResponseMessage deleteAssessment(Assessment model)
         {
@@ -454,7 +454,7 @@ namespace Binus.Controllers.Api
                 db.SaveChanges();
             }
 
-            foreach(var value in model.sensories)
+            foreach (var value in model.sensories)
             {
                 Sensories sensory = new Sensories();
                 sensory.Sensory = value.sensory;
@@ -463,7 +463,7 @@ namespace Binus.Controllers.Api
                 db.SaveChanges();
             }
 
-            foreach(var value in model.statementSensories)
+            foreach (var value in model.statementSensories)
             {
                 StatementSensories statementSensory = new StatementSensories();
                 statementSensory.AssessmentSensoryID = fk_assessmentSensoryID;
@@ -507,7 +507,7 @@ namespace Binus.Controllers.Api
                 .OrderByDescending(x => x.AssessmentProcrasinatorID)
                 .Select(x => x.AssessmentProcrasinatorID).First().ToString());
 
-            foreach(var value in model.agreements)
+            foreach (var value in model.agreements)
             {
                 Agreements agreement = new Agreements();
                 agreement.Agreement = value.agreement;
@@ -518,7 +518,7 @@ namespace Binus.Controllers.Api
                 db.SaveChanges();
             }
 
-            foreach(var value in model.statementProcrasinators)
+            foreach (var value in model.statementProcrasinators)
             {
                 StatementProcrasinators statementProcrasinator = new StatementProcrasinators();
                 statementProcrasinator.AssessmentProcrasinatorID = fk_assessmentProcrasinatorID;
@@ -528,7 +528,7 @@ namespace Binus.Controllers.Api
                 db.SaveChanges();
             }
 
-            foreach(var value in model.scoreProcrasinators)
+            foreach (var value in model.scoreProcrasinators)
             {
                 ScoreProcrasinators scoreProcrasinator = new ScoreProcrasinators();
                 scoreProcrasinator.AssessmentProcrasinatorID = fk_assessmentProcrasinatorID;
@@ -537,6 +537,267 @@ namespace Binus.Controllers.Api
                 scoreProcrasinator.EndValue = value.endValue;
 
                 db.ScoreProcrasinators1.Add(scoreProcrasinator);
+                db.SaveChanges();
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public Assessment getAssessment(int assessmentID)
+        {
+            var result = (from assessment in db.Assessments1
+                          join assessmentType in db.AssessmentTypes1 on assessment.AssessmentTypeID equals assessmentType.AssessmentTypeID
+                          where assessment.AssessmentID == assessmentID
+                          select new Assessment
+                          {
+                              assessmentID = assessment.AssessmentID,
+                              assessmentTitle = assessment.AssessmentTitle,
+                              assessmentDescription = assessment.AssessmentDescription,
+                              assessmentTypeID = assessmentType.AssessmentTypeID,
+                              assessmentType = assessmentType.AssessmentType
+                          }).FirstOrDefault();
+
+            return result;
+        }
+
+        [Authorize(Roles ="admin")]
+        [HttpPatch]
+        public HttpResponseMessage updateAssessmentIntelligence(AssessmentIntelligence model)
+        {
+
+            var assessmentQuery = (from assessment in db.Assessments1
+                          where assessment.AssessmentID == model.assessmentID
+                          select assessment
+                          ).FirstOrDefault();
+
+            var assessmentIntelligenceQuery = (from assessmentIntelligence in db.AssessmentIntelligences1
+                                          join assessment in db.Assessments1 on assessmentIntelligence.AssessmentID equals assessment.AssessmentID
+                                          where assessment.AssessmentID == model.assessmentID
+                                          select assessmentIntelligence).FirstOrDefault();
+
+            assessmentQuery.AssessmentTitle = model.assessmentTitle;
+            assessmentQuery.LastUpdate = DateTime.Now;
+            assessmentQuery.AssessmentDescription = model.assessmentDescription;
+            db.SaveChanges();
+
+            var statementIntelligences = (from assessmentIntelligence in db.AssessmentIntelligences1
+                                          join statementIntelligence in db.StatementIntelligences1 on assessmentIntelligence.AssessmentIntelligenceID equals statementIntelligence.AssessmentIntelligenceID
+                                          where assessmentIntelligence.AssessmentIntelligenceID == assessmentIntelligenceQuery.AssessmentIntelligenceID
+                                          select statementIntelligence).ToList();
+            db.StatementIntelligences1.RemoveRange(statementIntelligences);
+            db.SaveChanges();
+
+            var scoreIntelligences = (from assessmentIntelligence in db.AssessmentIntelligences1
+                                      join scoreIntelligence in db.ScoreIntelligences1 on assessmentIntelligence.AssessmentIntelligenceID equals scoreIntelligence.AssessmentIntelligenceID
+                                      where assessmentIntelligence.AssessmentIntelligenceID == assessmentIntelligenceQuery.AssessmentIntelligenceID
+                                      select scoreIntelligence).ToList();
+            db.ScoreIntelligences1.RemoveRange(scoreIntelligences);
+            db.SaveChanges();
+
+            foreach (var value in model.statementIntelligences)
+            {   
+                StatementIntelligences statementIntelligence = new StatementIntelligences();
+                statementIntelligence.AssessmentIntelligenceID = assessmentIntelligenceQuery.AssessmentIntelligenceID;
+                statementIntelligence.StatementIntelligence = value.statementIntelligence;
+
+                db.StatementIntelligences1.Add(statementIntelligence);
+                db.SaveChanges();
+
+                int fk_statementIntelligenceID = int.Parse(db.StatementIntelligences1
+                    .OrderByDescending(x => x.StatementIntelligenceID)
+                    .Select(x => x.StatementIntelligenceID).First().ToString());
+
+                foreach (var valueDetail in value.statementDetailIntelligences)
+                {
+                    StatementDetailIntelligences statementDetailIntelligence = new StatementDetailIntelligences();
+                    statementDetailIntelligence.StatementIntelligenceID = fk_statementIntelligenceID;
+                    statementDetailIntelligence.StatementDetailIntelligence = valueDetail.statementDetailIntelligence;
+                    db.StatementDetailIntelligences1.Add(statementDetailIntelligence);
+                    db.SaveChanges();
+                }
+            }
+
+            foreach (var value in model.scoreIntelligences)
+            {
+                ScoreIntelligences scoreIntelligence = new ScoreIntelligences();
+                scoreIntelligence.AssessmentIntelligenceID = assessmentIntelligenceQuery.AssessmentIntelligenceID;
+                scoreIntelligence.ScoreValue = value.scoreValue;
+                scoreIntelligence.ScoreWord = value.scoreWord;
+                db.ScoreIntelligences1.Add(scoreIntelligence);
+                db.SaveChanges();
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPatch]
+        public HttpResponseMessage updateAssessmentProcrasinator(AssessmentProcrasinator model)
+        {
+            var assessmentQuery = (from assessment in db.Assessments1
+                                   where assessment.AssessmentID == model.assessmentID
+                                   select assessment
+                          ).FirstOrDefault();
+
+            assessmentQuery.AssessmentTitle = model.assessmentTitle;
+            assessmentQuery.LastUpdate = DateTime.Now;
+            assessmentQuery.AssessmentDescription = model.assessmentDescription;
+            db.SaveChanges();
+
+            var assessmentProcrasinatorQuery = (from assessmentProcrasinator in db.AssessmentProcrasinators1
+                                               join assessment in db.Assessments1 on assessmentProcrasinator.AssessmentID equals assessment.AssessmentID
+                                               where assessment.AssessmentID == model.assessmentID
+                                               select assessmentProcrasinator).FirstOrDefault();
+
+            var statementProcrasinators = (from statementProcrasinator in db.StatementProcrasinators1
+                                           join assessmentProcrasinator in db.AssessmentProcrasinators1 on statementProcrasinator.StatementProcrasiantorID equals assessmentProcrasinator.AssessmentProcrasinatorID
+                                           where assessmentProcrasinator.AssessmentProcrasinatorID == assessmentProcrasinatorQuery.AssessmentProcrasinatorID
+                                           select statementProcrasinator).ToList();
+            db.StatementProcrasinators1.RemoveRange(statementProcrasinators);
+            db.SaveChanges();
+
+            var agreements = (from agreement in db.Agreements1
+                              join assessmentProcrasinator in db.AssessmentProcrasinators1 on agreement.AssessmentProcrasinatorID equals assessmentProcrasinator.AssessmentProcrasinatorID
+                              where assessmentProcrasinator.AssessmentProcrasinatorID == assessmentProcrasinatorQuery.AssessmentProcrasinatorID
+                              select agreement).ToList();
+            db.Agreements1.RemoveRange(agreements);
+            db.SaveChanges();
+
+
+            var scoreProcrasinators = (from scoreProcrasinator in db.ScoreProcrasinators1
+                                       join assessmentProcrasinator in db.AssessmentProcrasinators1 on scoreProcrasinator.AssessmentProcrasinatorID equals assessmentProcrasinator.AssessmentProcrasinatorID
+                                       where assessmentProcrasinator.AssessmentProcrasinatorID == assessmentProcrasinatorQuery.AssessmentProcrasinatorID
+                                       select scoreProcrasinator).ToList();
+            db.ScoreProcrasinators1.RemoveRange(scoreProcrasinators);
+            db.SaveChanges();
+
+            foreach (var value in model.agreements)
+            {
+                Agreements agreement = new Agreements();
+                agreement.Agreement = value.agreement;
+                agreement.AgreementValue = value.agreementValue;
+                agreement.AssessmentProcrasinatorID = assessmentProcrasinatorQuery.AssessmentProcrasinatorID;
+
+                db.Agreements1.Add(agreement);
+                db.SaveChanges();
+            }
+
+            foreach (var value in model.statementProcrasinators)
+            {
+                StatementProcrasinators statementProcrasinator = new StatementProcrasinators();
+                statementProcrasinator.AssessmentProcrasinatorID = assessmentProcrasinatorQuery.AssessmentProcrasinatorID;
+                statementProcrasinator.StatementProcrasinator = value.statementProcrasinator;
+
+                db.StatementProcrasinators1.Add(statementProcrasinator);
+                db.SaveChanges();
+            }
+
+            foreach (var value in model.scoreProcrasinators)
+            {
+                ScoreProcrasinators scoreProcrasinator = new ScoreProcrasinators();
+                scoreProcrasinator.AssessmentProcrasinatorID = assessmentProcrasinatorQuery.AssessmentProcrasinatorID;
+                scoreProcrasinator.ScoreWord = value.scoreWord;
+                scoreProcrasinator.StartValue = value.startValue;
+                scoreProcrasinator.EndValue = value.endValue;
+
+                db.ScoreProcrasinators1.Add(scoreProcrasinator);
+                db.SaveChanges();
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [Authorize (Roles ="admin")]
+        [HttpPatch]
+        public HttpResponseMessage updateAssessmentSensory(AssessmentSensory model)
+        {
+            //var assessmentSensoryQuery = (from assessmentSensory in db.AssessmentSensories1
+            //                                    join assessment in db.Assessments1 on assessmentSensory.AssessmentID equals assessment.AssessmentID
+            //                                    where assessment.AssessmentID == model.assessmentID
+            //                                    select assessmentSensory).FirstOrDefault();
+
+            //var sensories = (from sensory in db.Sensories1
+            //                 join statementSensory in db.StatementSensories1 on sensory.SensoryID equals statementSensory.SensoryID
+            //                 join assessmentSensory in db.AssessmentSensories1 on statementSensory.AssessmentSensoryID equals assessmentSensory.AssessmentSensoryID
+            //                 where assessmentSensory.AssessmentSensoryID == assessmentSensoryQuery.AssessmentSensoryID
+            //                 select sensory).ToList();
+
+            //db.Sensories1.RemoveRange(sensories);
+       
+            //return sensories;
+
+
+            var assessmentQuery = (from assessment in db.Assessments1
+                                   where assessment.AssessmentID == model.assessmentID
+                                   select assessment
+                          ).FirstOrDefault();
+
+            assessmentQuery.AssessmentTitle = model.assessmentTitle;
+            assessmentQuery.LastUpdate = DateTime.Now;
+            assessmentQuery.AssessmentDescription = model.assessmentDescription;
+            db.SaveChanges();
+
+            var assessmentSensoryQuery = (from assessmentSensory in db.AssessmentSensories1
+                                                join assessment in db.Assessments1 on assessmentSensory.AssessmentID equals assessment.AssessmentID
+                                                where assessment.AssessmentID == model.assessmentID
+                                                select assessmentSensory).FirstOrDefault();
+
+            var scoreSensories = (from scoreSensory in db.ScoreSensories1
+                                  join assessmentSensory in db.AssessmentSensories1 on scoreSensory.AssessmentSensoryID equals assessmentSensory.AssessmentSensoryID
+                                  where assessmentSensory.AssessmentSensoryID == assessmentSensoryQuery.AssessmentSensoryID
+                                  select scoreSensory).ToList();
+
+            db.ScoreSensories1.RemoveRange(scoreSensories);
+            db.SaveChanges();
+
+            var statementSensories = (from statementSensory in db.StatementSensories1
+                                      join assessmentSensory in db.AssessmentSensories1 on statementSensory.AssessmentSensoryID equals assessmentSensory.AssessmentSensoryID
+                                      where assessmentSensoryQuery.AssessmentSensoryID == assessmentSensoryQuery.AssessmentSensoryID
+                                      select statementSensory).ToList();
+
+            db.StatementSensories1.RemoveRange(statementSensories);
+            db.SaveChanges();
+
+            var sensories = (from sensory in db.Sensories1
+                             join statementSensory in db.StatementSensories1 on sensory.SensoryID equals statementSensory.SensoryID
+                             join assessmentSensory in db.AssessmentSensories1 on statementSensory.AssessmentSensoryID equals assessmentSensory.AssessmentSensoryID
+                             where assessmentSensory.AssessmentSensoryID == assessmentSensoryQuery.AssessmentSensoryID
+                             select sensory).ToList();
+
+            db.Sensories1.RemoveRange(sensories);
+            db.SaveChanges();
+
+            foreach (var value in model.scoreSensories)
+            {
+                ScoreSensories scoreSensory = new ScoreSensories();
+                scoreSensory.AssessmentSensoryID = assessmentSensoryQuery.AssessmentSensoryID;
+                scoreSensory.ScoreValue = value.scoreValue;
+                scoreSensory.ScoreWord = value.scoreWord;
+                    
+                db.ScoreSensories1.Add(scoreSensory);
+                db.SaveChanges();
+            }
+
+            foreach (var value in model.sensories)
+            {
+                Sensories sensory = new Sensories();
+                sensory.Sensory = value.sensory;
+
+                db.Sensories1.Add(sensory);
+                db.SaveChanges();
+            }
+
+            foreach (var value in model.statementSensories)
+            {
+                StatementSensories statementSensory = new StatementSensories();
+                statementSensory.AssessmentSensoryID = assessmentSensoryQuery.AssessmentSensoryID;
+                statementSensory.StatementSensory = value.statementSensory;
+                statementSensory.SensoryID = value.sensoryID;
+
+                db.StatementSensories1.Add(statementSensory);
                 db.SaveChanges();
             }
 

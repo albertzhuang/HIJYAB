@@ -9,6 +9,7 @@ namespace Binus.Models.AssessmentIntelligence
     public class AssessmentIntelligence
     {
         public int assessmentIntelligenceID { get; set; }
+        public int assessmentID { get; set; }
         public int transactionID { get; set; }
         public string assessmentTitle { get; set; }
         public string assessmentDescription { get; set; }

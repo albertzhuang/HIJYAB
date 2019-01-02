@@ -16,6 +16,12 @@ namespace Binus.Controllers
         }
 
         [Authorize(Roles = "admin")]
+        public ActionResult UpdateAssessment()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
         public ActionResult AddAssessment()
         {
             return View();

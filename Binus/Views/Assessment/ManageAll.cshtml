@@ -32,8 +32,13 @@
                 <div class="single-content popup-content" id="target-id">
                     <div class="page-sub-heading">
                         <div class="row" style="height:30px;">
-                            <div class="column">
+                            <div class="column two-thirds ">
                                 <h2 id="page" class="page-heading" style="line-height:40px;">Assessment</h2>
+                            </div>
+                            <div class="column one-third">
+                                <p style="float:right;">
+                                    <a href="@Url.Action("AddAssessment", "Assessment")" class="button button-primary" id="button_add">Add Assessment</a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -119,31 +124,31 @@
 
 
         $(document).on("click",".button-edit-assessment",function() {
+            let currentAssessment = $(this).parents(".assessment");
+            let assessmentID = currentAssessment.find(".assessment-id").first().text();
             
+            localStorage.setItem("assessmentID",assessmentID);
+            window.location.href="/assessment/UpdateAssessment";
         });
 
         $(document).on("click",".button-delete-assessment",function() {
             let currentAssessment=$(this).parents(".assessment");
+            currentAssessment.addClass("selected");
             let assessmentID=currentAssessment.find(".assessment-id").first().text();
-            console.log(currentAssessment.find("tr"));
-
-            //$.ajax({
-            //    method : "DELETE",
-            //    url : "/api/assessment/deleteAssessment",
-            //    data : {
-            //        assessmentID : assessmentID
-            //    },
-            //    beforeSend: function() {
-            //        dataTable.DataTable().clear();
-            //    },
-            //    success : function(){
-                    
-            //    }
-            //});
+            $.ajax({
+                method : "DELETE",
+                url : "/api/assessment/deleteAssessment",
+                data : {
+                    assessmentID : assessmentID
+                },
+                success: function(){
+                    dataTable.DataTable().rows(".selected").remove().draw();
+                },
+                error : function(){
+                    currentAssessment.removeClass("selected");
+                }
+            });
         });
-
-       
-
 
         $('.freeze-pane').binus_freeze_pane({
             fixed_left: 1,

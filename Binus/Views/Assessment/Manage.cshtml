@@ -67,7 +67,7 @@
                                         </span>
                                     </td>
                                 </tr>
-                            </tbody>  
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -86,15 +86,16 @@
     </form>
 </div>
 
+
 @section scripts
 {
     <script type="text/javascript">
 
         const assessmentContainer=$("#assessment-container");
-        const dataTable = $("#assessment-table");
+        const dataTable=$("#assessment-table");
 
-        $(document).ready(function(){
-            
+        $(document).ready(function() {
+
             $.ajaxSetup({
                 headers: { "Authorization": "Bearer "+sessionStorage.getItem("access_token") }
             });
@@ -104,8 +105,10 @@
                 url: "/api/transaction/getUserTransaction",
                 beforeSend: function() {
                     dataTable.DataTable().clear();
+                    $.fancybox("#popup_loading");
                 },
                 success: function(data) {
+                    parent.$.fancybox.close();
                     data.forEach(function(value) {
                         let template=assessmentContainer.find(".template").first();
                         template=template.clone();
@@ -117,7 +120,7 @@
                         template.find(".assessment-type").text(value.assessmentType);
                         template.find(".assessment-transaction-date").text(value.transactionDate);
                         template.find(".transaction-id").text(value.transactionID);
-                        if(value.status === "finish") {
+                        if(value.status==="finish") {
                             template.find(".assessment-view").show();
                         }
                         else {
@@ -126,36 +129,36 @@
 
                         assessmentContainer.append(template);
                         dataTable.DataTable().rows.add(template);
-                        
+
                     });
                     dataTable.DataTable().columns.adjust().draw();
                     assessmentContainer.find(".template").remove();
                 }
             });
         });
-        
-        
-        $(document).on("click",".button-do-assessment",function() {
-            let currentAssessment = $(this).parents(".assessment");
-            let transactionID = currentAssessment.find(".transaction-id").first().text();
 
-            localStorage.setItem("transactionID", transactionID);
-            window.location.href = "/assessment/ShowAssessment";
+
+        $(document).on("click",".button-do-assessment",function() {
+            let currentAssessment=$(this).parents(".assessment");
+            let transactionID=currentAssessment.find(".transaction-id").first().text();
+
+            localStorage.setItem("transactionID",transactionID);
+            window.location.href="/assessment/ShowAssessment";
         });
 
         $(document).on("click",".button-view-assessment",function() {
             let currentAssessment=$(this).parents(".assessment");
             let transactionID=currentAssessment.find(".transaction-id").first().text();
 
-            localStorage.setItem("transactionID", transactionID);
-            window.location.href = "/assessment/ResultPage";
+            localStorage.setItem("transactionID",transactionID);
+            window.location.href="/assessment/ResultPage";
         });
 
 
         $('.freeze-pane').binus_freeze_pane({
-            fixed_left  : 1,  
-            fixed_right : 0,  
-            height      : 300    
+            fixed_left: 1,
+            fixed_right: 0,
+            height: 300
         });
     </script>
 }

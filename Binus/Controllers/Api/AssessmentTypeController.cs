@@ -17,6 +17,8 @@ namespace Binus.Controllers.Api
     {
         BinusEntities db = new BinusEntities();
 
+
+        [Authorize(Roles ="admin")]
         [HttpGet]
         public IEnumerable<AssessmentType> getAll()
         {
@@ -24,7 +26,5 @@ namespace Binus.Controllers.Api
                           select new AssessmentType { assessmentTypeID = a.AssessmentTypeID, assessmentType = a.AssessmentType }).ToList();
             return result;
         }
-
-        
     }
 }

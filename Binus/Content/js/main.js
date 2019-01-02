@@ -1,5 +1,7 @@
 ﻿$("button").click(function(event) { event.preventDefault(); });
 
+$(document).on("click","button",function(event) { event.preventDefault(); });
+
 (function($) {
     $(document).ready(function() {
         $('.update-freeze-pane').click(function(e) {

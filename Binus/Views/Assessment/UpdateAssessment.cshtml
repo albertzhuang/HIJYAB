@@ -15,7 +15,8 @@
                 <ul>
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Assessment</a></li>
-                    <li>Add Assessment</li>
+                    <li><a href="#">Manage Assessment</a></li>
+                    <li>Update Assessment</li>
                 </ul>
             </div>
         </div>
@@ -23,7 +24,7 @@
 
     <section class="page-heading">
         <div class="container">
-            <h1>Add Assessment</h1>
+            <h1>Update Assessment</h1>
         </div>
     </section>
 
@@ -34,11 +35,11 @@
                     <div class="page-sub-heading">
                         <div class="row" style="height:30px;">
                             <div class="column two-thirds ">
-                                <h2 style="line-height:40px;">Assessment Detail</h2>
+                                <h2 style="line-height:40px;" class="assessment-type"></h2>
                             </div>
                             <div class="column one-third">
                                 <p style="float:right;">
-                                    <a href="#popup_confirmation" class="fancybox-trigger fancbox.ajax button button-primary" id="button_save">Save</a>
+                                    <a href="#popup_confirmation" class="fancybox-trigger fancbox.ajax button button-primary" id="button-update">Update</a>
                                 </p>
                             </div>
                         </div>
@@ -46,15 +47,6 @@
 
                     <div class="row">
                         <form>
-                            <p>
-                                <label>Assessment Type</label>
-                                <span class="custom-combobox">
-                                    <select name="select_assessment_type">
-                                        <option disabled selected value="0"> -- SELECT AN OPTION -- </option>
-                                    </select>
-                                </span>
-                            </p>
-
                             <p>
                                 <label>Assessment Title<span class="required">*</span></label>
                                 <input type="text" name="input_assessment_title">
@@ -76,6 +68,7 @@
     </div>
 </div>
 
+
 @RenderPage("~/Views/Shared/AssessmentAdmin/AssessmentIntelligence.cshtml")
 @RenderPage("~/Views/Shared/AssessmentAdmin/AssessmentSensory.cshtml")
 @RenderPage("~/Views/Shared/AssessmentAdmin/AssessmentProcrasinator.cshtml")
@@ -92,69 +85,169 @@
         const assessmentIntelligence=$("#assessment-intelligence");
         const assessmentProcrasinator=$("#assessment-procrasinator");
         const assessmentSensory=$("#assessment-sensory");
-        const ascii_A=65;
+        const ascii_A=64;
 
         var sensories=[];
 
-        //START DOCUMENT
-        $(document).ready(function() {
-
-            $.ajaxSetup({
-                headers: { "Authorization": "Bearer "+sessionStorage.getItem("access_token") }
-            });
-
-            $.ajax({
-                method: "GET",
-                url: "/api/AssessmentType/getAll",
-                success: function(data) {
-                    data.forEach(function(value) {
-                        $("select[name='select_assessment_type']").append("<option value="+value.assessmentTypeID+">"+value.assessmentType+"</option>")
-                    });
-                }
-            });
-        });
 
         $("button").click(function(event) { event.preventDefault(); });
 
         $(document).on("click","button",function(event) { event.preventDefault(); });
 
-        $("select[name='select_assessment_type']").change(function() {
-            var selected=parseInt($(this).val());
-            let template;
-            switch(selected) {
-                case 1:
-                    assessmentContainer.empty();
-                    template=assessmentIntelligence;
-                    template=template.clone();
-                    template.removeClass("template");
-                    template.show();
-                    assessmentContainer.append(template);
-                    $("#button_add_statement_intelligence").trigger("click");
-                    $("#button_add_score_intelligence").trigger("click");
-                    break;
-                case 2:
-                    assessmentContainer.empty();
-                    template=assessmentSensory;
-                    template=template.clone();
-                    template.removeClass("template");
-                    template.show();
-                    assessmentContainer.append(template);
-                    $("#button_add_sensory").trigger("click");
-                    $("#button_add_score_sensory").trigger("click");
-                    $("#button_add_statement_sensory").trigger("click");
-                    break;
-                case 3:
-                    assessmentContainer.empty();
-                    template=assessmentProcrasinator;
-                    template=template.clone();
-                    template.removeClass("template");
-                    template.show();
-                    assessmentContainer.append(template);
-                    $("#button_add_statement_procrasinator").trigger("click");
-                    $("#button_add_agreement_procrasinator").trigger("click");
-                    $("#button_add_score_procrasinator").trigger("click");
-                    break;
-            }
+        //START DOCUMENT
+        $(document).ready(function() {
+            let detailTemplate = assessmentIntelligence.find(".statement-detail").first();
+            detailTemplate.addClass("template");
+            detailTemplate.hide();
+
+            $.ajaxSetup({
+                headers: { "Authorization": "Bearer "+sessionStorage.getItem("access_token") }
+            }); 
+
+            $.ajax({
+                method :"GET",
+                url: "/api/assessment/getAssessment",
+                beforeSend: function() {
+                    $.fancybox("#popup_loading");
+                },
+                data: {
+                    assessmentID : localStorage.getItem("assessmentID")
+                },
+                success  : function(data){
+                    //start value
+                    parent.$.fancybox.close();
+                    localStorage.setItem("assessmentTypeID", data.assessmentTypeID);
+                    $(".assessment-type").text(data.assessmentType);
+                    $("input[name='input_assessment_title']").val(data.assessmentTitle);
+                    $("textarea[name='textarea_description']").val(data.assessmentDescription);
+                    let assessmentTypeID = parseInt(data.assessmentTypeID);
+                    
+                    let template;
+                    switch(assessmentTypeID) {
+                        case 1: 
+                            assessmentContainer.empty();
+                            template=assessmentIntelligence;
+                            template=template.clone();
+                            template.removeClass("template");
+                            template.show();
+                            assessmentContainer.append(template);
+
+                            $.ajax({
+                                method : "GET",
+                                url : "/api/assessment/getCurrentAssessmentIntelligence",
+                                data: {
+                                    assessmentID : localStorage.getItem("assessmentID")
+                                },
+                                success: function(data) {
+ 
+                                    data.statementIntelligences.forEach(function(value){
+                                        $("#button_add_statement_intelligence").trigger("click");
+                                        let currentContainer=assessmentContainer.find("#statements-intelligence-container").first();
+                                        let currentAssessment = currentContainer.find(".statement-intelligence").last();
+                                        currentAssessment.find("input[name='input_statement']").val(value.statementIntelligence);
+                                        
+                                        value.statementDetailIntelligences.forEach(function(valueDetail){
+                                            currentAssessment.find(".add-statement-detail-intelligence").trigger("click");
+                                            currentAssessment.find("input[name='input_statement_detail']").val(valueDetail.statementDetailIntelligence);
+                                        });
+                                    });
+
+                                    data.scoreIntelligences.forEach(function(value){
+                                        $("#button_add_score_intelligence").trigger("click");
+                                        let currentContainer=assessmentContainer.find("#score-intelligence-container").first();
+                                        let lastScore = currentContainer.find(".score-intelligence:not(.template)").last();
+                                        lastScore.find("input[name='input_score_word']").val(value.scoreWord);
+                                        lastScore.find("input[name='input_score_value']").val(value.scoreValue);
+                                    });
+                                }
+                            });
+                            break;
+                        case 2 :
+                            assessmentContainer.empty();
+                            template=assessmentSensory;
+                            template=template.clone();
+                            template.removeClass("template");
+                            template.show();
+                            assessmentContainer.append(template);
+
+                            $.ajax({
+                                method : "GET",
+                                url: "/api/assessment/getCurrentAssessmentSensory",
+                                data: {
+                                    assessmentID : localStorage.getItem("assessmentID")
+                                },
+                                success: function(data) {
+                                    console.log(data);
+                                    data.sensories.forEach(function(value){
+                                        $("#button_add_sensory").trigger("click");
+                                        let currentContainer=assessmentContainer.find("#sensories-container").first();
+                                        let currentSensory=currentContainer.find(".sensory").last();
+                                        currentSensory.find("input[name='input-sensory']").val(value.sensory);
+                                    });
+                                    
+                                    data.statementSensories.forEach(function(value){
+                                        $("#button_add_statement_sensory").trigger("click");
+                                        let currentContainer=assessmentContainer.find("#statements-sensory-container").first();
+                                        let currentStatement = currentContainer.find(".statement-sensory").last();
+                                        currentStatement.find("input[name='input-statement-sensory']").val(value.statementSensory);
+                                        currentStatement.find("select[name='input-statement-sensory']").val(value.statementSensoryID);
+                                    });
+
+                                    data.scoreSensories.forEach(function(value){
+                                        $("#button_add_score_sensory").trigger("click");
+                                        let currentContainer=assessmentContainer.find("#scores-sensory-container").first();
+                                        let currentScore = currentContainer.find(".score-sensory").last();
+                                        currentScore.find("input[name='input-score-word']").val(value.scoreWord);
+                                        currentScore.find("input[name='input-score-value']").val(value.scoreValue);
+                                    });
+                                }
+                            });
+                            break;
+                        case 3:
+                            assessmentContainer.empty();
+                            template=assessmentProcrasinator;
+                            template=template.clone();
+                            template.removeClass("template");
+                            template.show();
+                            assessmentContainer.append(template);
+                            
+                            $.ajax({
+                                method: "GET",
+                                url: "/api/assessment/getCurrentAssessmentProcrasinator",
+                                data: {
+                                    assessmentID: localStorage.getItem("assessmentID")
+                                },
+                                success: function(data) {
+                                    data.statementProcrasinators.forEach(function(value){
+                                        $("#button_add_statement_procrasinator").trigger("click");
+                                        let currentContainer=assessmentContainer.find("#statements-procrasinator-container").first();
+                                        let currentStatement=currentContainer.find(".statement-procrasinator").last();
+                                        console.log(currentStatement);
+                                        currentStatement.find("input[name='input-statement-procrasinator']").val(value.statementProcrasinator);
+                                    });
+
+                                    data.agreements.forEach(function(value){
+                                        $("#button_add_agreement_procrasinator").trigger("click");
+                                        let currentContainer=assessmentContainer.find("#agreements-procrasinator-container").first();
+                                        let currentAgreement=currentContainer.find(".agreement").last();
+                                        currentAgreement.find("input[name='input-agreement']").val(value.agreement);
+                                        currentAgreement.find("input[name='input-agreement-value']").val(value.agreementValue);
+                                    });
+
+                                    data.scoreProcrasinators.forEach(function(value){
+                                        $("#button_add_score_procrasinator").trigger("click");
+                                        let currentContainer=assessmentContainer.find("#scores-procrasinator-container").first();
+                                        let currentScore=currentContainer.find(".score-procrasinator").last();
+                                        currentScore.find("input[name='input-score-word']").val(value.scoreWord);
+                                        currentScore.find("input[name='input-start-value']").val(value.startValue);
+                                        currentScore.find("input[name='input-end-value']").val(value.endValue);
+                                    });
+                                }
+                            });
+                            break;
+                    }
+                }
+            });
         });
 
         //START INTELLIGENCE
@@ -163,7 +256,7 @@
             let container=assessmentContainer.find("#statements-intelligence-container").first();
             template=template.clone();
             template.removeClass("template");
-            template.find(".input-field").removeClass("template");
+            template.find(".input-field").first().removeClass("template");
             template.show();
 
             template.find(".statement-no").text(container.find(".statement-intelligence").length);
@@ -174,16 +267,21 @@
         $(document).on("click",".add-statement-detail-intelligence",function() {
             let container=assessmentContainer.find("#statements-intelligence-container").first();
             let template=container.find(".statement-detail").first();
+
             template=template.clone();
+            template.removeClass("template");
+            template.find("input[name='input_statement_detail']").removeClass("template");
+            template.show();
+
             let statementIndex=$(this).parents(".statement-intelligence").index();
             let currentStatementContainer=container.find(".statement-intelligence").eq(statementIndex).find(".statement-details-container").first();
             currentStatementContainer.append(template);
 
             let number=container.find(".statement-intelligence").eq(statementIndex).
-                find(".statement-detail").length
+                find(".statement-detail:not(.template)").length
 
             //to return ascii from number / 65 = 'A'
-            template.find(".statement-detail-no").text(String.fromCharCode(number+ascii_A-1));
+            template.find(".statement-detail-no").text(String.fromCharCode(number+ascii_A));
             template.find(".input-field").removeClass("template");
         });
 
@@ -210,9 +308,11 @@
 
         $(document).on("click",".remove-statement-detail-intelligence",function() {
             let container=assessmentContainer.find("#statements-intelligence-container").first();
+           
             let statementIndex=$(this).parents(".statement").index();
             $(this).parents(".statement-detail").remove();
-            let statementDetails=container.find(".statement").eq(statementIndex).find(".statement-detail");
+            
+            let statementDetails=container.find(".statement").eq(statementIndex).find(".statement-detail:not(.template)");
 
             statementDetails.each(function(i,statementDetail) {
                 $(statementDetail).find(".statement-detail-no").text(String.fromCharCode(ascii_A+i));
@@ -222,7 +322,7 @@
         $(document).on("click",".remove-score-intelligence",function() {
             $(this).parents(".score-intelligence").remove();
             let container=assessmentContainer.find("#score-intelligence-container").first();
-
+             
             let scores=container.find(".score:not(.template)");
             scores.each(function(i,score) {
                 $(score).find(".score-no").text(i+1);
@@ -312,6 +412,7 @@
         });
 
         $(document).on("click","#button-cancel",function() {
+            
             let disabledArea=assessmentContainer.find(".assessment-sensory:not(template)>.sensories").first();
             let buttonFinish=assessmentContainer.find(".assessment-sensory:not(template)").find("#button-finish");
 
@@ -411,20 +512,15 @@
         });
         //END PROCRASINATOR
 
-        $("#button_no").click(function() {
-            parent.$.fancybox.close();
-        });
-
         $("#button_yes").click(function() {
-            let assessmentType=parseInt($("select[name='select_assessment_type']").val());
+            let assessmentType=parseInt(localStorage.getItem("assessmentTypeID"));
 
             let errors=$("#target-id").find(".has-error");
-            let tempError = $("#target-id").find("textarea,input:not(.template)").filter(function() {
+            let tempError=$("#target-id").find("textarea,input:not(.template)").filter(function() {
                 return $.trim($(this).val()).length==0
             });
-            console.log(tempError);
-            if(errors.length!==0||tempError.length!==0) {
 
+            if(errors.length!==0||tempError.length!==0) {
                 $.fancybox("#popup_error");
                 return;
             }
@@ -438,7 +534,7 @@
                         //add assessment intelligence
                         $(".statement-intelligence:not(.template)").each(function() {
                             let statementDetailIntelligences=[];
-                            let temp=$(this).find(".statement-detail");
+                            let temp=$(this).find(".statement-detail:not(.template)");
                             temp.each(function() {
                                 statementDetailIntelligences.push({
                                     statementDetailIntelligence: $(this).find("input[name='input_statement_detail']").val()
@@ -458,13 +554,13 @@
                         });
 
                         $.ajax({
-                            method: "POST",
-                            url: "/api/assessment/createAssessmentIntelligence",
+                            method: "PATCH",
+                            url: "/api/assessment/updateAssessmentIntelligence",
                             data:
                             {
+                                assessmentID : localStorage.getItem("assessmentID"),
                                 assessmentTitle: $("input[name='input_assessment_title']").val(),
                                 assessmentDescription: $("textarea[name='textarea_description']").val(),
-                                type: $("select[name='select_assessment_type']").val(),
                                 statementIntelligences: statementIntelligences,
                                 scoreIntelligences: scoreIntelligences
                             },
@@ -479,19 +575,17 @@
                         let sensories=[];
 
                         $(".sensory:not(.template)").each(function() {
-                            sensories.push
-                                ({
-                                    sensory: $(this).find("input[name='input-sensory']").val()
-                                });
+                            sensories.push({
+                                sensory: $(this).find("input[name='input-sensory']").val()
+                            });
                         });
 
 
                         $(".statement-sensory:not(.template)").each(function() {
-                            statementSensories.push
-                                ({
-                                    statementSensory: $(this).find("input[name='input-statement-sensory']").val(),
-                                    sensoryID: $(this).find("select[name='select-sensory']").val()
-                                });
+                            statementSensories.push({
+                                statementSensory: $(this).find("input[name='input-statement-sensory']").val(),
+                                sensoryID: $(this).find("select[name='select-sensory']").val()
+                            });
                         });
 
                         $(".score-sensory:not(.template)").each(function() {
@@ -501,20 +595,23 @@
                             });
                         });
 
+                        //console.log(sensories);
+                        //console.log(statementSensories);
                         $.ajax({
-                            method: "POST",
-                            url: "/api/assessment/createAssessmentSensory",
+                            method: "PATCH",
+                            url: "/api/assessment/updateAssessmentSensory",
                             data:
                             {
+                                assessmentID : localStorage.getItem("assessmentID"),
                                 assessmentTitle: $("input[name='input_assessment_title']").val(),
                                 assessmentDescription: $("textarea[name='textarea_description']").val(),
-                                type: $("select[name='select_assessment_type']").val(),
                                 statementSensories: statementSensories,
                                 sensories: sensories,
                                 scoreSensories: scoreSensories
                             },
-                            success: function() {
-                                successRespone();
+                            success: function(data) {
+                                console.log(data);
+                                //successRespone();
                             }
                         });
                         break;
@@ -547,13 +644,13 @@
 
 
                         $.ajax({
-                            method: "POST",
-                            url: "/api/assessment/createAssessmentProcrasinator",
+                            method: "PATCH",
+                            url: "/api/assessment/updateAssessmentProcrasinator",
                             data:
                             {
+                                assessmentID: localStorage.getItem("assessmentID"),
                                 assessmentTitle: $("input[name='input_assessment_title']").val(),
                                 assessmentDescription: $("textarea[name='textarea_description']").val(),
-                                type: $("select[name='select_assessment_type']").val(),
                                 statementProcrasinators: statementProcrasinators,
                                 agreements: agreements,
                                 scoreProcrasinators: scoreProcrasinators
@@ -581,12 +678,8 @@
 
         function successRespone() {
             parent.$.fancybox.close();
-            assessmentContainer.empty();
-            $(".is-success").show();
-            $("input[name='input_assessment_title']").val('');
-            $("textarea[name='textarea_description']").val('');
-            $("select[name='select_assessment_type']").val(0).change();
             $.fancybox("#popup_success");
+            window.location.href="/assessment/ManageAll";
         }
     </script>
 }

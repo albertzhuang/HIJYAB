@@ -34,15 +34,12 @@ CREATE TABLE Users
 )
 
 
-
-
-CREATE TABLE Students
+CREATE TABLE Students	
 (
 	StudentID INT PRIMARY KEY IDENTITY(1,1),
 	NIM VARCHAR(MAX) NOT NULL,
 	[Password] VARCHAR(MAX) NOT NULL
 ) 
-
 
 
 CREATE TABLE AssessmentTypes
@@ -265,3 +262,13 @@ SELECT * FROM Assessments
 SELECT * FROM Transactions
 
 INSERT INTO Transactions VALUES(2, 'albert007@binus.ac.id', 'created', GETDATE())
+
+SELECT  s.SensoryID, Sensory FROM Sensories s
+join StatementSensories st on s.SensoryID = st.SensoryID
+join AssessmentSensories ast on st.AssessmentSensoryID = ast.AssessmentSensoryID
+WHERE ast.AssessmentSensoryID = 5
+
+INSERT INTO Sensories VALUES('test')
+SELECT * FROM Sensories
+SELECT * FROM AssessmentSensories
+SELECT * FROM StatementSensories
