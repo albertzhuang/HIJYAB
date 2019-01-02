@@ -14,6 +14,10 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="~/Content/css/login.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/themes/university/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/master.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/grid.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/popup.css">
 
     <script type="text/javascript" src="~/Content/js/development/vendor/jquery.js"></script>
 </head>
@@ -75,24 +79,28 @@
         </section>
     </div>
 
+    @RenderPage("~/Views/Shared/Popup/PopupLoading.cshtml")
+
     <script type="text/javascript">
-        const urlBimay= "http://bm5dev.binus.ac.id/adapi/api/activedirectory/Validate?key=4k00Mw04N6h9MkxZuX3217vnsmurhptKZhdZjFq5W43zDS2lj4CRZ7RyCfjwTK71";
-        
+        const urlBimay="http://bm5dev.binus.ac.id/adapi/api/activedirectory/Validate?key=4k00Mw04N6h9MkxZuX3217vnsmurhptKZhdZjFq5W43zDS2lj4CRZ7RyCfjwTK71";
+
         $("button").click(function(event) { event.preventDefault(); });
 
-        $("#button-submit").click(function(){
-            
+        $("#button-submit").click(function() {
             $.ajax({
                 headers: {
                     "Content-Type": "application/json"
                 },
-                method : "POST",
+                method: "POST",
                 url: urlBimay,
-                data : JSON.stringify({
+                data: JSON.stringify({
                     "userName": $("input[name='input-username']").val(),
                     "Password": $("input[name='input-password']").val()
-                }),    
-                success : function(data){
+                }),
+                beforeSend: function() {
+                    $.fancybox("#popup_loading");
+                },
+                success: function(data) {
                     if(data==="1") {
                         $.ajax({
                             method: "POST",
@@ -113,17 +121,60 @@
                             }
                         });
                     }
-                    else
-                    {
+                    else {
                         $("input[name='input-username']").val("");
                         $("input[name='input-password']").val("");
                     }
                 }
-            }); 
-
-
+            });
         });
     </script>
+
+    <!-- Vendor -->
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery-ui/jquery.ui.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.browser.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.fancyfields.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.fancybox.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.mcustomscrollbar.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/datatables/jquery.datatables.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/datatables/jquery.datatables.fixedcolumns.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.chosen.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.qtip.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/raphael.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/lib/formalhaut/build/formalhaut.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/multiselect.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/autosize.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery-ui/jquery.ui.timepicker.js"></script>
+
+    <!-- Calendar -->
+    <script type="text/javascript" src="~/Content/js/development/vendor/date.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/jquery.formbubble.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/fullcalendar.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/vendor/fullcalendar/fullcalendar.viewmore.js"></script>
+
+    <!-- Global -->
+    <script type="text/javascript" src="~/Content/js/development/script.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/script.navigation.js"></script>
+
+    <!-- Plugins -->
+    <script type="text/javascript" src="~/Content/js/development/plugins/accordion-toggle.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/advanced-combobox.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/body-navigation.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/combobox.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/datepicker.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/editor.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/freeze-pane.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/fullcalendar.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/scrollbar.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/tabulation.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/tooltip.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/uploader.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/widgets.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/multiselect.js"></script>
+    <script type="text/javascript" src="~/Content/js/development/plugins/chatting.js"></script>
 </body>
 </html>
 

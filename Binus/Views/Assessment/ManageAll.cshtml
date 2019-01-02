@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Binus University";
 }
 
@@ -57,17 +56,17 @@
                                     <td class="assessment-type">XX</td>
                                     <td class="assessment-transaction-date">XX</td>
                                     <td class="assessment-action">
-                                        <span style="display:none;" class="assessment-do">
-                                            <i class="icon-button icon-edit button-do-assessment"></i>
-                                            <span class="transaction-id" style="display: none">XX</span>
+                                        <span class="assessment-edit">
+                                            <i class="icon-button icon-edit button-edit-assessment"></i>
+                                            <span class="assessment-id" style="display: none">XX</span>
                                         </span>
-                                        <span style="display:none;" class="assessment-view">
-                                            <i class="icon-button icon-view button-view-assessment"></i>
-                                            <span class="transaction-id" style="display: none">XX</span>
+                                        <span class="assessment-delete">
+                                            <i class="icon-button icon-trash button-delete-assessment"></i>
+                                            <span class="assessment-id" style="display: none">XX</span>
                                         </span>
                                     </td>
                                 </tr>
-                            </tbody>  
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -76,32 +75,24 @@
     </div>
 </div>
 
-<div class="popup-content-dialog" id="popup_confirmation" style="display:none;">
-    <form>
-        <p>Save confirmation</p>
-        <div class="action" style="text-align:center;">
-            <a href="#" class="button button-primary" id="button_yes">Yes</a>
-            <a href="#" class="button button-primary" id="button_no">No</a>
-        </div>
-    </form>
-</div>
+@RenderPage("~/Views/Shared/Popup/PopupConfirmation.cshtml")
+
 
 @section scripts
 {
     <script type="text/javascript">
 
         const assessmentContainer=$("#assessment-container");
-        const dataTable = $("#assessment-table");
+        const dataTable=$("#assessment-table");
 
-        $(document).ready(function(){
-            
+        $(document).ready(function() {
             $.ajaxSetup({
                 headers: { "Authorization": "Bearer "+sessionStorage.getItem("access_token") }
             });
 
             $.ajax({
-                method: "GET",
-                url: "/api/transaction/getUserTransaction",
+                method : "GET",
+                url : "/api/assessment/getAllAssessment",
                 beforeSend: function() {
                     dataTable.DataTable().clear();
                 },
@@ -115,47 +106,49 @@
                         template.find(".assessment-no").text(assessmentContainer.find(".assessment").length);
                         template.find(".assessment-title").text(value.assessmentTitle);
                         template.find(".assessment-type").text(value.assessmentType);
-                        template.find(".assessment-transaction-date").text(value.transactionDate);
-                        template.find(".transaction-id").text(value.transactionID);
-                        if(value.status === "finish") {
-                            template.find(".assessment-view").show();
-                        }
-                        else {
-                            template.find(".assessment-do").show();
-                        }
-
+                        template.find(".assessment-transaction-date").text(value.lastUpdate);
+                        template.find(".assessment-id").text(value.assessmentID);
                         assessmentContainer.append(template);
                         dataTable.DataTable().rows.add(template);
-                        
                     });
                     dataTable.DataTable().columns.adjust().draw();
                     assessmentContainer.find(".template").remove();
                 }
             });
         });
-        
-        
-        $(document).on("click",".button-do-assessment",function() {
-            let currentAssessment = $(this).parents(".assessment");
-            let transactionID = currentAssessment.find(".transaction-id").first().text();
 
-            localStorage.setItem("transactionID", transactionID);
-            window.location.href = "/assessment/ShowAssessment";
+
+        $(document).on("click",".button-edit-assessment",function() {
+            
         });
 
-        $(document).on("click",".button-view-assessment",function() {
+        $(document).on("click",".button-delete-assessment",function() {
             let currentAssessment=$(this).parents(".assessment");
-            let transactionID=currentAssessment.find(".transaction-id").first().text();
+            let assessmentID=currentAssessment.find(".assessment-id").first().text();
+            console.log(currentAssessment.find("tr"));
 
-            localStorage.setItem("transactionID", transactionID);
-            window.location.href = "/assessment/ResultPage";
+            //$.ajax({
+            //    method : "DELETE",
+            //    url : "/api/assessment/deleteAssessment",
+            //    data : {
+            //        assessmentID : assessmentID
+            //    },
+            //    beforeSend: function() {
+            //        dataTable.DataTable().clear();
+            //    },
+            //    success : function(){
+                    
+            //    }
+            //});
         });
+
+       
 
 
         $('.freeze-pane').binus_freeze_pane({
-            fixed_left  : 1,  
-            fixed_right : 0,  
-            height      : 300    
+            fixed_left: 1,
+            fixed_right: 0,
+            height: 300
         });
     </script>
 }

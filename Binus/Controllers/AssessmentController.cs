@@ -9,6 +9,12 @@ namespace Binus.Controllers
     [Authorize]
     public class AssessmentController : Controller
     {
+        [Authorize(Roles ="admin")]
+        public ActionResult ManageAll()
+        {
+            return View();
+        }
+
         [Authorize(Roles = "admin")]
         public ActionResult AddAssessment()
         {

@@ -16,6 +16,7 @@ using System.Security.Claims;
 
 namespace Binus.Controllers.Api
 {
+    [Authorize]
     public class AssessmentController : ApiController
     {
         BinusEntities db = new BinusEntities();
@@ -63,6 +64,7 @@ namespace Binus.Controllers.Api
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
+
 
         [Authorize(Roles ="student")]
         [HttpPost]
@@ -257,6 +259,9 @@ namespace Binus.Controllers.Api
             return result;
         }
 
+
+        
+
         [HttpGet]
         public AssessmentProcrasinator getCurrentAssessmentProcrasinator(int assessmentID)
         {
@@ -288,6 +293,7 @@ namespace Binus.Controllers.Api
             return result;
         }
 
+        [Authorize (Roles ="admin")]
         [HttpGet]
         public IEnumerable<Assessment> getAllAssessment()
         {
@@ -389,6 +395,19 @@ namespace Binus.Controllers.Api
                 db.ScoreIntelligences1.Add(scoreIntelligence);
                 db.SaveChanges();
             }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [Authorize(Roles ="admin")]
+        [HttpDelete]
+        public HttpResponseMessage deleteAssessment(Assessment model)
+        {
+            var deleteRow = (from assessment in db.Assessments1
+                             where assessment.AssessmentID == model.assessmentID
+                             select assessment).FirstOrDefault();
+            db.Assessments1.Remove(deleteRow);
+            db.SaveChanges();
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }

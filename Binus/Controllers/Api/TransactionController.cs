@@ -11,12 +11,12 @@ using Binus.Models;
 
 namespace Binus.Controllers.Api
 {
-    
     [Authorize(Roles ="student")]
     public class TransactionController : ApiController
     {
         BinusEntities db = new BinusEntities();
 
+        [Authorize(Roles = "student")]
         [HttpGet]
         public IEnumerable<Transaction> getUserTransaction()
         {

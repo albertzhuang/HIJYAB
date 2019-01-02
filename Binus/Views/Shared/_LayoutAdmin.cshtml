@@ -62,7 +62,13 @@
                                         <div class="expand-menu-container">
                                             <ul class="sub-menu main-menu primary-menu">
                                                 <li><a href="@Url.Action("Home", "Account")">Dashboard</a></li>
-                                                <li><a href="@Url.Action("AddAssessment", "Assessment")">Add Assessment</a></li>
+                                                <li class="has-menu">
+                                                    <a href="#">Assessment</a>
+                                                    <ul class="sub-sub-menu">
+                                                        <li><a href="@Url.Action("AddAssessment", "Assessment")">Add Assessment</a></li>
+                                                        <li><a href="@Url.Action("ManageAll", "Assessment")">Manage</a></li>
+                                                    </ul>
+                                                </li>
                                                 <li><a href="@Url.Action("Index", "Report")">Reporting</a></li>
                                                 <li><a href="@Url.Action("Manage", "Assessment")">Assign Soal</a></li>
                                             </ul>
